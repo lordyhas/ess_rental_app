@@ -1,34 +1,38 @@
 library shop_page;
+
 import 'dart:math';
 import 'dart:ui';
 
 import 'package:exploress_location/logic/values.dart';
 import 'package:exploress_location/src/shop/shop_info_screen.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:utils_component/utils_component.dart';
 
-
-import '../data_test.dart';
-import '../logic/map_data/maps.dart';
-import 'maps_test.dart';
-import 'shop/calendar_popup_view.dart';
+import 'package:exploress_location/data_test.dart';
+import 'package:exploress_location/logic/map_data/maps.dart';
+import 'package:exploress_location/src/maps_test.dart';
+import 'package:exploress_location/src/shop/calendar_popup_view.dart';
+import 'home_page.dart';
 import 'shop/shop_list_view.dart';
 import 'shop/model/shop_list_data.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
 import 'shop/filters_screen.dart';
+
 //i/mport 'profiles/maps_test.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart' as maps;
 import 'package:latlong2/latlong.dart' as dist;
 
-part 'shop/shop_home_screen.dart';
+
 
 class ShopPage extends StatefulWidget {
-  static const routeName = '/home/rent';
 
   const ShopPage({super.key});
+
   static Route route() {
     return MaterialPageRoute<void>(builder: (_) => const ShopPage());
   }
@@ -38,40 +42,56 @@ class ShopPage extends StatefulWidget {
 }
 
 class _ShopPageState extends State<ShopPage> {
-
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-      //statusBarColor: Colors.transparent,
-      //statusBarIconBrightness: Theme.of(context).brightness,
-      systemNavigationBarColor: Theme.of(context).scaffoldBackgroundColor,
-    ));
-    var position = BlocProvider.of<MapsBloc>(context).state.maps;
+    return Column();
 
-    List<ShopItemData> shopItemList = DataTest.shops.map((shop) =>
-        ShopItemData(
-          imagePath: shop.imagePath!,
-          titleTxt: shop.shopName,
-          subTxt: 'Lubumbashi, CD',
-          distance: distance(
-              fromLatLng: position.currentLatLngFromDistance,
-              toLatLng: dist.LatLng(
-                  shop.location!.latitude,
-                  shop.location!.longitude
-              )
+    /*var position = BlocProvider.of<MapsBloc>(context).state.maps;
+
+    List<ShopItemData> shopItemList = DataTest.shops
+        .map(
+          (shop) => ShopItemData(
+            imagePath: shop.imagePath!,
+            titleTxt: shop.shopName,
+            subTxt: 'Lubumbashi, CD',
+            distance: distance(
+                fromLatLng: BlocProvider.of<MapsBloc>(context)
+                    .state
+                    .maps
+                    .currentLatLngFromDistance,
+                toLatLng: dist.LatLng(
+                    shop.location!.latitude, shop.location!.longitude)),
+            reviews: 80,
+            rating: shop.rating / shop.rater,
+            perNight: 180,
+            shop: shop,
           ),
-          reviews: 80,
-          rating: shop.rating/shop.rater,
-          perNight: 180,
-          shop: shop,
-        ),).toList();
+        )
+        .toList();*/
     //shopItemList.addAll(ShopItemData.sampleList);
-    return ShopHomeScreen(shopList: shopItemList);
+    return ShopHomeScreen(
+        shopList: DataTest.shops
+            .map(
+              (shop) => ShopItemData(
+            imagePath: shop.imagePath!,
+            titleTxt: shop.shopName,
+            subTxt: 'Lubumbashi, CD',
+            distance: distance(
+                fromLatLng: BlocProvider.of<MapsBloc>(context)
+                    .state
+                    .maps
+                    .currentLatLngFromDistance,
+                toLatLng: dist.LatLng(
+                    shop.location!.latitude, shop.location!.longitude)),
+            reviews: 80,
+            rating: shop.rating / shop.rater,
+            perNight: 180,
+            shop: shop,
+          ),
+        ).toList()
+    );
   }
-
 }
-
-
 
 /*Widget getTimeDateUI() {
 
@@ -191,4 +211,3 @@ class _ShopPageState extends State<ShopPage> {
       ),
     );
   }*/
-

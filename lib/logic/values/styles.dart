@@ -137,8 +137,8 @@ class StyleAppTheme extends Cubit<ThemeData> {
     ),
 
     textTheme: TextTheme(
-      headline5: TextStyle(color: primaryWhite, fontSize: 24),
-      headline6: TextStyle(color: primaryWhite,),
+      headline5: const TextStyle(color: primaryWhite, fontSize: 24),
+      headline6: const TextStyle(color: primaryWhite,),
       bodyText1: TextStyle(color: primaryBlack,),
       bodyText2: TextStyle(color: primaryWhite,),
       subtitle1: TextStyle(color: primaryWhite.withOpacity(0.3),),
@@ -208,7 +208,7 @@ class StyleAppTheme extends Cubit<ThemeData> {
     final ThemeData base = ThemeData.light();
     return base.copyWith(
       colorScheme: colorScheme,
-      primaryColor: Colors.cyanAccent,
+      primaryColor: Colors.cyan,
       buttonColor: primaryColor,
       indicatorColor: Colors.white,
       splashColor: Colors.white24,

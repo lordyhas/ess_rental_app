@@ -1,4 +1,13 @@
-enum CategoryType{electronicDevice, clothes, furniture, cuisine}
+
+part of values;
+
+
+
+
+
+class Category{}
+
+/*enum CategoryType{electronicDevice, clothes, furniture, cuisine}
 //enum ProductSubCategory {}
 
 
@@ -16,7 +25,7 @@ class Category {
   String get string => _define[type] as String;
   @override
   String toString() =>  _define[type] as String;
-}
+}*/
 //enum CategoryType {electronic,  }
 
 

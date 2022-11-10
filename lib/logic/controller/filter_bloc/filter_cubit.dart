@@ -1,7 +1,8 @@
 import "package:bloc/bloc.dart";
 import "package:equatable/equatable.dart";
+import 'package:exploress_location/logic/values.dart';
 
-import 'package:exploress_location/logic/category.dart';
+
 
 
 
@@ -16,14 +17,14 @@ class FilterCubit extends Cubit<Filter> {
     double? minPrice,
     double? maxDistance,
     double? minDistance,
-    List<Category> category = const<Category>[],
+    List<Category> categories = const<Category>[],
   }){
     emit(state.copyWith(
       maxPrice: maxPrice,
       minPrice: minPrice,
       maxDistance: maxDistance,
       minDistance: minDistance,
-      category: category,
+      category: categories,
     ));
   }
 

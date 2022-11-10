@@ -7,13 +7,16 @@ class RouteManager {
     dynamic args,}){
     return goto(context, page: page, routeName: routeName, args: args);
   }*/
+
+  //static const routeName = '/home/explore';
+  //static const routeName = "home/settings";
   static final kRoutes = <String, WidgetBuilder>{
-
-    HomePage.routeName: (context) => const HomePage(),
-    ShopPage.routeName: (context) => const ShopPage(),
-    //LoginPage.routeName: (context) => const LoginPage(),
-    };
-
+    "/"                 : (context) => const HomePage(),
+    "/home/explore"     : (context) => const HomePage(),
+    "home/settings"     : (context) => const HomePage(),
+    HomePage.routeName  : (context) => const HomePage(),
+    LoginPage.routeName : (context) => const LoginPage(),
+    MapSample.routeName : (context) => const MapSample(),
+    RentPage.routeName  : (context) => const RentPage(),
+  };
 }
-
-

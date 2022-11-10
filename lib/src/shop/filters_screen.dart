@@ -20,7 +20,7 @@ class _FiltersScreenState extends State<FiltersScreen> {
   late double distValue;
   late Filter filter;
   late bool isDarkMode;
-  late final text;
+  late final _text;
 
   Map<String, String> lang = <String, String>{
     "filter_title" : "Filters",
@@ -47,7 +47,7 @@ class _FiltersScreenState extends State<FiltersScreen> {
   @override
   void initState() {
     super.initState();
-    text = lang as Map<String, String>;
+    //text = lang as Map<String, String>;
     //text = BlocProvider.of<LanguageBloc>(context).state.getStrings();
     popularFilterListData = popularFList();
     storeListData = storeFilterList();
@@ -82,17 +82,19 @@ class _FiltersScreenState extends State<FiltersScreen> {
           Expanded(
             child: SingleChildScrollView(
               child: Container(
-                //color: Colors.grey.shade800,
-                child: Column(
-                  children: <Widget>[
-                    priceBarFilter(),
-                    const Divider(height: 1),
-                    popularFilter(),
-                    //const Divider(height: 1),
-                    //distanceViewUI(),
-                    const Divider(height: 1),
-                    shopFilterUI()
-                  ],
+                constraints: const BoxConstraints(maxWidth: 720),
+                child: Center(
+                  child: Column(
+                    children: <Widget>[
+                      priceBarFilter(),
+                      const Divider(height: 1),
+                      popularFilter(),
+                      const Divider(height: 1),
+                      distanceViewUI(),
+                      const Divider(height: 1),
+                      shopFilterUI()
+                    ],
+                  ),
                 ),
               ),
             ),
@@ -105,6 +107,7 @@ class _FiltersScreenState extends State<FiltersScreen> {
                 left: 16, right: 16, bottom: 16, top: 8),
             child: Container(
               height: 48,
+              constraints: const BoxConstraints(maxWidth: 520),
               decoration: BoxDecoration(
                 color: shopAppTheme.buildLightShopTheme.primaryColor,
                 borderRadius: const BorderRadius.all(Radius.circular(24.0)),
@@ -118,7 +121,7 @@ class _FiltersScreenState extends State<FiltersScreen> {
                   onTap: () {
                     Navigator.pop(context);
                   },
-                  child: Center(
+                  child: const Center(
                     child: Text(
                       "Appliqué",
                       style: TextStyle(
@@ -224,13 +227,13 @@ class _FiltersScreenState extends State<FiltersScreen> {
   void checkAppPosition(int index) {
     if (index == 0) {
       if (storeListData[0].isSelected) {
-        storeListData.forEach((d) {
+        for (final d in storeListData) {
           d.isSelected = false;
-        });
+        }
       } else {
-        storeListData.forEach((d) {
+        for (final d in storeListData) {
           d.isSelected = true;
-        });
+        }
       }
     } else {
       storeListData[index].isSelected =
@@ -263,10 +266,10 @@ class _FiltersScreenState extends State<FiltersScreen> {
           padding:
               const EdgeInsets.only(left: 16, right: 16, top: 16, bottom: 8),
           child: Text(
-            text['filter_max_dist'],
+            "Maximum distance par rapport au centre ville",
             textAlign: TextAlign.left,
             style: TextStyle(
-                color: colorTitle(),
+                //color: colorTitle(),
                 fontSize: MediaQuery.of(context).size.width > 360 ? 18 : 16,
                 fontWeight: FontWeight.normal),
           ),

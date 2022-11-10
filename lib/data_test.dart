@@ -7,9 +7,9 @@ import 'package:exploress_location/logic/model/data_model.dart';
 class DataTest {
   static List<ShopData> shops = [
     ShopData(
-      shopName: "ProStyle 243",
+      shopName: "Local avec 2 bureau",
       shopCode: "prostyle123",
-      imagePath: "assets/shop_image/shop (1).jpeg",
+      imagePath: "assets/local/loc_bureau_2.jpg",
       email: 'prostyle243@exploress.com',
       rating: (3 + 3 + 4 + 5 + 2),
       rater: 5,
@@ -19,9 +19,9 @@ class DataTest {
       location: const maps.LatLng(-11.6284708, 27.487585),
     ),
     ShopData(
-      shopName: "Galaxy Mobile",
+      shopName: "Entrepot",
       shopCode: "galaxymobile1234",
-      imagePath: "assets/shop_image/shop (6).jpeg",
+      imagePath: "assets/local/loc_lib_2.png",
       email: 'galaxymobile@exploress.com',
       rating: (3 + 3 + 4 + 5 + 2),
       rater: 5,
@@ -32,8 +32,9 @@ class DataTest {
     ),
     ShopData(
       shopCode: 'BoutiqueGrandBoss1234',
-      imagePath: 'assets/shop_image/shop (3).jpeg',
-      shopName: 'Boutique Grand Boss',
+      imagePath: 'assets/local/loc_reunion_1.png',
+      shopName: 'Salle de reunion',
+      email: 'useto@exploress.com',
       //subTxt: 'Lubumbashi, CD',
       rating: (3 + 3 + 4 + 5 + 2),
       rater: 5,
@@ -44,15 +45,17 @@ class DataTest {
     ),
     ShopData(
       shopCode: 'QS1234',
-      imagePath: 'assets/shop_image/shop (4).jpeg',
-      shopName: 'Queen Shop',
+      imagePath: 'assets/local/loc_restau_1.jpg',
+      shopName: 'Restaurant à louer',
+      email: 'momo@exploress.com',
+
       //subTxt: 'Lubumbashi, CD',
       rating: (3 + 3 + 4 + 5 + 2+5+5),
       rater: 7,
       phoneNumber: "+243 998466121",
       phoneNumber2: "+243 8418321547",
       canDeliver: true,
-      location: maps.LatLng(-11.628488, 27.483457),
+      location: const maps.LatLng(-11.628488, 27.483457),
     ),
   ];
 

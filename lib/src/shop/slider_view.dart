@@ -30,54 +30,50 @@ class _SliderViewState extends State<SliderView> {
   Widget build(BuildContext context) {
     final shopAppTheme = BlocProvider.of<StyleAppTheme>(context);
 
-    return Container(
-
-      child: Column(
-        children: <Widget>[
-          Row(
-            children: <Widget>[
-              Expanded(
-                flex: distValue.round(),
-                child: const SizedBox(),
-              ),
-              Container(
-                width: 170,
-                child: Text(
-                  '${ " Moins de " +
-                      ((distValue* maximumDistanceMeter)/100000).toStringAsFixed(1)} Km',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(color: Theme.of(context).primaryColorDark),
-                ),
-              ),
-              Expanded(
-                flex: 100 - distValue.round(),
-                child: const SizedBox(),
-              ),
-            ],
-          ),
-          SliderTheme(
-            data: SliderThemeData(
-              thumbShape: CustomThumbShape(),
+    return Column(
+      children: <Widget>[
+        Row(
+          children: <Widget>[
+            Expanded(
+              flex: distValue.round(),
+              child: const SizedBox(),
             ),
-            child: Slider(
-              onChanged: (double value) {
-                setState(() {
-                  distValue = value;
-                });
-                try {
-                  widget.onChangedistValue(distValue);
-                } catch (_) {}
-              },
-              min: 0,
-              max: 100, //maximumDistanceMeter/1000,
-              activeColor: shopAppTheme.buildLightShopTheme.primaryColor,
-              inactiveColor: Colors.grey.withOpacity(0.4),
-              divisions: 100,
-              value: distValue,
+            Container(
+              width: 170,
+              child: Text(
+                '${ " Moins de ${((distValue* maximumDistanceMeter)/100000).toStringAsFixed(1)}"} Km',
+                textAlign: TextAlign.center,
+                //style: TextStyle(color: Theme.of(context).primaryColorDark),
+              ),
             ),
+            Expanded(
+              flex: 100 - distValue.round(),
+              child: const SizedBox(),
+            ),
+          ],
+        ),
+        SliderTheme(
+          data: SliderThemeData(
+            thumbShape: CustomThumbShape(),
           ),
-        ],
-      ),
+          child: Slider(
+            onChanged: (double value) {
+              setState(() {
+                distValue = value;
+              });
+              try {
+                widget.onChangedistValue(distValue);
+              } catch (_) {}
+            },
+            min: 0,
+            max: 100, //maximumDistanceMeter/1000,
+            activeColor: shopAppTheme.buildLightShopTheme.primaryColor,
+            inactiveColor: Colors.grey.withOpacity(0.4),
+            divisions: 100,
+            value: distValue,
+          ),
+        ),
+      ],
     );
   }
 }

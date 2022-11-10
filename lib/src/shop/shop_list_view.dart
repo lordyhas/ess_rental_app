@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 
-import 'package:exploress_location/widgets/StarRating.dart';
+import 'package:exploress_location/widgets/star_rating.dart';
 import 'shop_app_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -30,17 +30,40 @@ class ShopListView extends StatelessWidget {
 
   //bool favorite = false;
 
+
+
   @override
   Widget build(BuildContext context) {
+
+    double responsiveSize(){
+      double screenWidth = MediaQuery.of(context).size.width;
+      //if(screenWidth > 1280) return 500;
+      if(screenWidth > 1280 && screenWidth < 1400) {
+        return 500;
+      } else if(screenWidth >= 1400 && screenWidth < 1650) {
+        return 600;
+      } else if(screenWidth >= 1650) {
+        return 720;
+      }
+
+      else if(screenWidth < 1280 && screenWidth >= 1120) {
+        return 460;
+      }
+      else if(screenWidth < 1120) {
+        return 700;
+      }
+
+      return 700;
+    }
+
+
+
     final _textStyle = TextStyle(fontSize: 14,
         color: (Theme.of(context).brightness != Brightness.dark)
             ? Colors.grey.shade600
             : Colors.grey.shade400
     );
 
-    final __bottomBarCardColor = (Theme.of(context).brightness != Brightness.dark)
-        ? Colors.white70
-        : Colors.grey.shade800;
     return Material(
       color: Colors.transparent,
       child: Padding(
@@ -51,6 +74,9 @@ class ShopListView extends StatelessWidget {
           onTap: onShopClick,
           onLongPress: (){},
           child: Container(
+            constraints:  BoxConstraints(
+                maxWidth: responsiveSize(),
+            ),
             /*decoration: BoxDecoration(
               //borderRadius: const BorderRadius.all(Radius.circular(16.0)),
               //border: Border.all(color: Colors.black)
@@ -121,7 +147,7 @@ class ShopListView extends StatelessWidget {
                                         ),
                                         Expanded(
                                           child: Text(
-                                            ' à ${shopItem!.distance.toStringAsFixed(1)} km de vous',
+                                            ' à ${shopItem!.distance.toStringAsFixed(1)} km du centre ville',
                                             overflow:
                                             TextOverflow.ellipsis,
                                             style: _textStyle,
@@ -216,7 +242,7 @@ class ShopListView extends StatelessWidget {
                         padding: const EdgeInsets.all(8.0),
                         child: Icon(
                           Icons.favorite_border,
-                          color: Theme.of(context).accentColor,
+                          color: Theme.of(context).colorScheme.secondary,
                         ),
                       ),
                     ),

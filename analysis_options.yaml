@@ -40,7 +40,7 @@ linter:
     use_key_in_widget_constructors: true
 
     prefer_void_to_null: true
-    prefer_asserts_with_message: true
+    #prefer_asserts_with_message: true
     #prefer_double_quotes: true
     prefer_final_in_for_each: true
     prefer_is_empty: true

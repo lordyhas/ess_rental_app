@@ -12,11 +12,13 @@ class ShopData{
   final String? email;
   final OpenDay openDay;
   final String? isOpened;
-  final LatLng? location;
+  final maps.LatLng? location;
   final String? phoneNumber;
   final String? phoneNumber2;
   final String? imagePath;
   final image;
+
+
 
   AddressData? addressData;
 
@@ -38,6 +40,8 @@ class ShopData{
 
 
   ShopData({
+    required this.shopName,
+    required this.shopCode,
     this.authenticate = false, this.certify = false,
     this.id,
     this.imagePath,
@@ -45,24 +49,21 @@ class ShopData{
     this.email,
     this.rating = 0,
     this.rater = 0,
-    AddressData? addressData,
-    required this.shopName,
-    required this.shopCode,
+    this.addressData,
     this.openDay = const OpenDay.openable(),
     this.isOpened,
     this.location,
     this.phoneNumber,
     this.phoneNumber2,
     this.canDeliver,
-
-  }) : this.addressData = addressData;
+  });
   //: super(id:id, name:shopName, userCode:shopCode, location:location, phoneNumber:number,);
 
   final _table = "PRODUCTS";
   String get collectionName => _table;
-  AddressData? get address => this.addressData;
+  AddressData? get address => addressData;
   set setAddress(AddressData data) {
-    this.addressData = data;
+    addressData = data;
   }
 
 
@@ -105,7 +106,7 @@ class ShopData{
     rater: map['rater'],
     email: map['email'],
     canDeliver: map['delivery'],
-    location: LatLng(
+    location: maps.LatLng(
         map['location']['latitude'],
         map['location']['longitude']
     ),

@@ -1,9 +1,9 @@
 
 
-import 'package:latlong2/latlong.dart';
+part of values;
 
 double distance({required LatLng fromLatLng, required LatLng toLatLng}){
-  final Distance distance = new Distance();
+  const Distance distance = Distance();
 
   final double km = distance.as(LengthUnit.Meter, fromLatLng,toLatLng);
   return km/1000;
@@ -16,7 +16,7 @@ class DistanceBetween {
   final LatLng toLatLng;
   DistanceBetween({required this. fromLatLng, required this. toLatLng});
 
-  final Distance _distance = new Distance();
+  final Distance _distance = const Distance();
 
 
   double get distanceKiloMeter {

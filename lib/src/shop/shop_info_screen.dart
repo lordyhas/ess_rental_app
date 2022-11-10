@@ -1,49 +1,48 @@
 import 'dart:math';
+import 'dart:ui';
 
 import 'package:exploress_location/logic/values.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-
 import 'package:latlong2/latlong.dart' as dist;
 
 import '../../logic/map_data/maps.dart';
 import '../../logic/model/data_model.dart';
 
-
 class ShopInfoScreen extends StatefulWidget {
   final ShopData shop;
   final void Function()? onMapClick;
-  const ShopInfoScreen({Key? key, required this.shop, this.onMapClick}) :
-        super(key: key);
+
+  const ShopInfoScreen({Key? key, required this.shop, this.onMapClick})
+      : super(key: key);
 
   @override
-  _ShopInfoScreenState createState() => _ShopInfoScreenState();
+  State createState() => _ShopInfoScreenState();
 
-  static Route route({
-    Key? key,
-    required ShopData shop,
-    required void Function()? onMapClick
-  }) {
-    return MaterialPageRoute<void>(builder: (_) => ShopInfoScreen(
-      shop: shop,
-      onMapClick: onMapClick,
-      key: key,
-    ));
+  static Route route(
+      {Key? key,
+      required ShopData shop,
+      required void Function()? onMapClick}) {
+    return MaterialPageRoute<void>(
+        builder: (_) => ShopInfoScreen(
+              shop: shop,
+              onMapClick: onMapClick,
+              key: key,
+            ));
   }
 }
 
 class _ShopInfoScreenState extends State<ShopInfoScreen>
     with TickerProviderStateMixin {
-
-
   final double infoHeight = 364.0;
   late AnimationController animationController;
   late Animation<double> animation;
   double opacity1 = 0.0;
   double opacity2 = 0.0;
   double opacity3 = 0.0;
+
   @override
   void initState() {
     animationController = AnimationController(
@@ -79,300 +78,359 @@ class _ShopInfoScreenState extends State<ShopInfoScreen>
         (MediaQuery.of(context).size.width / 1.2) +
         24.0;
     return Container(
-      color: Colors.grey.shade200,
+      //color: Colors.grey.shade200,
       child: Scaffold(
-        backgroundColor: Colors.transparent,
-        body: Stack(
-          children: <Widget>[
-            Column(
-              children: [
-                Container(
-                  child: Stack(
-                    children: <Widget>[
-                      AspectRatio(
-                        aspectRatio: 1.5,
-                        child: Image.asset(widget.shop.imagePath!),
-                      ),
-                      Container(
-                        color: Colors.grey.shade700.withOpacity(0.1),
-                        width: MediaQuery.of(context).size.width,
-                        height: MediaQuery.of(context).size.height*0.70,
-                      ),
+        /*appBar: AppBar(
+          automaticallyImplyLeading: true,
+          elevation: 0.0,
+          backgroundColor: Colors.transparent,
+        ),*/
+        //backgroundColor: Colors.transparent,
+        body: NestedScrollView(
+          headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
+            return <Widget>[
 
-                    ],
+              SliverAppBar(
+                  floating: true, pinned: true, snap: false,
+                  backgroundColor: Colors.white38,
+                  expandedHeight: 120.0,
+                  flexibleSpace: Container(
+                    decoration:  BoxDecoration(
+                        image: DecorationImage(
+                            image: AssetImage(widget.shop.imagePath!,),
+                          fit: BoxFit.cover,
+                          opacity: 0.5,
+                        )
+                    ),
+                    child: const FlexibleSpaceBar(
+                      centerTitle: true,
+                      title: SelectableText("À louer",
+                        style: TextStyle(
+                          fontSize: 32,
+                            fontWeight: FontWeight.bold,
+
+                        ),),
+                    ),
+                  )
+              ),
+
+              /*SliverAppBar(
+                floating: true, pinned: true, snap: false,
+                expandedHeight: 120.0,
+                flexibleSpace: SizedBox(
+                  //height: 200,
+                  child: ImageFiltered(
+                    imageFilter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
+                    child: Image.asset(
+                      widget.shop.imagePath!,
+                      //colorBlendMode: BlendMode,
+                      fit: BoxFit.cover,
+                      width: MediaQuery.of(context).size.width,
+                      gaplessPlayback: true,
+                    ),
                   ),
                 ),
-              ],
-            ),
-            Align(
-              alignment: Alignment.bottomCenter,
-              child: Container(
-                height: MediaQuery.of(context).size.height*0.72,
-                decoration: BoxDecoration(
-                  color: Colors.grey.shade200,
+
+              ),*/
+
+
+              /*SliverPersistentHeader(
+                pinned: true,
+                floating: true,
+                delegate: RoundedContestTabHeader(context,
                   borderRadius: const BorderRadius.only(
                       topLeft: Radius.circular(32.0),
                       topRight: Radius.circular(32.0)),
-                  boxShadow: <BoxShadow>[
-                    BoxShadow(
-                        color: Colors.grey.withOpacity(0.2),
-                        offset: const Offset(1.1, 1.1),
-                        blurRadius: 10.0),
-                  ],
                 ),
-                child: Padding(
-                  padding: const EdgeInsets.only(left: 8, right: 8),
-                  child: SingleChildScrollView(
-                    child: Container(
-                      constraints: BoxConstraints(
-                          minHeight: infoHeight,
-                          maxHeight: tempHeight > infoHeight
-                              ? tempHeight
-                              : infoHeight),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.start,
+              ),*/
+            ];
+          },
+          body: Container(
+            color: Theme.of(context).scaffoldBackgroundColor,
+            //height: MediaQuery.of(context).size.height * 0.75,
+            /*decoration: BoxDecoration(
+              color: Theme.of(context).scaffoldBackgroundColor, //Colors.grey.shade800,
+              boxShadow: <BoxShadow>[
+                BoxShadow(
+                    color: Colors.grey.withOpacity(0.2),
+                    offset: const Offset(1.1, 1.1),
+                    blurRadius: 10.0),
+              ],
+            ),*/
+            child: Padding(
+              padding: const EdgeInsets.only(left: 8, right: 8),
+              child: Container(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Padding(
+                      padding: const EdgeInsets.only(
+                          top: 32.0, left: 16, right: 16),
+                      child: Text(
+                        widget.shop.shopName,
+                        textAlign: TextAlign.left,
+                        style: const TextStyle(
+                          fontWeight: FontWeight.w600,
+                          fontSize: 22,
+                          letterSpacing: 0.27,
+                          //color: AppTheme.darkerText,
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(
+                          left: 16, right: 16, bottom: 8, top: 16),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.center,
                         children: <Widget>[
-                          Padding(
-                            padding: EdgeInsets.only(
-                                top: 32.0, left: 18, right: 16),
-                            child: Text(
-                              widget.shop.shopName,
-                              textAlign: TextAlign.left,
-                              style: TextStyle(
-                                fontWeight: FontWeight.w600,
-                                fontSize: 22,
-                                letterSpacing: 0.27,
-                                //color: AppTheme.darkerText,
-                              ),
+                          Text(
+                            'à ${distance(
+                                fromLatLng: position.currentLatLngFromDistance,
+                                toLatLng: dist.LatLng(-11.6284708, 27.487585)
+                            )} metre \ndu centre ville de Lubumbashi',
+                            textAlign: TextAlign.left,
+                            overflow: TextOverflow.ellipsis,
+                            style: TextStyle(
+                              fontWeight: FontWeight.w200,
+                              fontSize: 22,
+                              letterSpacing: 0.27,
+                              //color: Theme.of(context).primaryColorLight,
                             ),
                           ),
-                          Padding(
-                            padding: const EdgeInsets.only(
-                                left: 16, right: 16, bottom: 8, top: 16),
+                          Container(
                             child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              crossAxisAlignment: CrossAxisAlignment.center,
                               children: <Widget>[
-                                Text(
-                                  '${distance(
-                                      fromLatLng: position.currentLatLngFromDistance,
-                                      toLatLng: dist.LatLng(-11.6284708, 27.487585))} km near to you',
+                                const Text(
+                                  '4.3',
                                   textAlign: TextAlign.left,
                                   style: TextStyle(
                                     fontWeight: FontWeight.w200,
                                     fontSize: 22,
                                     letterSpacing: 0.27,
-                                    color: Theme.of(context).primaryColorLight,
+                                    color: Colors.white70,
                                   ),
                                 ),
-                                Container(
-                                  child: Row(
-                                    children: <Widget>[
-                                      Text(
-                                        '4.3',
-                                        textAlign: TextAlign.left,
-                                        style: TextStyle(
-                                          fontWeight: FontWeight.w200,
-                                          fontSize: 22,
-                                          letterSpacing: 0.27,
-                                          color: Colors.grey,
-                                        ),
-                                      ),
-                                      Icon(
-                                        Icons.star,
-                                        color: Theme.of(context).primaryColorLight,
-                                        size: 24,
-                                      ),
-                                    ],
-                                  ),
-                                )
+                                Icon(
+                                  Icons.star,
+                                  color:
+                                      Theme.of(context).primaryColorLight,
+                                  size: 24,
+                                ),
                               ],
                             ),
-                          ),
-                          AnimatedOpacity(
-                            duration: const Duration(milliseconds: 500),
-                            opacity: opacity1,
-                            child: Padding(
-                              padding: const EdgeInsets.all(8),
-                              child: Row(
-                                children: <Widget>[
-                                  getTimeBoxUI('24/24', 'Hour'),
-                                  getTimeBoxUI('7 Day', 'Week'),
-                                  getTimeBoxUI('${30+Random().nextInt(20)}', 'Products'),
-                                ],
-                              ),
-                            ),
-                          ),
-                          Expanded(
-                            child: AnimatedOpacity(
-                              duration: const Duration(milliseconds: 500),
-                              opacity: opacity2,
-                              child: Padding(
-                                padding: EdgeInsets.only(
-                                    left: 16, right: 16, top: 8, bottom: 8),
-                                child: RichText(
-                                  textAlign: TextAlign.justify,
-                                  maxLines: 3,
-                                  //overflow: TextOverflow.ellipsis,
-                                  text: TextSpan(
-                                      style: TextStyle(
-                                        fontWeight: FontWeight.w300,
-                                        fontSize: 14,
-                                        letterSpacing: 0.27,
-                                        color: Colors.black87,
-                                      ),
-                                      children: [
-                                        TextSpan(text:"Contact 1: ${widget.shop.phoneNumber?? "Shop does not have contact"}\n"),
-                                        TextSpan(text:"Contact 2: ${widget.shop.phoneNumber2?? "Shop does not have contact"}\n"),
-                                        TextSpan(text:"Email : ${widget.shop.email}"),
-                                        TextSpan(text:"Delivery : ${widget.shop.canDeliver? "Yes" : "No"}"),
-                                      ]
-                                  ),
-
-                                ), /*Text(
-                                  "",
-                                  textAlign: TextAlign.justify,
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.w200,
-                                    fontSize: 14,
-                                    letterSpacing: 0.27,
-                                    color: Colors.black87,
-                                  ),
-                                  maxLines: 3,
-                                  overflow: TextOverflow.ellipsis,
-                                ),*/
-                              ),
-                            ),
-                          ),
-                          AnimatedOpacity(
-                            duration: const Duration(milliseconds: 500),
-                            opacity: opacity3,
-                            child: Padding(
-                              padding: const EdgeInsets.only(
-                                  left: 16, bottom: 16, right: 16),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: <Widget>[
-                                  Container(
-                                    width: 48,
-                                    height: 48,
-                                    child: Container(
-                                      decoration: BoxDecoration(
-                                        color: Colors.white,
-                                        borderRadius: const BorderRadius.all(
-                                          Radius.circular(16.0),
-                                        ),
-                                        border: Border.all(
-                                            color: Colors.grey
-                                                .withOpacity(0.2)),
-                                      ),
-                                      child: Icon(
-                                        FontAwesomeIcons.shopify,
-                                        color: Theme.of(context).primaryColorLight,
-                                        size: 28,
-                                      ),
-                                    ),
-                                  ),
-                                  const SizedBox(
-                                    width: 16,
-                                  ),
-                                  Expanded(
-                                    child: InkWell(
-                                      onTap: widget.onMapClick!,
-                                      child: Container(
-                                        height: 48,
-                                        decoration: BoxDecoration(
-                                          color: Theme.of(context).primaryColorLight,
-                                          borderRadius: const BorderRadius.all(
-                                            Radius.circular(16.0),
-                                          ),
-                                          boxShadow: <BoxShadow>[
-                                            BoxShadow(
-                                                color: Theme.of(context).primaryColorLight
-                                                    .withOpacity(0.5),
-                                                offset: const Offset(1.1, 1.1),
-                                                blurRadius: 10.0),
-                                          ],
-                                        ),
-                                        child: Center(
-                                          child: Text(
-                                            'Find on Maps',
-                                            textAlign: TextAlign.left,
-                                            style: TextStyle(
-                                              fontWeight: FontWeight.w600,
-                                              fontSize: 18,
-                                              letterSpacing: 0.0,
-                                              color: Colors.white70,
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  )
-                                ],
-                              ),
-                            ),
-                          ),
-                          SizedBox(
-                            height: MediaQuery.of(context).padding.bottom,
                           )
                         ],
                       ),
                     ),
-                  ),
+
+                    Wrap(
+                      children: [
+                        SizedBox(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              AnimatedOpacity(
+                                duration: const Duration(milliseconds: 500),
+                                opacity: opacity1,
+                                child: Padding(
+                                  padding: const EdgeInsets.all(8),
+                                  child: ConstrainedBox(
+                                    constraints: const BoxConstraints(
+                                      maxWidth: 400,
+                                    ),
+                                    child: Row(
+                                      children: <Widget>[
+                                        getTimeBoxUI('24/24', 'Hour'),
+                                        getTimeBoxUI('7 Day', 'Week'),
+                                        getTimeBoxUI('${60 + Random().nextInt(30)}',
+                                            'Securité'),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              AnimatedOpacity(
+                                duration: const Duration(milliseconds: 500),
+                                opacity: opacity2,
+                                child: Padding(
+                                  padding: const EdgeInsets.only(
+                                      left: 16, right: 16, top: 8, bottom: 8),
+                                  child: ConstrainedBox(
+                                    constraints: const BoxConstraints(
+                                      maxWidth: 400,
+                                    ),
+                                    child: RichText(
+                                      textAlign: TextAlign.start,
+                                      maxLines: 3,
+                                      //overflow: TextOverflow.ellipsis,
+                                      text: TextSpan(
+                                          style: const TextStyle(
+                                            fontWeight: FontWeight.w300,
+                                            fontSize: 14,
+                                            letterSpacing: 0.27,
+                                            color: Colors.white,
+                                          ),
+                                          children: [
+                                            TextSpan(
+                                              text:
+                                              "Contact 1: ${widget.shop.phoneNumber ?? "do not have contact"}\n",
+                                              style: const TextStyle(
+                                                fontWeight: FontWeight.w100,
+                                                fontSize: 16,
+                                                letterSpacing: 0.20,
+                                              ),
+                                            ),
+                                            TextSpan(
+                                              text:
+                                              "Contact 2: ${widget.shop.phoneNumber2 ?? "do not have contact"}\n",
+                                              style: const TextStyle(
+                                                fontWeight: FontWeight.w100,
+                                                fontSize: 16,
+                                                letterSpacing: 0.20,
+                                              ),
+                                            ),
+                                            TextSpan(
+                                              text:
+                                              "Email : ${widget.shop.email} \n",
+                                              style: const TextStyle(
+                                                fontWeight: FontWeight.w100,
+                                                fontSize: 16,
+                                                letterSpacing: 0.20,
+                                              ),
+                                            ),
+                                            TextSpan(
+                                              text:
+                                              "Déjà pris ? : ${widget.shop.canDeliver ? "Oui" : "Non"}",
+                                              style: const TextStyle(
+                                                fontWeight: FontWeight.w100,
+                                                fontSize: 16,
+                                                letterSpacing: 0.20,
+                                              ),
+                                            ),
+                                          ]),
+                                    ),
+                                  ), /*Text(
+                                "",
+                                textAlign: TextAlign.justify,
+                                style: TextStyle(
+                                  fontWeight: FontWeight.w200,
+                                  fontSize: 14,
+                                  letterSpacing: 0.27,
+                                  color: Colors.black87,
+                                ),
+                                maxLines: 3,
+                                overflow: TextOverflow.ellipsis,
+                              ),*/
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+
+                        SizedBox(
+                          child: AnimatedOpacity(
+                            duration: const Duration(milliseconds: 400),
+                            opacity: opacity3,
+                            child: Container(
+                              //height: 400, //color: Colors.red,
+                              constraints: const BoxConstraints(maxHeight: 420),
+                              padding: const EdgeInsets.all(16.0),
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(20.0),
+                                child: Image.asset(widget.shop.imagePath!),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+
+                    Spacer(),
+
+                    AnimatedOpacity(
+                      duration: const Duration(milliseconds: 550),
+                      opacity: opacity3,
+                      child: Padding(
+                        padding: const EdgeInsets.only(
+                            left: 16, bottom: 16, right: 16),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: <Widget>[
+                            SizedBox(
+                              width: 48,
+                              height: 48,
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: const BorderRadius.all(
+                                    Radius.circular(16.0),
+                                  ),
+                                  border: Border.all(
+                                      color:
+                                          Colors.grey.withOpacity(0.2)),
+                                ),
+                                child: Icon(
+                                  FontAwesomeIcons.shopify,
+                                  color:
+                                      Theme.of(context).primaryColorLight,
+                                  size: 28,
+                                ),
+                              ),
+                            ),
+                            const SizedBox(
+                              width: 16,
+                            ),
+                            SizedBox(
+                              child: InkWell(
+                                onTap: widget.onMapClick!,
+                                child: Container(
+                                  height: 48,
+                                  width: MediaQuery.of(context).size.width*0.65,
+                                  decoration: BoxDecoration(
+                                    color: Theme.of(context)
+                                        .primaryColorLight,
+                                    borderRadius: const BorderRadius.all(
+                                      Radius.circular(16.0),
+                                    ),
+                                    boxShadow: <BoxShadow>[
+                                      BoxShadow(
+                                          color: Theme.of(context)
+                                              .primaryColorLight
+                                              .withOpacity(0.5),
+                                          offset: const Offset(1.1, 1.1),
+                                          blurRadius: 10.0),
+                                    ],
+                                  ),
+                                  child: const Center(
+                                    child: Text(
+                                      'Find on Maps',
+                                      textAlign: TextAlign.left,
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.w600,
+                                        fontSize: 18,
+                                        letterSpacing: 0.0,
+                                        color: Colors.white70,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            )
+                          ],
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      height: 16.0,
+                    )
+                  ],
                 ),
               ),
             ),
-            /*Positioned(
-              top: (MediaQuery.of(context).size.width / 1.2) - 24.0 - 35,
-              right: 35,
-              child: ScaleTransition(
-                alignment: Alignment.center,
-                scale: CurvedAnimation(
-                    parent: animationController, curve: Curves.fastOutSlowIn),
-                child: Card(
-                  color: DesignCourseAppTheme.nearlyBlue,
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(50.0)),
-                  elevation: 10.0,
-                  child: Container(
-                    width: 60,
-                    height: 60,
-                    child: Center(
-                      child: Icon(
-                        Icons.favorite,
-                        color: DesignCourseAppTheme.nearlyWhite,
-                        size: 30,
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-            ),*/
-            Padding(
-              padding: EdgeInsets.only(top: MediaQuery.of(context).padding.top),
-              child: SizedBox(
-                width: AppBar().preferredSize.height,
-                height: AppBar().preferredSize.height,
-                child: Material(
-                  color: Colors.transparent,
-                  child: InkWell(
-                    borderRadius:
-                        BorderRadius.circular(AppBar().preferredSize.height),
-                    child: Icon(
-                      Icons.arrow_back,
-                      color: Colors.grey.shade900,
-                    ),
-                    onTap: () {
-                      Navigator.pop(context);
-                    },
-                  ),
-                ),
-              ),
-            )
-          ],
+          ),
         ),
       ),
     );
@@ -383,7 +441,7 @@ class _ShopInfoScreenState extends State<ShopInfoScreen>
       padding: const EdgeInsets.all(8.0),
       child: Container(
         decoration: BoxDecoration(
-          color:Colors.white,
+          color: Colors.white70,
           borderRadius: const BorderRadius.all(Radius.circular(16.0)),
           boxShadow: <BoxShadow>[
             BoxShadow(
@@ -416,7 +474,7 @@ class _ShopInfoScreenState extends State<ShopInfoScreen>
                   fontWeight: FontWeight.w200,
                   fontSize: 14,
                   letterSpacing: 0.27,
-                  color: Colors.grey,
+                  color: Colors.black,
                 ),
               ),
             ],
@@ -424,5 +482,46 @@ class _ShopInfoScreenState extends State<ShopInfoScreen>
         ),
       ),
     );
+  }
+}
+
+class RoundedContestTabHeader extends SliverPersistentHeaderDelegate {
+  const RoundedContestTabHeader(
+      this.context, {
+        required this.borderRadius,
+        this.onSearchDataEnter,
+      });
+
+  final BorderRadius borderRadius;
+  final BuildContext context;
+  final Function()? onSearchDataEnter;
+
+  @override
+  Widget build(
+      BuildContext context, double shrinkOffset, bool overlapsContent) {
+    final shopAppTheme = BlocProvider.of<StyleAppTheme>(context);
+
+    return SizedBox(
+      //color: Theme.of(context).scaffoldBackgroundColor,
+        child: ClipRRect(
+          borderRadius: borderRadius,
+          child: Container(
+
+            color: Theme.of(context).backgroundColor,
+          ),
+        )
+
+    );
+  }
+
+  @override
+  double get maxExtent => 52.0;
+
+  @override
+  double get minExtent => 52.0;
+
+  @override
+  bool shouldRebuild(SliverPersistentHeaderDelegate oldDelegate) {
+    return false;
   }
 }

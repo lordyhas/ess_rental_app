@@ -2,12 +2,20 @@
 
 library data.model;
 
-import 'package:google_maps_flutter/google_maps_flutter.dart';
 
+import 'package:google_maps_flutter/google_maps_flutter.dart' as maps;
 
-
+import 'package:latlong2/latlong.dart' as geo;
 
 part 'shop_data.dart';
+part 'space_rental.dart';
+
+
+
+enum RentalType{space, vehicle}
+enum SpaceRentalType{apartment, house, bureau, reception, hall}
+enum VehicleRentalType{A,B,C,D,E}
+
 
 class AddressData {
   final String avenue;
@@ -49,7 +57,7 @@ class AddressData {
 }
 
 class Ratings {
-  final id;
+  final dynamic id;
   final int score;
   final String message;
   final String userCode;
@@ -59,36 +67,54 @@ class Ratings {
   final String? shopMessage;
 
   const Ratings({
-    this.id,
     required this.score,
     required this.message,
     required this.userCode,
     required this.shopCode,
     required this.timeMessage,
+    this.id,
     this.timeShopMessage,
     this.shopMessage});
 
+  Map<String, dynamic> toMap() {
+    return {
+      'id': id,
+      'score': score,
+      'message': message,
+      'userCode': userCode,
+      'shopCode': shopCode,
+      'timeMessage': timeMessage,
+      'timeShopMessage': timeShopMessage,
+      'shopMessage': shopMessage,
+    };
+  }
 
+  factory Ratings.fromMap(Map<String, dynamic> map) {
+    return Ratings(
+      id: map['id'] as dynamic,
+      score: map['score'] as int,
+      message: map['message'] as String,
+      userCode: map['userCode'] as String,
+      shopCode: map['shopCode'] as String,
+      timeMessage: map['timeMessage'] as DateTime,
+      timeShopMessage: map['timeShopMessage'] as DateTime,
+      shopMessage: map['shopMessage'] as String,
+    );
+  }
 }
 
 class ImageLinkStorage {
-  final id;
-  final String? primary;
-  final String? left;
-  final String? right;
-  final String? top;
-  final String? bottom;
+  final dynamic id;
+  final String? primaryPath;
+  final List<String> paths;
 
   const ImageLinkStorage({
     this.id,
-    this.primary,
-    this.left,
-    this.right,
-    this.top,
-    this.bottom,
+    this.primaryPath,
+    this.paths = const <String>[],
   });
 
-  List<String?> toList() => [primary, left, right, top, bottom];
+  List<String?> toList() => [primaryPath, ...paths];
 }
 
 
@@ -105,4 +131,9 @@ extension on DateTime {
       minute,
     );
   }
+}
+
+
+extension on geo.LatLng{
+  maps.LatLng get toMapGPS => maps.LatLng(latitude,longitude);
 }
