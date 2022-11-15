@@ -1,18 +1,27 @@
 import 'package:exploress_location/logic/map_data/maps.dart';
+import 'package:exploress_location/src/perference_page/about_page.dart';
 import 'package:exploress_location/src/home_page.dart';
 import 'package:exploress_location/src/login_page.dart';
 import 'package:exploress_location/src/maps_test.dart';
+import 'package:exploress_location/src/perference_page/edit_profile_page.dart';
 import 'package:exploress_location/src/rental_page.dart';
-import 'package:exploress_location/src/shop_page.dart';
+import 'package:exploress_location/src/home_page/shop_info_screen.dart';
+import 'package:exploress_location/src/myspace_page.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:exploress_location/logic/values.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:hive/hive.dart';
+import 'package:hive_flutter/adapters.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 import 'package:firebase_core/firebase_core.dart';
+
+import 'on_404_page.dart';
+import 'ongenerate_page.dart';
 //import 'firebase_options.dart';
 
 part 'routes.dart';
@@ -28,11 +37,54 @@ void main() async {
 
   Bloc.observer = AppBlocObserver();
 
+  /*final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
+  FlutterLocalNotificationsPlugin();
+  const AndroidInitializationSettings initializationSettingsAndroid =
+  AndroidInitializationSettings('@mipmap/ic_launcher');
+  const DarwinInitializationSettings initializationSettingsIOS = DarwinInitializationSettings();
+  //const IOSInitializationSettings initializationSettingsIOS = IOSInitializationSettings();
+  const InitializationSettings initializationSettings =
+  InitializationSettings(
+    android: initializationSettingsAndroid,
+    iOS: initializationSettingsIOS,
+  );
+  await flutterLocalNotificationsPlugin.initialize(
+    initializationSettings,
+    //onSelectNotification: selectNotificationSubject.add,
+    onDidReceiveBackgroundNotificationResponse: (response){},
+    onDidReceiveNotificationResponse: (response){},
+  );
+  await flutterLocalNotificationsPlugin
+      .resolvePlatformSpecificImplementation<
+      IOSFlutterLocalNotificationsPlugin>()
+      ?.requestPermissions(
+    alert: true,
+    badge: true,
+    sound: true,
+  );*/
+
+  Hive.initFlutter();
+
+  SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
+    //systemNavigationBarColor: Theme.of(context).scaffoldBackgroundColor,
+    statusBarColor: Colors.transparent,
+    systemNavigationBarColor: Colors.transparent,
+    systemNavigationBarDividerColor: Colors.transparent,
+  ));
+
+  await SystemChrome.setEnabledSystemUIMode(
+    SystemUiMode.edgeToEdge,
+    overlays: <SystemUiOverlay>[SystemUiOverlay.top, SystemUiOverlay.bottom],
+  );
+
   SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
   ]).then((value) =>
       runApp(MyApp(authenticationRepository: AuthenticationRepository())));
 }
+
+
+
 
 class MyApp extends StatelessWidget {
   const MyApp({
@@ -47,9 +99,10 @@ class MyApp extends StatelessWidget {
     return RepositoryProvider.value(
       value: authenticationRepository,
       child: BlocProvider(
-        create: (_) => AuthenticationBloc(
-          authenticationRepository: authenticationRepository,
-        ),
+        create: (_) =>
+            AuthenticationBloc(
+              authenticationRepository: authenticationRepository,
+            ),
         child: EssRentApp(),
       ),
     );
@@ -57,7 +110,7 @@ class MyApp extends StatelessWidget {
 }
 
 class EssRentApp extends StatelessWidget {
-   EssRentApp({super.key});
+  EssRentApp({super.key});
 
   final _navigatorKey = GlobalKey<NavigatorState>();
 
@@ -91,45 +144,59 @@ class EssRentApp extends StatelessWidget {
           create: (context) => NavigationControllerCubit(),
         ),
         BlocProvider<FilterCubit>(
-          create: (BuildContext context) => FilterCubit(Filter.values(
-              maxPrice: 600.0,
-              minPrice: 50,
-              maxDistance: 5.0,
-              minDistance: 0.0,
-              categoryList: const [])),
+          create: (BuildContext context) =>
+              FilterCubit(Filter.values(
+                  maxPrice: 600.0,
+                  minPrice: 50,
+                  maxDistance: 5.0,
+                  minDistance: 0.0,
+                  categoryList: const [])),
         ),
       ],
-      child: MaterialApp(
-        navigatorKey: _navigatorKey,
-        theme: ThemeData.dark().copyWith(
-          primaryColorLight: Colors.teal,
-          floatingActionButtonTheme:
-              const FloatingActionButtonThemeData(backgroundColor: Colors.cyan),
-        ),
-        //supportedLocales: const <Locale>[Locale('fr')],
-        //home: HomePage(),
-        initialRoute: RouteManager.kRoutes.keys.elementAt(1),
-        routes: RouteManager.kRoutes,
-        /*builder: (context, child) {
-          return BlocListener<AuthenticationBloc, AuthenticationState>(
-            listener: (context, state) {
-              switch (state.status) {
-                case AuthenticationStatus.authenticated:
-                  _navigator.pushNamedAndRemoveUntil<void>(
-                    HomePage.routeName, (route) => false,
-                  );
-                  break;
-                default:
-                  _navigator.pushNamedAndRemoveUntil<void>(
-                    LoginPage.routeName, (route) => false,
-                  );
-                  break;
-              }
+      child: BlocBuilder<StyleAppTheme, ThemeData>(
+        builder: (context, theme) {
+          return MaterialApp(
+            debugShowCheckedModeBanner: false,
+            navigatorKey: _navigatorKey,
+            theme: ThemeData.dark().copyWith(
+              visualDensity: VisualDensity.adaptivePlatformDensity,
+              primaryColorLight: Colors.teal,
+              floatingActionButtonTheme: const FloatingActionButtonThemeData(
+                backgroundColor: Colors.cyan,
+              ),
+            ),
+            //supportedLocales: const <Locale>[Locale('fr')],
+            //home: HomePage(),
+            //initialRoute: RouteManager.kRoutes.keys.elementAt(1),
+            routes: RouteManager.kRoutes,
+            builder: (context, child) {
+              return BlocListener<AuthenticationBloc, AuthenticationState>(
+                listener: (context, state) {
+                  switch (state.status) {
+                    case AuthenticationStatus.authenticated:
+                      _navigator.pushNamedAndRemoveUntil<void>(
+                        HomePage.routeName, (route) => false,
+                      );
+                      break;
+                    default:
+                      _navigator.pushNamedAndRemoveUntil<void>(
+                        LoginPage.routeName, (route) => false,
+                      );
+                      break;
+                  }
+                },
+                child: child,
+              );
             },
-            child: child,
+            onGenerateRoute: (_) => OnGeneratePage.route(),
+            onUnknownRoute: (_) => On404Page.route(),
+
           );
-        },*/
+        },
       ),
     );
   }
 }
+
+
+

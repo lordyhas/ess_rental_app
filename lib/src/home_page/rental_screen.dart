@@ -1,13 +1,11 @@
 part of home_page;
 
 class ShopHomeScreen extends StatefulWidget {
-
-
-  final List<ShopItemData> shopList;
+  //final List<SpaceItemData> shopList;
   final void Function()? onMenuTap;
 
   const ShopHomeScreen({
-    required this.shopList,
+    //required this.shopList,
     super.key,
     this.onMenuTap,
   });
@@ -43,51 +41,58 @@ class _ShopHomeScreenState extends State<ShopHomeScreen>
     super.dispose();
   }
 
+  List<RentItemData> get spaceList =>  DataTest.shops
+      .map(
+        (s) => RentItemData(
+      imagePath: s.imagePath!,
+      titleTxt: s.shopName,
+      subTxt: 'Lubumbashi, CD',
+      distance: distance(
+          fromLatLng:
+          BlocProvider.of<MapsBloc>(context)
+              .state
+              .maps
+              .currentLatLngFromDistance,
+          toLatLng: dist.LatLng(
+              s.location!.latitude,
+              s.location!.longitude)) /
+          1000,
+      reviews: 80,
+      rating: s.rating / s.rater,
+      perNight: 180,
+      rent: s,
+    ),
+  ).toList();
+
   @override
   Widget build(BuildContext context) {
-    Brightness _currentBrightness = Theme.of(context).brightness;
+    //Brightness _currentBrightness = Theme.of(context).brightness;
 
     var images = [
       "assets/img/pub_headset.jpeg",
       "assets/img/pub_sofa.jpeg",
-      "assets/img/pub_sofa.jpeg",
     ];
 
-    /*Future<bool> _willPopDialog(){
-      SystemChrome.setSystemUIOverlayStyle(
-          SystemUiOverlayStyle(
-            statusBarColor: Colors.transparent,
-            statusBarIconBrightness: Theme.of(context).brightness,
-            systemNavigationBarColor: Theme.of(context).primaryColor,
-          )
-      );
-
-      return Future.value(true);
-      //return Future.value(true);
-    }*/
     void onMapClickOpenPage(int index) {
       Navigator.push(
           context,
-          MapSample.route(
-            initialPosition: widget.shopList[index].shop?.location,
-          ));
+          MapSample.route(initialPosition: spaceList[index].rent?.location),
+      );
     }
 
     return Material(
       //backgroundColor: Theme.of(context).scaffoldBackgroundColor.withOpacity(0.9),
-      child: Column(
-        children: <Widget>[
-          Expanded(
-            child: NestedScrollView(
-                //controller: _scrollController,
-                headerSliverBuilder: (context, innerBoxIsScrolled) {
-                  return <Widget>[
-                    SliverList(
-                      delegate: SliverChildBuilderDelegate(
+      child: Expanded(
+        child: NestedScrollView(
+          //controller: _scrollController,
+            headerSliverBuilder: (context, innerBoxIsScrolled) {
+              return <Widget>[
+                SliverList(
+                  delegate: SliverChildBuilderDelegate(
                           (BuildContext context, int index) {
                         return Stack(
                           children: [
-                            Container(
+                            SizedBox(
                               height: 200,
                               child: Image.asset(
                                 images.elementAt(Random().nextInt(2)),
@@ -121,100 +126,58 @@ class _ShopHomeScreenState extends State<ShopHomeScreen>
                           ],
                         );
                       }, childCount: 1),
-                    ),
-                    SliverPersistentHeader(
-                      pinned: true,
-                      floating: true,
-                      delegate: ShopContestTabHeader(
-                        context,
-                      ),
-                    ),
-                  ];
-                },
-                body: ClipRRect(
-                  borderRadius: BorderRadius.circular(30),
-                  child: SingleChildScrollView(
-                    physics: const BouncingScrollPhysics(),
-                    child: Wrap(
-                        spacing: 8.0,
-                        //runSpacing: 8.0,
-                        alignment: WrapAlignment.center,
-                        //runAlignment: WrapAlignment.center,
-                        children:
-                            List.generate(widget.shopList.length, (index) {
-                          return ShopListView(
-                            //heroTag: shopData.shopCode+"$index",
-                            onShopClick: () {
-                              if (index == 0) {
-                                Navigator.push(
-                                    context,
-                                    ShopInfoScreen.route(
-                                        shop: widget.shopList.first.shop!,
-                                        onMapClick: () {
-                                          Navigator.push(
-                                              context,
-                                              MapSample.route(
-                                                initialPosition: widget
-                                                    .shopList[0].shop?.location,
-                                              ));
-                                        }));
-                              } else if (index == 1) {
-                                Navigator.push(
-                                    context,
-                                    ShopInfoScreen.route(
-                                        shop: widget.shopList[index].shop!,
-                                        onMapClick: () {
-                                          Navigator.push(
-                                              context,
-                                              MapSample.route(
-                                                initialPosition: widget
-                                                    .shopList[index]
-                                                    .shop
-                                                    ?.location,
-                                              ));
-                                        }));
-                              }
-                            },
-                            onHueClick: () => onMapClickOpenPage(index),
-                            onLikeClick: () {},
-
-                            shopItem: widget.shopList[index],
-                            //animation: animation,
-                            //animationController: animationController,
-                          );
-                        })),
-                  ),
-                )
-                /* Container(
-                color: Theme.of(context).scaffoldBackgroundColor,
-                    //HotelAppTheme.buildLightTheme().backgroundColor,
-                child: ListView.builder(
-                  itemCount: hotelList.length,
-                  padding: const EdgeInsets.only(top: 8),
-                  scrollDirection: Axis.vertical,
-                  itemBuilder: (BuildContext context, int index) {
-                    final int count =
-                        hotelList.length > 10 ? 10 : hotelList.length;
-                   /* final Animation<double> animation =
-                        Tween<double>(begin: 0.0, end: 1.0).animate(
-                            CurvedAnimation(
-                                parent: animationController,
-                                curve: Interval(
-                                    (1 / count) * index, 1.0,
-                                    curve: Curves.fastOutSlowIn)));*/
-                    //animationController.forward();
-                    return ShopListView(
-                      callback: () {},
-                      hotelData: hotelList[index],
-                      //animation: animation,
-                      //animationController: animationController,
-                    );
-                  },
-                ),*/
                 ),
-          ),
-        ],
-      ),
+                SliverPersistentHeader(
+                  pinned: true,
+                  floating: true,
+                  delegate: ShopContestTabHeader(
+                    context,
+                  ),
+                ),
+              ];
+            },
+            body: ClipRRect(
+              borderRadius: BorderRadius.circular(30),
+              child: SingleChildScrollView(
+                  physics: const BouncingScrollPhysics(),
+                  padding: const EdgeInsets.only(bottom: 32.0),
+                  child: SpaceListView(
+                    //heroTag: shopData.shopCode+"$index",
+
+                    onShopClick: (index) {
+                      PlaceInfoData data = PlaceInfoData(
+                          rent: spaceList.first.rent!,
+                          onMapClick: () {
+                            Navigator.push(
+                                context,
+                                MapSample.route(
+                                  initialPosition:
+                                  spaceList[0].rent?.location,
+                                ));
+                          });
+
+
+                      Go.to(context,
+                        page: PlaceInfoScreen(placeData: data),
+                        routeName: PlaceInfoScreen.routeName,
+                        args: data,
+                      );
+
+
+
+
+                    },
+                    onHueClick: (index) => onMapClickOpenPage(index),
+                    onLikeClick: (index) {
+                      showToastFavorite(context: context);
+                    },
+
+                    spaces: spaceList,
+                    //animation: animation,
+                    //animationController: animationController,
+                  )),
+            )),
+      )
     );
   }
 
@@ -325,8 +288,6 @@ class _ShopHomeScreenState extends State<ShopHomeScreen>
     );
   }
 
-
-
   Widget getTimeDateUI(context) {
     return Padding(
       padding: const EdgeInsets.only(left: 18, bottom: 16),
@@ -425,7 +386,7 @@ class _ShopHomeScreenState extends State<ShopHomeScreen>
                           const SizedBox(
                             height: 8,
                           ),
-                          Text(
+                          const Text(
                             '3 Chambre - 2 Adultes',
                             style: TextStyle(
                               fontWeight: FontWeight.w100,
@@ -458,7 +419,7 @@ class ShopContestTabHeader extends SliverPersistentHeaderDelegate {
   @override
   Widget build(
       BuildContext context, double shrinkOffset, bool overlapsContent) {
-    final shopAppTheme = BlocProvider.of<StyleAppTheme>(context);
+    //final shopAppTheme = BlocProvider.of<StyleAppTheme>(context);
 
     return SizedBox(
       //color: Theme.of(context).scaffoldBackgroundColor,
@@ -527,7 +488,7 @@ class ShopContestTabHeader extends SliverPersistentHeaderDelegate {
                         padding: const EdgeInsets.only(left: 8),
                         child: Row(
                           children: <Widget>[
-                            Text(
+                            const Text(
                               'Filter',
                               style: TextStyle(
                                 fontWeight: FontWeight.w100,
@@ -575,3 +536,31 @@ class ShopContestTabHeader extends SliverPersistentHeaderDelegate {
     return false;
   }
 }
+/*
+void _barBottomNav(){
+  Align(
+      alignment: Alignment.bottomCenter,
+      child: Padding(padding: const EdgeInsets.only(bottom: 10.0) ,
+        child: FancyBottomNavigation(
+          circleColor: Theme.of(context).backgroundColor.withOpacity(0.9),
+          barBackgroundColor: Theme.of(context)
+              .scaffoldBackgroundColor
+              .withOpacity(0.7),
+          inactiveIconColor: Theme.of(context).primaryColorLight,
+          activeIconColor: Colors.white,
+
+
+          tabs: [
+            TabData(iconData: CupertinoIcons.home, title: "Home"),
+            TabData(iconData: CupertinoIcons.car_detailed, title: "Vehicle"),
+            TabData(iconData: CupertinoIcons.shopping_cart, title: "Apart")
+          ],
+          onTabChangedListener: (position) {
+
+          },
+        ),
+      )
+  ),
+}
+
+ */

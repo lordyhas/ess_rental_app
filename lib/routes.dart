@@ -13,10 +13,13 @@ class RouteManager {
   static final kRoutes = <String, WidgetBuilder>{
     "/"                 : (context) => const HomePage(),
     "/home/explore"     : (context) => const HomePage(),
-    "home/settings"     : (context) => const HomePage(),
+    "/home/settings"     : (context) => const HomePage(),
     HomePage.routeName  : (context) => const HomePage(),
     LoginPage.routeName : (context) => const LoginPage(),
     MapSample.routeName : (context) => const MapSample(),
     RentPage.routeName  : (context) => const RentPage(),
+    AboutPage.routeName  : (context) => const AboutPage(),
+    PlaceInfoScreen.routeName  : (context) => const PlaceInfoScreen(),
+    //ProfilePage.routeName  : (context) => const ProfilePage(),
   };
 }

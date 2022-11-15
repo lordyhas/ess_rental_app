@@ -1,10 +1,7 @@
+part of rental.stuff;
 
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../logic/controller/filter_bloc/filter_cubit.dart';
-import '../../logic/values/styles.dart';
-import 'shop_app_theme.dart';
+
 
 class SliderView extends StatefulWidget {
   const SliderView({Key? key, required this.onChangedistValue, required this.distValue})
@@ -14,7 +11,7 @@ class SliderView extends StatefulWidget {
   final double distValue;
 
   @override
-  _SliderViewState createState() => _SliderViewState();
+  State<SliderView> createState() => _SliderViewState();
 }
 
 class _SliderViewState extends State<SliderView> {

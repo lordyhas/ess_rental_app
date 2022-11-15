@@ -1,17 +1,18 @@
 part of home_page;
 
 class SettingPage extends StatefulWidget {
-
-
   final Function()? onMenuTap;
-  const SettingPage({super.key, this.onMenuTap, });
+
+  const SettingPage({
+    super.key,
+    this.onMenuTap,
+  });
 
   @override
   State<SettingPage> createState() => _SettingPageState();
 }
 
 class _SettingPageState extends State<SettingPage> {
-
   bool notification = false;
   bool mail = false;
 
@@ -26,7 +27,7 @@ class _SettingPageState extends State<SettingPage> {
             child: Column(
               children: [
                 SizedBox(
-                  height: 450,
+                  height: 520,
                   child: Stack(
                     children: [
                       Padding(
@@ -41,19 +42,95 @@ class _SettingPageState extends State<SettingPage> {
                               children: [
                                 ListTile(
                                   leading: const Icon(Icons.person),
-                                  title: const Text("Profile info"),
+                                  title: const Text("Modifier le profile"),
+                                  trailing: const Icon(Icons.arrow_forward_ios),
+                                  onTap: () {
+                                    /*Go.to(context,
+                                        page: const ProfilePage(),
+                                        routeName: ProfilePage.routeName);*/
+
+                                    if (!kIsWeb) {
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (_) => Scaffold(
+                                            appBar: AppBar(
+                                              backgroundColor: Colors.transparent,
+                                              elevation: 0.0,
+                                              centerTitle: true,
+                                              leading: IconButton(
+                                                icon: const Icon(Icons.close),
+                                                onPressed: () {
+                                                  Navigator.of(context).pop();
+                                                },
+                                              ),
+                                              title: const Text("Profile info"),
+                                            ),
+                                            body: const SingleChildScrollView(
+                                                child: ProfilePage()
+                                            ),
+                                          ),
+                                        ),
+                                      );
+
+                                      return;
+                                    }
+                                    showDialog(
+                                      barrierDismissible: false,
+                                      context: context,
+                                      builder: (BuildContext context) =>
+                                          SizedBox(
+                                        //width: kMediumDimens,
+                                        child: AlertDialog(
+                                            scrollable: true,
+                                            title: Row(
+                                              //mainAxisAlignment: MainAxisAlignment.end,
+                                              children: [
+                                                const Icon(
+                                                  Icons.close,
+                                                  color: Colors.transparent,
+                                                ),
+                                                const Spacer(),
+                                                const Text("Profile info"),
+                                                const Spacer(),
+                                                IconButton(
+                                                  icon: const Icon(Icons.close),
+                                                  onPressed: () {
+                                                    Navigator.of(context).pop();
+                                                  },
+                                                )
+                                              ],
+                                            ),
+                                            content: const SizedBox(
+                                              width: kMediumDimens,
+                                              //height: MediaQuery.of(context).size.height*90,
+                                              child: ProfilePage(),
+                                            )),
+                                      ),
+                                    );
+                                  },
+                                ),
+                                ListTile(
+                                  leading: const Icon(Icons.password),
+                                  title: const Text("Modifier le mot de passe"),
                                   trailing: const Icon(Icons.arrow_forward_ios),
                                   onTap: () {},
                                 ),
                                 ListTile(
-                                  leading: const Icon(Icons.password),
-                                  title: const Text("Mot de passe"),
+                                  leading: const Icon(Icons.space_dashboard),
+                                  title: const Text("Acceder à MySpace"),
+                                  trailing: const Icon(Icons.arrow_forward_ios),
+                                  onTap: () {},
+                                ),
+                                ListTile(
+                                  leading: const Icon(Icons.message),
+                                  title: const Text("Message et Chat"),
                                   trailing: const Icon(Icons.arrow_forward_ios),
                                   onTap: () {},
                                 ),
                                 ListTile(
                                   leading: const Icon(Icons.map),
-                                  title: const Text("Mon addresse"),
+                                  title: const Text("Mon adresse"),
                                   trailing: const Icon(Icons.arrow_forward_ios),
                                   onTap: () {},
                                 ),
@@ -69,6 +146,7 @@ class _SettingPageState extends State<SettingPage> {
                                   trailing: const Icon(Icons.arrow_forward_ios),
                                   onTap: () {},
                                 ),
+                                const Spacer(),
                               ],
                             ),
                           ),
@@ -79,20 +157,23 @@ class _SettingPageState extends State<SettingPage> {
                         child: Column(
                           children: [
                             ClipRRect(
-                              borderRadius: BorderRadius.circular(50.0),
-                              child: Image.asset("assets/img/profile3.jpg",
-                                height: 100,
-                              )
+                                borderRadius: BorderRadius.circular(50.0),
+                                child: Image.asset(
+                                  "assets/img/profile3.jpg",
+                                  height: 100,
+                                )),
+                            const SizedBox(
+                              height: 16.0,
                             ),
-                            const SizedBox(height: 16.0,),
                             const SelectableText("Unknown Name",
                                 style: TextStyle(
                                   fontWeight: FontWeight.bold,
                                   fontSize: 20.0,
-                                )
+                                )),
+                            const SelectableText(
+                              "guest-user@sfr.com",
+                              style: TextStyle(color: Colors.white60),
                             ),
-                            const SelectableText("guest-user@sfr.com",
-                              style: TextStyle(color: Colors.white60),),
                           ],
                         ),
                       ),
@@ -102,7 +183,7 @@ class _SettingPageState extends State<SettingPage> {
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Card(
-                    margin:const EdgeInsets.all(8.0),
+                    margin: const EdgeInsets.all(8.0),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(20.0),
                     ),
@@ -157,7 +238,7 @@ class _SettingPageState extends State<SettingPage> {
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Card(
-                    margin:const EdgeInsets.all(8.0),
+                    margin: const EdgeInsets.all(8.0),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(20.0),
                     ),
@@ -173,8 +254,19 @@ class _SettingPageState extends State<SettingPage> {
                           //leading: const Icon(Icons.dark_mode),
                           title: const Text("About this app"),
                           trailing: const Icon(Icons.arrow_forward_ios),
-                          onTap: () {},
+                          onLongPress: () {
+                            Go.to(context,
+                                page: const AboutPage(),
+                                routeName: AboutPage.routeName);
+                          },
                         ),
+
+                        /*ListTile(
+                          //leading: const Icon(Icons.dark_mode),
+                          title: const Text("Help"),
+                          trailing: const Icon(Icons.arrow_forward_ios),
+                          onTap: () {},
+                        ),*/
                         FutureBuilder<PackageInfo>(
                             future: PackageInfo.fromPlatform(),
                             builder: (context, snapshot) {

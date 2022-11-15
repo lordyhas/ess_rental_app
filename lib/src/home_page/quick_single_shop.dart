@@ -11,10 +11,8 @@ import 'package:latlong2/latlong.dart' as dist;
 
 import 'package:exploress_location/logic/model/data_model.dart';
 
-import '../../logic/map_data/maps.dart';
-import '../maps_test.dart';
 
-
+/*
 class QuickSingleShop extends StatefulWidget {
   final ShopData shop;
   final void Function()? onMapClick;
@@ -69,7 +67,7 @@ class _QuickSingleShopState extends State<QuickSingleShop> {
                 initialPosition: widget.shop.location,
               ));
             },
-            icon: Icon(FontAwesomeIcons.map),
+            icon: const Icon(FontAwesomeIcons.map),
           ),
         ],
       ),
@@ -167,3 +165,4 @@ class _QuickSingleShopState extends State<QuickSingleShop> {
     );
   }
 }
+*/

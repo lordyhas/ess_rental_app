@@ -1,10 +1,5 @@
-import 'dart:ui';
-import 'package:exploress_location/logic/values.dart' show StyleAppTheme;
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
+part of rental.stuff;
 
-import 'custom_calendar.dart';
 
 class CalendarPopupView extends StatefulWidget {
   const CalendarPopupView({

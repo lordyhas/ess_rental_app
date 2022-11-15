@@ -11,8 +11,8 @@ import 'package:dotted_border/dotted_border.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:utils_component/utils_component.dart' hide Go;
 
-part 'rent_page/rent_screen.dart';
-part 'rent_page/rent_upload_image.dart';
+part 'add_rent_page/rent_screen.dart';
+part 'add_rent_page/rent_upload_image.dart';
 
 class RentPage extends StatelessWidget {
   static const routeName = "/home/rent?id=sfr";

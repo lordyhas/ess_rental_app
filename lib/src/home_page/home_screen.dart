@@ -13,9 +13,9 @@ class _HomeScreenState extends State<HomeScreen> {
 
   double h1Size() {
     if (Responsive.of(context).isPhone) {
-      return 20;
+      return 28;
     } else if (Responsive.of(context).size.width < 720) {
-      return 24;
+      return 28;
     } else if (Responsive.of(context).size.width < 854) {
       return 28;
     } else if (Responsive.of(context).size.width < 1080) {

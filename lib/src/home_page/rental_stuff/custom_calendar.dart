@@ -1,9 +1,4 @@
-import 'package:exploress_location/logic/values.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-
-import 'shop_app_theme.dart';
-import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
+part of rental.stuff;
 
 class CustomCalendarView extends StatefulWidget {
   const CustomCalendarView({

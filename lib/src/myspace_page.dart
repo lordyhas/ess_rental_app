@@ -1,3 +1,5 @@
+
+/*
 library shop_page;
 
 import 'dart:math';
@@ -70,9 +72,9 @@ class _ShopPageState extends State<ShopPage> {
         .toList();*/
     //shopItemList.addAll(ShopItemData.sampleList);
     return ShopHomeScreen(
-        shopList: DataTest.shops
+        spaceList: DataTest.shops
             .map(
-              (shop) => ShopItemData(
+              (shop) => SpaceItemData(
             imagePath: shop.imagePath!,
             titleTxt: shop.shopName,
             subTxt: 'Lubumbashi, CD',
@@ -211,3 +213,4 @@ class _ShopPageState extends State<ShopPage> {
       ),
     );
   }*/
+*/

@@ -1,20 +1,16 @@
 
-import 'package:flutter_bloc/flutter_bloc.dart';
+part of rental.stuff;
 
-import '../../logic/controller/filter_bloc/filter_cubit.dart';
-import '../../logic/values/styles.dart';
-import 'shop_app_theme.dart';
-import 'package:flutter/material.dart';
 
 class RangeSliderView extends StatefulWidget {
-  const RangeSliderView({Key? key, required this.values, this.onChangeRangeValues})
+  const RangeSliderView({required this.values, this.onChangeRangeValues,Key? key,})
       : super(key: key);
 
   final Function(RangeValues)? onChangeRangeValues;
   final RangeValues values;
 
   @override
-  _RangeSliderViewState createState() => _RangeSliderViewState();
+  State<RangeSliderView> createState() => _RangeSliderViewState();
 }
 
 class _RangeSliderViewState extends State<RangeSliderView> {
@@ -32,78 +28,76 @@ class _RangeSliderViewState extends State<RangeSliderView> {
   @override
   Widget build(BuildContext context) {
     Filter filter = BlocProvider.of<FilterCubit>(context).state;
-    return Container(
-      child: Column(
-        children: <Widget>[
-          Stack(
-            children: <Widget>[
-              Row(
-                children: <Widget>[
-                  Expanded(
-                    flex: _values.start.round(),
-                    child: const SizedBox(),
-                  ),
-                  Container(
-                    width: 54,
-                    child: Text(
-                      '\$${_values.start.round()}',
-                      textAlign: TextAlign.center,
-                      style: const TextStyle(color: Colors.white70),
+    return Column(
+      children: <Widget>[
+        Stack(
+          children: <Widget>[
+            Row(
+              children: <Widget>[
+                Expanded(
+                  flex: _values.start.round(),
+                  child: const SizedBox(),
+                ),
+                SizedBox(
+                  width: 54,
+                  child: Text(
+                    '\$${_values.start.round()}',
+                    textAlign: TextAlign.center,
+                    style: const TextStyle(color: Colors.white70),
 
-                    ),
                   ),
-                  Expanded(
-                    flex: 1500 - _values.start.round(),
-                    child: const SizedBox(),
-                  ),
-                ],
-              ),
-              Row(
-                children: <Widget>[
-                  Expanded(
-                    flex: _values.end.round(),
-                    child: const SizedBox(),
-                  ),
-                  Container(
-                    width: 54,
-                    child: Text(
-                      '\$${_values.end.round()}',
-                      textAlign: TextAlign.center,
-                      style: const TextStyle(color: Colors.white70),
-                    ),
-                  ),
-                  Expanded(
-                    flex: 1500 - _values.end.round(),
-                    child: const SizedBox(),
-                  ),
-                ],
-              ),
-            ],
-          ),
-          SliderTheme(
-            data: SliderThemeData(
-              rangeThumbShape: CustomRangeThumbShape(),
+                ),
+                Expanded(
+                  flex: 1500 - _values.start.round(),
+                  child: const SizedBox(),
+                ),
+              ],
             ),
-            child: RangeSlider(
-              //labels: RangeLabels("\$${_values.start}","\$${_values.end}"),
-              values: _values,
-              min: 0.0,
-              max: 1500.0,
-              activeColor: shopAppTheme.buildLightShopTheme.primaryColor,
-              inactiveColor: Colors.grey.withOpacity(0.4),
-              divisions: 1500,
-              onChanged: (RangeValues values) {
-                try {
-                  setState(() {
-                    _values = values;
-                  });
-                  widget.onChangeRangeValues!(_values);
-                } catch (_) {}
-              },
+            Row(
+              children: <Widget>[
+                Expanded(
+                  flex: _values.end.round(),
+                  child: const SizedBox(),
+                ),
+                Container(
+                  width: 54,
+                  child: Text(
+                    '\$${_values.end.round()}',
+                    textAlign: TextAlign.center,
+                    style: const TextStyle(color: Colors.white70),
+                  ),
+                ),
+                Expanded(
+                  flex: 1500 - _values.end.round(),
+                  child: const SizedBox(),
+                ),
+              ],
             ),
+          ],
+        ),
+        SliderTheme(
+          data: SliderThemeData(
+            rangeThumbShape: CustomRangeThumbShape(),
           ),
-        ],
-      ),
+          child: RangeSlider(
+            //labels: RangeLabels("\$${_values.start}","\$${_values.end}"),
+            values: _values,
+            min: 0.0,
+            max: 1500.0,
+            activeColor: shopAppTheme.buildLightShopTheme.primaryColor,
+            inactiveColor: Colors.grey.withOpacity(0.4),
+            divisions: 1500,
+            onChanged: (RangeValues values) {
+              try {
+                setState(() {
+                  _values = values;
+                });
+                widget.onChangeRangeValues!(_values);
+              } catch (_) {}
+            },
+          ),
+        ),
+      ],
     );
   }
 }
@@ -146,8 +140,9 @@ class CustomRangeThumbShape extends RangeSliderThumbShape {
 
     final double size = _thumbSize * sizeTween.evaluate(enableAnimation);
     Path thumbPath;
+    // ignore: exhaustive_cases
     switch (textDirection!) {
-      case TextDirection.rtl:
+      case TextDirection.RTL:
         switch (thumb!) {
           case Thumb.start:
             thumbPath = _rightTriangle(size, center);
@@ -157,7 +152,7 @@ class CustomRangeThumbShape extends RangeSliderThumbShape {
             break;
         }
         break;
-      case TextDirection.ltr:
+      case TextDirection.LTR:
         switch (thumb!) {
           case Thumb.start:
             thumbPath = _leftTriangle(size, center);
@@ -204,4 +199,6 @@ class CustomRangeThumbShape extends RangeSliderThumbShape {
 
   Path _leftTriangle(double size, Offset thumbCenter) =>
       _rightTriangle(size, thumbCenter, invert: true);
+
+
 }

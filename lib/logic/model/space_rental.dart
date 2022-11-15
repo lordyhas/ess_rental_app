@@ -1,6 +1,6 @@
 part of data.model;
 
-class SpaceRental{
+class SpaceRental extends AbstractModel{
   final Object id;
   final String label;
   final int room;
@@ -69,6 +69,7 @@ class SpaceRental{
     );
   }
 
+  @override
   Map<String, dynamic> toMap() {
     return {
       'id': this.id,

@@ -2,10 +2,9 @@ import 'package:exploress_location/logic/values.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'range_slider_view.dart';
-import 'slider_view.dart';
-import 'shop_app_theme.dart';
-import 'model/popular_filter_list.dart';
+import 'package:exploress_location/src/home_page/rental_stuff/model/rental_model.dart';
+import 'package:exploress_location/src/home_page/rental_stuff/rental_stuff.dart';
+
 
 class FiltersScreen extends StatefulWidget {
   @override

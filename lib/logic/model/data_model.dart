@@ -16,8 +16,13 @@ enum RentalType{space, vehicle}
 enum SpaceRentalType{apartment, house, bureau, reception, hall}
 enum VehicleRentalType{A,B,C,D,E}
 
+abstract class AbstractModel extends Object{
+  const AbstractModel();
+  Map<String,dynamic> toMap();
+  //void toString();
+}
 
-class AddressData {
+class AddressData extends AbstractModel {
   final String avenue;
   final String? town;
   final String zone;
@@ -26,11 +31,12 @@ class AddressData {
 
   AddressData({
     required this.avenue,
-    this.town,
     required this.zone,
     required this.number,
     required this.commune,
+    this.town,
   });
+
 
   Map<String,dynamic> asMap() => {
     'avenue': avenue,
@@ -50,10 +56,10 @@ class AddressData {
   );
 
   @override
-  String toString() {
-    // TODO: implement toString
-    return super.toString();
+  Map<String, dynamic> toMap() {
+    return asMap();
   }
+
 }
 
 class Ratings {
@@ -115,6 +121,7 @@ class ImageLinkStorage {
   });
 
   List<String?> toList() => [primaryPath, ...paths];
+
 }
 
 

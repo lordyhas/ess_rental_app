@@ -1,3 +1,5 @@
+part of rental.model;
+
 class PopularFilterListData {
   PopularFilterListData({
     this.titleTxt = '',
