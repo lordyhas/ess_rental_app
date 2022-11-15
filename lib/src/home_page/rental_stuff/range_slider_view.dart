@@ -27,7 +27,7 @@ class _RangeSliderViewState extends State<RangeSliderView> {
 
   @override
   Widget build(BuildContext context) {
-    Filter filter = BlocProvider.of<FilterCubit>(context).state;
+    //Filter filter = BlocProvider.of<FilterCubit>(context).state;
     return Column(
       children: <Widget>[
         Stack(
@@ -59,7 +59,7 @@ class _RangeSliderViewState extends State<RangeSliderView> {
                   flex: _values.end.round(),
                   child: const SizedBox(),
                 ),
-                Container(
+                SizedBox(
                   width: 54,
                   child: Text(
                     '\$${_values.end.round()}',

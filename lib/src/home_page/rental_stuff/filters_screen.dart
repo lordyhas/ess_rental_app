@@ -275,7 +275,7 @@ class _FiltersScreenState extends State<FiltersScreen> {
         ),
         SliderView(
           distValue: distValue,
-          onChangedistValue: (double value) {
+          onChangeDistValue: (double value) {
             distValue = value;
             BlocProvider.of<FilterCubit>(context).change(
               maxDistance: value,

@@ -4,10 +4,13 @@ part of rental.stuff;
 
 
 class SliderView extends StatefulWidget {
-  const SliderView({Key? key, required this.onChangedistValue, required this.distValue})
-      : super(key: key);
+  const SliderView({
+    required this.onChangeDistValue,
+    required this.distValue,
+    super.key,
+  });
 
-  final Function(double) onChangedistValue;
+  final Function(double) onChangeDistValue;
   final double distValue;
 
   @override
@@ -35,7 +38,7 @@ class _SliderViewState extends State<SliderView> {
               flex: distValue.round(),
               child: const SizedBox(),
             ),
-            Container(
+            SizedBox(
               width: 170,
               child: Text(
                 '${ " Moins de ${((distValue* maximumDistanceMeter)/100000).toStringAsFixed(1)}"} Km',
@@ -59,7 +62,7 @@ class _SliderViewState extends State<SliderView> {
                 distValue = value;
               });
               try {
-                widget.onChangedistValue(distValue);
+                widget.onChangeDistValue(distValue);
               } catch (_) {}
             },
             min: 0,
@@ -94,7 +97,7 @@ class CustomThumbShape extends SliderComponentShape {
   @override
   void paint(
     PaintingContext context,
-    Offset thumbCenter, {
+    Offset center, {
     required Animation<double> activationAnimation,
     required Animation<double> enableAnimation,
     required bool isDiscrete,
@@ -114,8 +117,8 @@ class CustomThumbShape extends SliderComponentShape {
     canvas.drawPath(
         Path()
           ..addOval(Rect.fromPoints(
-              Offset(thumbCenter.dx + 12, thumbCenter.dy + 12),
-              Offset(thumbCenter.dx - 12, thumbCenter.dy - 12)))
+              Offset(center.dx + 12, center.dy + 12),
+              Offset(center.dx - 12, center.dy - 12)))
           ..fillType = PathFillType.evenOdd,
         Paint()
           ..color = Colors.black.withOpacity(0.5)
@@ -125,9 +128,9 @@ class CustomThumbShape extends SliderComponentShape {
     final Paint cPaint = Paint();
     cPaint..color = Colors.white;
     cPaint..strokeWidth = 14 / 2;
-    canvas.drawCircle(Offset(thumbCenter.dx, thumbCenter.dy), 12, cPaint);
+    canvas.drawCircle(Offset(center.dx, center.dy), 12, cPaint);
     cPaint..color = colorTween.evaluate(enableAnimation)!;
-    canvas.drawCircle(Offset(thumbCenter.dx, thumbCenter.dy), 10, cPaint);
+    canvas.drawCircle(Offset(center.dx, center.dy), 10, cPaint);
   }
 
   double convertRadiusToSigma(double radius) {
