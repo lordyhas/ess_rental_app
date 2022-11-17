@@ -5,7 +5,7 @@ import 'package:exploress_location/widgets/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
+import 'package:intl/intl.dart' show DateFormat;
 import 'package:exploress_location/logic/model/data_model.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 

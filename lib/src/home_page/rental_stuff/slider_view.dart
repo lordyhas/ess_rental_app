@@ -1,8 +1,5 @@
 part of rental.stuff;
 
-
-
-
 class SliderView extends StatefulWidget {
   const SliderView({
     required this.onChangeDistValue,
@@ -41,7 +38,7 @@ class _SliderViewState extends State<SliderView> {
             SizedBox(
               width: 170,
               child: Text(
-                '${ " Moins de ${((distValue* maximumDistanceMeter)/100000).toStringAsFixed(1)}"} Km',
+                '${" Moins de ${((distValue * maximumDistanceMeter) / 100000).toStringAsFixed(1)}"} Km',
                 textAlign: TextAlign.center,
                 //style: TextStyle(color: Theme.of(context).primaryColorDark),
               ),
@@ -66,7 +63,8 @@ class _SliderViewState extends State<SliderView> {
               } catch (_) {}
             },
             min: 0,
-            max: 100, //maximumDistanceMeter/1000,
+            max: 100,
+            //maximumDistanceMeter/1000,
             activeColor: shopAppTheme.buildLightShopTheme.primaryColor,
             inactiveColor: Colors.grey.withOpacity(0.4),
             divisions: 100,
@@ -98,16 +96,16 @@ class CustomThumbShape extends SliderComponentShape {
   void paint(
     PaintingContext context,
     Offset center, {
-    required Animation<double> activationAnimation,
-    required Animation<double> enableAnimation,
-    required bool isDiscrete,
-    required TextPainter labelPainter,
-    required RenderBox parentBox,
-    required Size sizeWithOverflow,
-    required SliderThemeData sliderTheme,
-    required TextDirection textDirection,
-    required double textScaleFactor,
-    required double value,
+        required Animation<double> activationAnimation,
+        required Animation<double> enableAnimation,
+        required SliderThemeData sliderTheme,
+        bool isDiscrete = false,
+        TextPainter? labelPainter,
+        RenderBox? parentBox,
+        Size? sizeWithOverflow,
+        TextDirection? textDirection,
+        double? textScaleFactor,
+        double? value,
   }) {
     final Canvas canvas = context.canvas;
     final ColorTween colorTween = ColorTween(
@@ -116,8 +114,7 @@ class CustomThumbShape extends SliderComponentShape {
     );
     canvas.drawPath(
         Path()
-          ..addOval(Rect.fromPoints(
-              Offset(center.dx + 12, center.dy + 12),
+          ..addOval(Rect.fromPoints(Offset(center.dx + 12, center.dy + 12),
               Offset(center.dx - 12, center.dy - 12)))
           ..fillType = PathFillType.evenOdd,
         Paint()
@@ -126,10 +123,11 @@ class CustomThumbShape extends SliderComponentShape {
               MaskFilter.blur(BlurStyle.normal, convertRadiusToSigma(8)));
 
     final Paint cPaint = Paint();
-    cPaint..color = Colors.white;
-    cPaint..strokeWidth = 14 / 2;
+    cPaint
+      ..color = Colors.white
+      ..strokeWidth = 14 / 2;
     canvas.drawCircle(Offset(center.dx, center.dy), 12, cPaint);
-    cPaint..color = colorTween.evaluate(enableAnimation)!;
+    cPaint.color = colorTween.evaluate(enableAnimation)!;
     canvas.drawCircle(Offset(center.dx, center.dy), 10, cPaint);
   }
 

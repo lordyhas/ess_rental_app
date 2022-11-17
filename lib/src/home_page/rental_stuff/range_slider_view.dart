@@ -118,17 +118,20 @@ class CustomRangeThumbShape extends RangeSliderThumbShape {
     end: _thumbSize,
   );
 
+
+
+
   @override
   void paint(
         PaintingContext context,
         Offset center, {
         required Animation<double> activationAnimation,
         required Animation<double> enableAnimation,
+        required SliderThemeData sliderTheme,
         bool isDiscrete = false,
         bool isEnabled = false,
         bool? isOnTop,
         bool? isPressed,
-        required SliderThemeData sliderTheme,
         TextDirection? textDirection,
         Thumb? thumb,
   }) {
@@ -140,9 +143,9 @@ class CustomRangeThumbShape extends RangeSliderThumbShape {
 
     final double size = _thumbSize * sizeTween.evaluate(enableAnimation);
     Path thumbPath;
-    // ignore: exhaustive_cases
+
     switch (textDirection!) {
-      case TextDirection.RTL:
+      case TextDirection.rtl:
         switch (thumb!) {
           case Thumb.start:
             thumbPath = _rightTriangle(size, center);
@@ -152,7 +155,7 @@ class CustomRangeThumbShape extends RangeSliderThumbShape {
             break;
         }
         break;
-      case TextDirection.LTR:
+      case TextDirection.ltr:
         switch (thumb!) {
           case Thumb.start:
             thumbPath = _leftTriangle(size, center);
@@ -162,6 +165,7 @@ class CustomRangeThumbShape extends RangeSliderThumbShape {
             break;
         }
         break;
+
     }
 
     canvas.drawPath(
@@ -175,10 +179,9 @@ class CustomRangeThumbShape extends RangeSliderThumbShape {
               MaskFilter.blur(BlurStyle.normal, convertRadiusToSigma(8)));
 
     final Paint cPaint = Paint();
-    cPaint..color = Colors.white;
-    cPaint..strokeWidth = 14 / 2;
+    cPaint..color = Colors.white..strokeWidth = 14 / 2;
     canvas.drawCircle(Offset(center.dx, center.dy), 12, cPaint);
-    cPaint..color = colorTween.evaluate(enableAnimation)!;
+    cPaint.color = colorTween.evaluate(enableAnimation)!;
     canvas.drawCircle(Offset(center.dx, center.dy), 10, cPaint);
     canvas.drawPath(thumbPath, Paint()..color = Colors.white);
   }
