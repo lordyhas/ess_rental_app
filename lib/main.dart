@@ -3,25 +3,21 @@ import 'package:exploress_location/src/perference_page/about_page.dart';
 import 'package:exploress_location/src/home_page.dart';
 import 'package:exploress_location/src/login_page.dart';
 import 'package:exploress_location/src/maps_test.dart';
-import 'package:exploress_location/src/perference_page/edit_profile_page.dart';
-import 'package:exploress_location/src/rental_page.dart';
+import 'package:exploress_location/src/add_rent_page/add_rent_page.dart';
 import 'package:exploress_location/src/home_page/shop_info_screen.dart';
-import 'package:exploress_location/src/myspace_page.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:exploress_location/logic/values.dart';
-import 'package:flutter_local_notifications/flutter_local_notifications.dart';
-import 'package:hive/hive.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 import 'package:firebase_core/firebase_core.dart';
 
-import 'on_404_page.dart';
-import 'ongenerate_page.dart';
+import 'package:exploress_location/on_404_page.dart';
+import 'package:exploress_location/ongenerate_page.dart';
 //import 'firebase_options.dart';
 
 part 'routes.dart';

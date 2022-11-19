@@ -38,7 +38,7 @@ class _SliderViewState extends State<SliderView> {
             SizedBox(
               width: 170,
               child: Text(
-                '${" Moins de ${((distValue * maximumDistanceMeter) / 100000).toStringAsFixed(1)}"} Km',
+                '${"Moins de ${((distValue * maximumDistanceMeter) / 100000).toStringAsFixed(1)}"} Km',
                 textAlign: TextAlign.center,
                 //style: TextStyle(color: Theme.of(context).primaryColorDark),
               ),

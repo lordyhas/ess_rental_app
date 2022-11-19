@@ -9,20 +9,25 @@ import 'package:latlong2/latlong.dart' as geo;
 
 part 'shop_data.dart';
 part 'space_rental.dart';
-
+part 'vehicle_rental.dart';
 
 
 enum RentalType{space, vehicle}
 enum SpaceRentalType{apartment, house, bureau, reception, hall}
 enum VehicleRentalType{A,B,C,D,E}
 
+abstract class StuffRental {
+  const StuffRental();
+  RentalType get rentalType;
+}
+/*
 abstract class AbstractModel extends Object{
   const AbstractModel();
   Map<String,dynamic> toMap();
   //void toString();
-}
+}*/
 
-class AddressData extends AbstractModel {
+class AddressData {
   final String avenue;
   final String? town;
   final String zone;
@@ -52,10 +57,8 @@ class AddressData extends AbstractModel {
     number:map['number'],
     commune: map['commune'],
     town: map['town'],
-
   );
 
-  @override
   Map<String, dynamic> toMap() {
     return asMap();
   }

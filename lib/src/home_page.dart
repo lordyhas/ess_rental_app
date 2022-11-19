@@ -5,7 +5,7 @@ import 'dart:math';
 import 'package:exploress_location/logic/map_data/maps.dart';
 import 'package:exploress_location/logic/values.dart';
 import 'package:exploress_location/src/perference_page/edit_profile_page.dart';
-import 'package:exploress_location/src/rental_page.dart';
+import 'package:exploress_location/src/add_rent_page/add_rent_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';

@@ -1,4 +1,4 @@
-part of '../rental_page.dart';
+part of rent_page;
 
 class UploadImage extends StatefulWidget {
   const UploadImage({Key? key}) : super(key: key);

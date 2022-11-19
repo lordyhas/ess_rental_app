@@ -28,8 +28,8 @@ class User extends Equatable {
     this.lastConnection,
     this.verifiedAccount = false,
     this.isDataCloud = false,
-  })  : assert(email != null),
-        assert(id != null);
+  })  : assert(email != null,"User must have a mail"),
+        assert(id != null,"User must have an id");
 
 
 
@@ -64,7 +64,7 @@ class User extends Equatable {
   final bool? isAnonymous;
 
   /// The current location, mobile position
-  final location;
+  final dynamic location;
 
   /// If all value is okay and verified in Database will be true, else false
   final bool verifiedAccount;
@@ -105,9 +105,9 @@ class User extends Equatable {
     photoCloud: photoCloud ?? this.photoCloud,
     phoneNumber: phoneNumber ?? this.phoneNumber,
     lastDate: lastDate ?? this.lastDate,
-    creationDate: creationTime ?? this.creationDate,
+    creationDate: creationTime ?? creationDate,
     isAnonymous: isAnonymous ?? this.isAnonymous,
-    isCheckMail: isEmail ?? this.isCheckMail,
+    isCheckMail: isEmail ?? isCheckMail,
     lastConnection: lastConnection ?? this.lastConnection,
     verifiedAccount: verifiedAccount ?? this.verifiedAccount,
     location: location ?? this.location,
@@ -116,25 +116,25 @@ class User extends Equatable {
   );
 
 
-  Map<String, dynamic> asMap() => {
+  Map<String, dynamic> toMap() => {
     'id':id,
     'name':name,
     'email':email,
     'photo_profile':photoCloud,
     'photo_mail':photoMail,
     'phone_number': phoneNumber,
-    'last_login':this.lastDate,
-    'creation_time':this.creationDate,
-    'last_connection': this.lastConnection ?? DateTime.now() ,
-    'is_check_mail':this.isCheckMail,
-    'verified_account':this.verifiedAccount,
-    'location':this.location,
-    'is_data_cloud': this.isDataCloud,
+    'last_login':lastDate,
+    'creation_time':creationDate,
+    'last_connection': lastConnection ?? DateTime.now() ,
+    'is_check_mail':isCheckMail,
+    'verified_account':verifiedAccount,
+    'location':location,
+    'is_data_cloud': isDataCloud,
     //'':this,
 
   };
 
-  static User fromMap( Map<String, dynamic> data) => User(
+  static User fromMap(Map<String, dynamic> data) => User(
     id: data['id'],
     name: data['name'],
     email: data['email'],
