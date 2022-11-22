@@ -1,20 +1,20 @@
 part of home_page;
 
-class ShopHomeScreen extends StatefulWidget {
+class RentHomeScreen extends StatefulWidget {
   //final List<SpaceItemData> shopList;
   final void Function()? onMenuTap;
 
-  const ShopHomeScreen({
+  const RentHomeScreen({
     //required this.shopList,
     super.key,
     this.onMenuTap,
   });
 
   @override
-  State<ShopHomeScreen> createState() => _ShopHomeScreenState();
+  State<RentHomeScreen> createState() => _RentHomeScreenState();
 }
 
-class _ShopHomeScreenState extends State<ShopHomeScreen>
+class _RentHomeScreenState extends State<RentHomeScreen>
     with TickerProviderStateMixin {
   DateTime startDate = DateTime.now();
   DateTime endDate = DateTime.now().add(const Duration(days: 5));
@@ -82,36 +82,35 @@ class _ShopHomeScreenState extends State<ShopHomeScreen>
 
     return Material(
       //backgroundColor: Theme.of(context).scaffoldBackgroundColor.withOpacity(0.9),
-      child: Expanded(
-        child: NestedScrollView(
-          //controller: _scrollController,
-            headerSliverBuilder: (context, innerBoxIsScrolled) {
-              return <Widget>[
-                SliverList(
-                  delegate: SliverChildBuilderDelegate(
-                          (BuildContext context, int index) {
-                        return Stack(
-                          children: [
-                            SizedBox(
-                              height: 200,
-                              child: Image.asset(
-                                images.elementAt(Random().nextInt(2)),
-                                //colorBlendMode: BlendMode,
-                                fit: BoxFit.cover,
-                                width: MediaQuery.of(context).size.width,
-                                gaplessPlayback: true,
-                              ),
-                            ),
-                            Container(
+      child: NestedScrollView(
+        //controller: _scrollController,
+          headerSliverBuilder: (context, innerBoxIsScrolled) {
+            return <Widget>[
+              SliverList(
+                delegate: SliverChildBuilderDelegate(
+                        (BuildContext context, int index) {
+                      return Stack(
+                        children: [
+                          SizedBox(
+                            height: 200,
+                            child: Image.asset(
+                              images.elementAt(Random().nextInt(2)),
+                              //colorBlendMode: BlendMode,
+                              fit: BoxFit.cover,
                               width: MediaQuery.of(context).size.width,
-                              height: 200,
-                              //MediaQuery.of(context).size.width,
-                              color: Colors.black.withOpacity(0.6),
+                              gaplessPlayback: true,
                             ),
-                            Column(
-                              children: <Widget>[
-                                getSearchBarUI(context),
-                                /*Container(
+                          ),
+                          Container(
+                            width: MediaQuery.of(context).size.width,
+                            height: 200,
+                            //MediaQuery.of(context).size.width,
+                            color: Colors.black.withOpacity(0.6),
+                          ),
+                          Column(
+                            children: <Widget>[
+                              getSearchBarUI(context),
+                              /*Container(
                                     margin: const EdgeInsets.symmetric(
                                         vertical: 16.0),
                                     child: const Text(
@@ -119,65 +118,64 @@ class _ShopHomeScreenState extends State<ShopHomeScreen>
                                       style: TextStyle(
                                           fontSize: 18, color: Colors.white70),
                                     )),*/
-                                getTimeDateUI(context),
-                                //getTimeDateUI(),
-                              ],
-                            ),
-                          ],
-                        );
-                      }, childCount: 1),
-                ),
-                SliverPersistentHeader(
-                  pinned: true,
-                  floating: true,
-                  delegate: ShopContestTabHeader(
-                    context,
-                  ),
-                ),
-              ];
-            },
-            body: ClipRRect(
-              borderRadius: BorderRadius.circular(30),
-              child: SingleChildScrollView(
-                  physics: const BouncingScrollPhysics(),
-                  padding: const EdgeInsets.only(bottom: 32.0),
-                  child: SpaceListView(
-                    //heroTag: shopData.shopCode+"$index",
-
-                    onShopClick: (index) {
-                      PlaceInfoData data = PlaceInfoData(
-                          rent: spaceList.first.rent!,
-                          onMapClick: () {
-                            Navigator.push(
-                                context,
-                                MapSample.route(
-                                  initialPosition:
-                                  spaceList[0].rent?.location,
-                                ));
-                          });
-
-
-                      Go.to(context,
-                        page: PlaceInfoScreen(placeData: data),
-                        routeName: PlaceInfoScreen.routeName,
-                        args: data,
+                              getTimeDateUI(context),
+                              //getTimeDateUI(),
+                            ],
+                          ),
+                        ],
                       );
+                    }, childCount: 1),
+              ),
+              SliverPersistentHeader(
+                pinned: true,
+                floating: true,
+                delegate: ShopContestTabHeader(
+                  context,
+                ),
+              ),
+            ];
+          },
+          body: ClipRRect(
+            borderRadius: BorderRadius.circular(30),
+            child: SingleChildScrollView(
+                physics: const BouncingScrollPhysics(),
+                padding: const EdgeInsets.only(bottom: 32.0),
+                child: SpaceListView(
+                  //heroTag: shopData.shopCode+"$index",
+
+                  onShopClick: (index) {
+                    PlaceInfoData data = PlaceInfoData(
+                        rent: spaceList.first.rent!,
+                        onMapClick: () {
+                          Navigator.push(
+                              context,
+                              MapSample.route(
+                                initialPosition:
+                                spaceList[0].rent?.location,
+                              ));
+                        });
+
+
+                    Go.to(context,
+                      page: PlaceInfoScreen(placeData: data),
+                      routeName: PlaceInfoScreen.routeName,
+                      args: data,
+                    );
 
 
 
 
-                    },
-                    onHueClick: (index) => onMapClickOpenPage(index),
-                    onLikeClick: (index) {
-                      showToastFavorite(context: context);
-                    },
+                  },
+                  onHueClick: (index) => onMapClickOpenPage(index),
+                  onLikeClick: (index) {
+                    showToastFavorite(context: context);
+                  },
 
-                    spaces: spaceList,
-                    //animation: animation,
-                    //animationController: animationController,
-                  )),
-            )),
-      )
+                  spaces: spaceList,
+                  //animation: animation,
+                  //animationController: animationController,
+                )),
+          )),
     );
   }
 

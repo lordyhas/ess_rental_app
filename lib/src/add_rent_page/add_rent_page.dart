@@ -19,9 +19,9 @@ part 'rent_form.dart';
 
 enum StepperStep{zero,one,two}
 
-class RentPage extends StatelessWidget {
-  static const routeName = "/home/rent?id=sfr";
-  const RentPage({Key? key}) : super(key: key);
+class AddRentPage extends StatelessWidget {
+  static const routeName = "/home/user/rent?id=sfr";
+  const AddRentPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

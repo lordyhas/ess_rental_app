@@ -6,6 +6,7 @@ export 'authentication_bloc/authentication_bloc.dart';
 export 'authentication_bloc/auth_repository/setup.dart';
 export 'navigation_controller_cubit.dart';
 export 'login_bloc/login_cubit.dart';
+export 'rental_controller/rental_controller_bloc.dart';
 
 
 

@@ -17,6 +17,7 @@ enum SpaceRentalType{apartment, house, bureau, reception, hall}
 enum VehicleRentalType{A,B,C,D,E}
 
 abstract class StuffRental {
+
   const StuffRental();
   RentalType get rentalType;
 }

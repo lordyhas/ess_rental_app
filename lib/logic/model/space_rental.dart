@@ -1,111 +1,110 @@
 part of data.model;
 
 class SpaceRental extends StuffRental {
-  final Object id;
   final String label;
-  final int room;
-  final SpaceRentalType spaceType;
+  final dynamic id;
   final String description;
+  final SpaceRentalType spaceType;
+
   final dynamic owner;
+  final int room;
   final List<dynamic> images;
   final AddressData? address;
   final maps.LatLng? coordinates;
-
-  @override
-  RentalType get rentalType => RentalType.space;
-  List<String> get imageUrl => images as List<String>;
-
-
-  static SpaceRental empty = SpaceRental(
-      id: '',
-      label: '',
-      spaceType: SpaceRentalType.apartment,
-      description: '');
-
-  /// Convenience getter to determine whether the current user is empty.
-  bool get isEmpty => this == SpaceRental.empty;
-
-  /// Convenience getter to determine whether the current user is not empty.
-  bool get isNotEmpty => this != SpaceRental.empty;
-
-//<editor-fold desc="Data Methods">
+  final bool isTaken;
 
   const SpaceRental({
-    required this.id,
     required this.label,
-    required this.spaceType,
+    required this.id,
     required this.description,
-    this.images = const [],
-    this.room = 1,
+    required this.spaceType,
     this.owner,
+    this.room = 1,
+    this.images = const [],
     this.address,
     this.coordinates,
-  }) : assert(room < 1, "a space for rent can't have less than 1 room");
-        //assert(imageUrl[0] == null, "an rental space can't have less than 1 room");
+    this.isTaken = false,
+  });
+
+
+  static const empty = SpaceRental(
+      label: '',
+      id: '',
+      description: '',
+      spaceType: SpaceRentalType.apartment
+  );
+
+
+  /// Convenience getter to determine whether the current [SpaceRental] is empty.
+  bool get isEmpty => this == SpaceRental.empty;
+
+  /// Convenience getter to determine whether the current [SpaceRental] is not empty.
+  bool get isNotEmpty => this != SpaceRental.empty;
+
+  @override
+  RentalType get rentalType => RentalType.vehicle;
+
 
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      (other is SpaceRental &&
-          runtimeType == other.runtimeType &&
-          id == other.id &&
-          label == other.label &&
-          room == other.room &&
-          address == other.address &&
-          coordinates == other.coordinates &&
-          spaceType == other.spaceType &&
-          description == other.description &&
-          owner == other.owner &&
-          images == other.images);
+          (other is SpaceRental &&
+              runtimeType == other.runtimeType &&
+              id == other.id &&
+              label == other.label &&
+              room == other.room &&
+              spaceType == other.spaceType &&
+              description == other.description &&
+              owner == other.owner &&
+              images == other.images &&
+              address == other.address &&
+              coordinates == other.coordinates &&
+              isTaken == other.isTaken);
 
   @override
   int get hashCode =>
       id.hashCode ^
       label.hashCode ^
       room.hashCode ^
-      address.hashCode ^
-      coordinates.hashCode ^
       spaceType.hashCode ^
       description.hashCode ^
       owner.hashCode ^
-      images.hashCode;
+      images.hashCode ^
+      address.hashCode ^
+      coordinates.hashCode ^
+      isTaken.hashCode;
 
   @override
   String toString() {
-    return 'SpaceRental{ '
-        'id: $id, '
-        'label: $label, '
-        'room: $room, '
-        'address: $address, '
-        'coordinates: $coordinates, '
-        'spaceType: $spaceType, '
-        'description: $description, '
-        'owner: $owner, '
-        'imageUrl: $images,'
-        '}';
+    return 'SpaceRental{ id: $id, label: $label, room: $room, '
+        'spaceType: $spaceType, description: $description, '
+        'owner: $owner, images: $images, address: $address, '
+        'coordinates: $coordinates, isTaken: $isTaken,}';
   }
 
   SpaceRental copyWith({
-    Object? id,
+    id,
     String? label,
     int? room,
-    AddressData? address,
-    maps.LatLng? coordinates,
     SpaceRentalType? spaceType,
     String? description,
-    dynamic owner,
+    owner,
     List<dynamic>? images,
+    AddressData? address,
+    maps.LatLng? coordinates,
+    bool? isTaken,
   }) {
     return SpaceRental(
       id: id ?? this.id,
       label: label ?? this.label,
       room: room ?? this.room,
-      address: address ?? this.address,
-      coordinates: coordinates ?? this.coordinates,
       spaceType: spaceType ?? this.spaceType,
       description: description ?? this.description,
       owner: owner ?? this.owner,
       images: images ?? this.images,
+      address: address ?? this.address,
+      coordinates: coordinates ?? this.coordinates,
+      isTaken: isTaken ?? this.isTaken,
     );
   }
 
@@ -114,28 +113,30 @@ class SpaceRental extends StuffRental {
       'id': id,
       'label': label,
       'room': room,
-      'address': address,
-      'coordinates': coordinates,
       'spaceType': spaceType,
       'description': description,
       'owner': owner,
-      'imageUrl': images,
+      'images': images,
+      'address': address,
+      'coordinates': coordinates,
+      'isTaken': isTaken,
     };
   }
 
   factory SpaceRental.fromMap(Map<String, dynamic> map) {
     return SpaceRental(
-      id: map['id'] as Object,
+      id: map['id'],
       label: map['label'] as String,
       room: map['room'] as int,
-      address: map['address'] as AddressData,
-      coordinates: map['coordinates'] as maps.LatLng,
       spaceType: map['spaceType'] as SpaceRentalType,
       description: map['description'] as String,
       owner: map['owner'] as dynamic,
-      images: map['imageUrl'] as List<dynamic>,
+      images: map['images'] as List<dynamic>,
+      address: map['address'] as AddressData,
+      coordinates: map['coordinates'] as maps.LatLng,
+      isTaken: map['isTaken'] as bool,
     );
   }
 
-//</editor-fold>
+
 }

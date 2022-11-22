@@ -1,216 +1,339 @@
 
-/*
-library shop_page;
-
-import 'dart:math';
-import 'dart:ui';
-
 import 'package:exploress_location/logic/values.dart';
-import 'package:exploress_location/src/shop/shop_info_screen.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/foundation.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:utils_component/utils_component.dart';
-
-import 'package:exploress_location/data_test.dart';
-import 'package:exploress_location/logic/map_data/maps.dart';
-import 'package:exploress_location/src/maps_test.dart';
-import 'package:exploress_location/src/shop/calendar_popup_view.dart';
-import 'home_page.dart';
-import 'shop/shop_list_view.dart';
-import 'shop/model/shop_list_data.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:intl/intl.dart';
-import 'shop/filters_screen.dart';
 
-//i/mport 'profiles/maps_test.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart' as maps;
-import 'package:latlong2/latlong.dart' as dist;
-
-
-
-class ShopPage extends StatefulWidget {
-
-  const ShopPage({super.key});
-
-  static Route route() {
-    return MaterialPageRoute<void>(builder: (_) => const ShopPage());
-  }
+class UserSpacePage extends StatefulWidget {
+  static const routeName = "/home/user/my_space";
+  const UserSpacePage({Key? key}) : super(key: key);
 
   @override
-  State createState() => _ShopPageState();
+  State<UserSpacePage> createState() => _UserSpacePageState();
 }
 
-class _ShopPageState extends State<ShopPage> {
+class _UserSpacePageState extends State<UserSpacePage> {
+
+  TextStyle get numStyle => const TextStyle(
+      fontSize: 24, fontWeight: FontWeight.bold);
+  TextStyle get textStyle => const TextStyle(fontSize: 20, color: Colors.white70);
+
   @override
   Widget build(BuildContext context) {
-    return Column();
+    double boxWidth = 100.0;
 
-    /*var position = BlocProvider.of<MapsBloc>(context).state.maps;
+    return Scaffold(
+      appBar: AppBar(
+        elevation: 0.0,
+        backgroundColor: Colors.black12,
+        title: const Text("MySpace"),
+      ),
+      body: Center(
+        child: Container(
+          padding: const EdgeInsets.symmetric(horizontal: 8.0),
+          constraints: const BoxConstraints(maxWidth: kMediumDimens),
+          child: Column(
+            children: [
+              const SizedBox(height: 32.0,),
+              ListTile(
+                leading: ClipRRect(
+                  borderRadius: BorderRadius.circular(100),
+                  child: Image.asset("assets/avatar/avatar_1.png", fit: BoxFit.cover,),
+                ),
+                title: const Text("Unknown Name"),
+                subtitle: const Text("guest-user@exploress.com"),
+              ),
 
-    List<ShopItemData> shopItemList = DataTest.shops
-        .map(
-          (shop) => ShopItemData(
-            imagePath: shop.imagePath!,
-            titleTxt: shop.shopName,
-            subTxt: 'Lubumbashi, CD',
-            distance: distance(
-                fromLatLng: BlocProvider.of<MapsBloc>(context)
-                    .state
-                    .maps
-                    .currentLatLngFromDistance,
-                toLatLng: dist.LatLng(
-                    shop.location!.latitude, shop.location!.longitude)),
-            reviews: 80,
-            rating: shop.rating / shop.rater,
-            perNight: 180,
-            shop: shop,
+              const SizedBox(height: 32.0,),
+
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  InkWell(
+                    borderRadius: BorderRadius.circular(20),
+                    onTap: (){},
+                    child: Container(
+                      margin: const EdgeInsets.all(4.0),
+                      height: 75,
+                      alignment: Alignment.center,
+                      decoration: BoxDecoration(
+                        color: Colors.black12,
+                        borderRadius: BorderRadius.circular(20),
+                        image: const DecorationImage(
+                            image: AssetImage("assets/img/bg_image_web.jpeg"),
+                            fit: BoxFit.cover,
+                          colorFilter: ColorFilter.mode(Colors.grey,
+                              BlendMode.color)
+                        ),
+                      ),
+                      constraints: const BoxConstraints(
+                          maxWidth: 200,),
+                      child: Column(
+                        children: const [
+                          Spacer(),
+                          Text("À faire loué",
+                            style: TextStyle(fontSize: 20,color: Colors.white70),
+                          ),
+                          Text("18", style: TextStyle(
+                              fontSize: 28, fontWeight: FontWeight.bold)),
+                          Spacer(),
+                        ],
+                      ),
+                    ),
+                  ),
+
+                  InkWell(
+                    borderRadius: BorderRadius.circular(20),
+                    onTap: (){},
+                    child: Container(
+                      margin: const EdgeInsets.all(4.0),
+                      height: 75,
+                      alignment: Alignment.center,
+                      decoration: BoxDecoration(
+                        color: Colors.black12,
+                        borderRadius: BorderRadius.circular(20),
+                        image: const DecorationImage(
+                            image: AssetImage("assets/img/bg_image_web.jpeg"),
+                            fit: BoxFit.cover,
+                            colorFilter: ColorFilter.mode(Colors.grey,
+                                BlendMode.color)
+                        ),
+                      ),
+                      constraints: const BoxConstraints(
+                          maxWidth: 200,),
+                      child: Column(
+                        children:  const [
+                          Spacer(),
+                          Text("Déjà loué",
+                            style: TextStyle(fontSize: 20,color: Colors.white70),
+                          ),
+                          Text("4",style: TextStyle(
+                              fontSize: 28, fontWeight: FontWeight.bold),),
+                          Spacer(),
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 16.0,),
+
+              Container(
+                //constraints: const BoxConstraints(maxHeight: 200),
+                height: 300,
+                decoration: BoxDecoration(
+                  image: const DecorationImage(
+                      image: AssetImage("assets/img/bg_material_2.jpg"),
+                    fit: BoxFit.cover
+                  ),
+                  borderRadius: BorderRadius.circular(20),
+                  //boxShadow: [BoxShadow(color: Theme.of(context).primaryColorLight)],
+
+                ),
+
+                child: Column(
+                  children: [
+                    const Spacer(),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        Container(
+                          padding: const EdgeInsets.all(16.0),
+                          constraints: const BoxConstraints(maxWidth: 150,),
+                          decoration: BoxDecoration(
+                            color: Colors.black12,
+                            borderRadius: BorderRadius.circular(20),
+                          ),
+                          child: SizedBox(
+                            width: boxWidth,
+                            child: Column(
+                              children: [
+                                 Text("Vue",
+                                  style: textStyle,
+                                ),
+                                Text.rich(TextSpan(
+                                    children: [
+                                      TextSpan(
+                                          text: "4",
+                                          style: numStyle
+                                      ),
+                                      const TextSpan(
+                                        text: "",
+                                      )
+                                    ]
+                                )),
+                              ],
+                            ),
+                          ),
+                        ),
+
+                        Container(
+                          padding: const EdgeInsets.all(16.0),
+                          constraints: const BoxConstraints(maxWidth: 150),
+                          decoration: BoxDecoration(
+                            color: Colors.black12,
+                            borderRadius: BorderRadius.circular(20),
+                          ),
+                          child: SizedBox(
+                            width: boxWidth,
+                            child: Column(
+                              children: [
+                                Text("Like",
+                                  style: textStyle,
+                                ),
+
+                                Text.rich(TextSpan(
+                                    children: [
+                                      TextSpan(
+                                          text: "496",
+                                          style: numStyle
+                                      ),
+                                      const TextSpan(
+                                        text: "\$",
+                                      )
+                                    ]
+                                )),
+                              ],
+                            ),
+                          ),
+                        ),
+
+                        Container(
+                          padding: const EdgeInsets.all(16.0),
+                          constraints: const BoxConstraints(maxWidth: 150,),
+                          decoration: BoxDecoration(
+                            color: Colors.black12,
+                            borderRadius: BorderRadius.circular(20),
+                          ),
+                          child: SizedBox(
+                            width: boxWidth,
+                            child: Column(
+                              children:  [
+                                Text("Déjà loué",
+                                  style: textStyle,
+                                ),
+
+                                Text.rich(TextSpan(
+                                    children: [
+                                      TextSpan(
+                                          text: "4",
+                                          style: numStyle
+                                      ),
+                                      const TextSpan(
+                                        text: "\$",
+                                      )
+                                    ]
+                                )),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    const Spacer(),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        Container(
+                          padding: const EdgeInsets.all(16.0),
+                          constraints: const BoxConstraints(maxWidth: 150),
+                          decoration: BoxDecoration(
+                            color: Colors.black12,
+                            borderRadius: BorderRadius.circular(20),
+                          ),
+                          child: SizedBox(
+                            width: boxWidth,
+                            child: Column(
+                              children: [
+                                Text("Espace",
+                                  style: textStyle,
+                                ),
+                                Text.rich(TextSpan(
+                                    children: [
+                                      TextSpan(
+                                          text: "240",
+                                          style: numStyle
+                                      ),
+                                      const TextSpan(
+                                        text: "Mb",
+                                      )
+                                    ]
+                                )),
+                              ],
+                            ),
+                          ),
+                        ),
+
+                        Container(
+                          padding: const EdgeInsets.all(16.0),
+                          constraints: const BoxConstraints(maxWidth: 150),
+                          decoration: BoxDecoration(
+                            color: Colors.black12,
+                            borderRadius: BorderRadius.circular(20),
+                          ),
+                          child: SizedBox(
+                            width: boxWidth,
+                            child: Column(
+                              children: [
+                                Text("Frais",
+                                  style: textStyle,
+                                ),
+
+                                Text.rich(TextSpan(
+                                  children: [
+                                    TextSpan(
+                                      text: "4",
+                                      style: numStyle
+                                    ),
+                                    const TextSpan(
+                                        text: "\$",
+                                    )
+                                  ]
+                                )),
+                              ],
+                            ),
+                          ),
+                        ),
+
+                        Container(
+                          padding: const EdgeInsets.all(16.0),
+                          constraints: const BoxConstraints(maxWidth: 150),
+                          decoration: BoxDecoration(
+                            color: Colors.black12,
+                            borderRadius: BorderRadius.circular(20),
+                          ),
+                          child: SizedBox(
+                            width: boxWidth,
+                            child: Column(
+                              children: [
+                                const Text("Gain",
+                                  style: TextStyle(color: Colors.white70),
+                                ),
+
+                                Text.rich(TextSpan(
+                                    children: [
+                                      TextSpan(
+                                          text: "1250",
+                                          style: numStyle
+                                      ),
+                                      const TextSpan(
+                                        text: "\$",
+                                      )
+                                    ]
+                                )),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    const Spacer(),
+                  ],
+                ),
+              ),
+
+            ],
           ),
-        )
-        .toList();*/
-    //shopItemList.addAll(ShopItemData.sampleList);
-    return ShopHomeScreen(
-        spaceList: DataTest.shops
-            .map(
-              (shop) => SpaceItemData(
-            imagePath: shop.imagePath!,
-            titleTxt: shop.shopName,
-            subTxt: 'Lubumbashi, CD',
-            distance: distance(
-                fromLatLng: BlocProvider.of<MapsBloc>(context)
-                    .state
-                    .maps
-                    .currentLatLngFromDistance,
-                toLatLng: dist.LatLng(
-                    shop.location!.latitude, shop.location!.longitude)),
-            reviews: 80,
-            rating: shop.rating / shop.rater,
-            perNight: 180,
-            shop: shop,
-          ),
-        ).toList()
+        ),
+      ),
     );
   }
 }
-
-/*Widget getTimeDateUI() {
-
-    return Padding(
-      padding: const EdgeInsets.only(left: 18, bottom: 16),
-      child: Row(
-        children: <Widget>[
-          Expanded(
-            child: Row(
-              children: <Widget>[
-                Material(
-                  color: Colors.transparent,
-                  child: InkWell(
-                    focusColor: Colors.transparent,
-                    highlightColor: Colors.transparent,
-                    hoverColor: Colors.transparent,
-                    splashColor: Colors.grey.withOpacity(0.2),
-                    borderRadius: const BorderRadius.all(
-                      Radius.circular(4.0),
-                    ),
-                    onTap: () {
-                      FocusScope.of(context).requestFocus(FocusNode());
-                      // setState(() {
-                      //   isDatePopupOpen = true;
-                      // });
-                      showDemoDialog(context: context);
-                    },
-                    child: Padding(
-                      padding: const EdgeInsets.only(
-                          left: 8, right: 8, top: 4, bottom: 4),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          Text(
-                            'Choose date',
-                            style: TextStyle(
-                                fontWeight: FontWeight.w100,
-                                fontSize: 16,
-                                color: Colors.grey.withOpacity(0.8)),
-                          ),
-                          const SizedBox(
-                            height: 8,
-                          ),
-                          Text(
-                            '${DateFormat("dd, MMM").format(startDate)} - ${DateFormat("dd, MMM").format(endDate)}',
-                            style: TextStyle(
-                              fontWeight: FontWeight.w100,
-                              fontSize: 16,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.only(right: 8),
-            child: Container(
-              width: 1,
-              height: 42,
-              color: Colors.grey.withOpacity(0.8),
-            ),
-          ),
-          Expanded(
-            child: Row(
-              children: <Widget>[
-                Material(
-                  color: Colors.transparent,
-                  child: InkWell(
-                    focusColor: Colors.transparent,
-                    highlightColor: Colors.transparent,
-                    hoverColor: Colors.transparent,
-                    splashColor: Colors.grey.withOpacity(0.2),
-                    borderRadius: const BorderRadius.all(
-                      Radius.circular(4.0),
-                    ),
-                    onTap: () {
-                      FocusScope.of(context).requestFocus(FocusNode());
-                    },
-                    child: Padding(
-                      padding: const EdgeInsets.only(
-                          left: 8, right: 8, top: 4, bottom: 4),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          Text(
-                            'Number of Rooms',
-                            style: TextStyle(
-                                fontWeight: FontWeight.w100,
-                                fontSize: 16,
-                                color: Colors.grey.withOpacity(0.8)),
-                          ),
-                          const SizedBox(
-                            height: 8,
-                          ),
-                          Text(
-                            '1 Room - 2 Adults',
-                            style: TextStyle(
-                              fontWeight: FontWeight.w100,
-                              fontSize: 16,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ],
-      ),
-    );
-  }*/
-*/

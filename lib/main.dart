@@ -1,4 +1,5 @@
 import 'package:exploress_location/logic/map_data/maps.dart';
+import 'package:exploress_location/src/myspace_page.dart';
 import 'package:exploress_location/src/perference_page/about_page.dart';
 import 'package:exploress_location/src/home_page.dart';
 import 'package:exploress_location/src/login_page.dart';
@@ -76,7 +77,7 @@ void main() async {
   SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
   ]).then((value) =>
-      runApp(MyApp(authenticationRepository: AuthenticationRepository())));
+      runApp(MyApp(authRepository: AuthenticationRepository())));
 }
 
 
@@ -84,21 +85,18 @@ void main() async {
 
 class MyApp extends StatelessWidget {
   const MyApp({
-    required this.authenticationRepository,
+    required this.authRepository,
     Key? key,
   }) : super(key: key);
 
-  final AuthenticationRepository authenticationRepository;
+  final AuthenticationRepository authRepository;
 
   @override
   Widget build(BuildContext context) {
     return RepositoryProvider.value(
-      value: authenticationRepository,
+      value: authRepository,
       child: BlocProvider(
-        create: (_) =>
-            AuthenticationBloc(
-              authenticationRepository: authenticationRepository,
-            ),
+        create: (_) => AuthenticationBloc(authRepository: authRepository,),
         child: EssRentApp(),
       ),
     );
@@ -138,6 +136,9 @@ class EssRentApp extends StatelessWidget {
         ),
         BlocProvider<NavigationControllerCubit>(
           create: (context) => NavigationControllerCubit(),
+        ),
+        BlocProvider<RentalControllerBloc>(
+          create: (context) => RentalControllerBloc(),
         ),
         BlocProvider<FilterCubit>(
           create: (BuildContext context) =>

@@ -26,6 +26,7 @@ import 'package:exploress_location/src/home_page/rental_stuff/rental_stuff.dart'
 import 'home_page/rental_stuff/filters_screen.dart';
 import 'home_page/rental_stuff/model/rental_model.dart';
 import 'home_page/shop_info_screen.dart';
+import 'myspace_page.dart';
 
 
 part 'home_page/rental_screen.dart';
@@ -355,7 +356,7 @@ class _HomePageState extends State<HomePage> {
                     case NavigationScreenState.home:
                       return const HomeScreen();
                     case NavigationScreenState.explorer:
-                      return const ShopHomeScreen();
+                      return const RentHomeScreen();
                     //break;
                     case NavigationScreenState.setting:
                       return const SettingPage();

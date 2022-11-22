@@ -81,8 +81,8 @@ class _HomeScreenState extends State<HomeScreen> {
                               ),
                             ),
                             onPressed: () => Go.to(context,
-                                page: const RentPage(),
-                                routeName: RentPage.routeName),
+                                page: const AddRentPage(),
+                                routeName: AddRentPage.routeName),
                           ),
                           TextButton(
                             child: Padding(

@@ -17,9 +17,10 @@ class RouteManager {
     HomePage.routeName  : (context) => const HomePage(),
     LoginPage.routeName : (context) => const LoginPage(),
     MapSample.routeName : (context) => const MapSample(),
-    RentPage.routeName  : (context) => const RentPage(),
+    AddRentPage.routeName  : (context) => const AddRentPage(),
     AboutPage.routeName  : (context) => const AboutPage(),
     PlaceInfoScreen.routeName  : (context) => const PlaceInfoScreen(),
+    UserSpacePage.routeName  : (context) => const UserSpacePage(),
     //ProfilePage.routeName  : (context) => const ProfilePage(),
   };
 }

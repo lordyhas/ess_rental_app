@@ -14,12 +14,12 @@ part 'authentication_state.dart';
 class AuthenticationBloc
     extends Bloc<AuthenticationEvent, AuthenticationState> {
   AuthenticationBloc(
-      {required AuthenticationRepository authenticationRepository})
-      : _authenticationRepository = authenticationRepository,
+      {required AuthenticationRepository authRepository})
+      : _authenticationRepository = authRepository,
         super(
-          authenticationRepository.currentUser.isNotEmpty
+          authRepository.currentUser.isNotEmpty
               ? AuthenticationState.authenticated(
-                  authenticationRepository.currentUser)
+                  authRepository.currentUser)
               : const AuthenticationState.unauthenticated(),
         ) {
     on<AuthenticationUserChanged>(_onUserChanged);

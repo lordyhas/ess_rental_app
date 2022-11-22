@@ -120,7 +120,13 @@ class _SettingPageState extends State<SettingPage> {
                                   leading: const Icon(Icons.space_dashboard),
                                   title: const Text("Acceder à MySpace"),
                                   trailing: const Icon(Icons.arrow_forward_ios),
-                                  onTap: () {},
+                                  onLongPress: () {
+                                    Go.to(
+                                        context,
+                                        page: const UserSpacePage(),
+                                        routeName: UserSpacePage.routeName
+                                    );
+                                  },
                                 ),
                                 ListTile(
                                   leading: const Icon(Icons.message),
@@ -157,9 +163,9 @@ class _SettingPageState extends State<SettingPage> {
                         child: Column(
                           children: [
                             ClipRRect(
-                                borderRadius: BorderRadius.circular(50.0),
+                                borderRadius: BorderRadius.circular(100.0),
                                 child: Image.asset(
-                                  "assets/img/profile3.jpg",
+                                  "assets/avatar/avatar_1.png",
                                   height: 100,
                                 )),
                             const SizedBox(
@@ -171,7 +177,7 @@ class _SettingPageState extends State<SettingPage> {
                                   fontSize: 20.0,
                                 )),
                             const SelectableText(
-                              "guest-user@sfr.com",
+                              "guest-user@exploress.com",
                               style: TextStyle(color: Colors.white60),
                             ),
                           ],
@@ -255,9 +261,11 @@ class _SettingPageState extends State<SettingPage> {
                           title: const Text("About this app"),
                           trailing: const Icon(Icons.arrow_forward_ios),
                           onLongPress: () {
-                            Go.to(context,
+                            Go.to(
+                                context,
                                 page: const AboutPage(),
-                                routeName: AboutPage.routeName);
+                                routeName: AboutPage.routeName
+                            );
                           },
                         ),
 
