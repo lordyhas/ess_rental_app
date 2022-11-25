@@ -10,7 +10,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_markdown/flutter_markdown.dart';
+
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart' as maps;
@@ -20,23 +20,23 @@ import 'package:utils_component/utils_component.dart' hide Go;
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:exploress_location/src/maps_test.dart';
 import 'package:exploress_location/src/perference_page/about_page.dart';
-
 import 'package:exploress_location/src/home_page/rental_stuff/rental_stuff.dart';
-
-import 'home_page/rental_stuff/filters_screen.dart';
-import 'home_page/rental_stuff/model/rental_model.dart';
-import 'home_page/shop_info_screen.dart';
-import 'myspace_page.dart';
-
+import 'package:exploress_location/src/home_page/rental_stuff/filters_screen.dart';
+import 'package:exploress_location/src/home_page/rental_stuff/model/rental_model.dart';
+import 'package:exploress_location/src/home_page/shop_info_screen.dart';
+import 'package:exploress_location/src/myspace_page.dart';
 
 part 'home_page/rental_screen.dart';
+
 part 'setting_profile_screen.dart';
+
 part 'home_page/home_screen.dart';
 
 class HomePage extends StatefulWidget {
   static const routeName = '/home';
+  final NavigationScreen screenState;
 
-  const HomePage({super.key});
+  const HomePage({super.key, this.screenState = NavigationScreen.home});
 
   @override
   State<HomePage> createState() => _HomePageState();
@@ -45,37 +45,46 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
+  @override
+  void initState() {
+    super.initState();
+    BlocProvider.of<NavigationController>(context)
+        .onPushScreen(widget.screenState);
+  }
+
+  void closeDrawer() => _scaffoldKey.currentState?.closeDrawer();
+
   List<DrawerItem> get items => <DrawerItem>[
         DrawerItem(
-            navigationScreen: NavigationScreenState.home,
+            navigationScreen: NavigationScreen.home,
             icon: const Icon(Icons.home_outlined),
             selectedIcon: const Icon(Icons.home),
             label: const Text('Acceuil'),
             onPressed: () {
-              BlocProvider.of<NavigationControllerCubit>(context)
-                  .changeScreen(NavigationScreenState.home);
-              _scaffoldKey.currentState?.closeDrawer();
+              BlocProvider.of<NavigationController>(context)
+                  .onPushScreen(NavigationScreen.home);
+              closeDrawer();
               setState(() {});
             }),
         DrawerItem(
-            navigationScreen: NavigationScreenState.explorer,
+            navigationScreen: NavigationScreen.explorer,
             icon: const Icon(Icons.view_carousel_outlined),
             selectedIcon: const Icon(Icons.view_carousel),
             label: const Text('Explorer'),
             onPressed: () {
-              BlocProvider.of<NavigationControllerCubit>(context)
-                  .changeScreen(NavigationScreenState.explorer);
+              BlocProvider.of<NavigationController>(context)
+                  .onPushScreen(NavigationScreen.explorer);
               _scaffoldKey.currentState?.closeDrawer();
               setState(() {});
             }),
         DrawerItem(
-            navigationScreen: NavigationScreenState.setting,
+            navigationScreen: NavigationScreen.setting,
             icon: const Icon(Icons.settings),
             selectedIcon: const Icon(Icons.settings),
             label: const Text('Préférences'),
             onPressed: () {
-              BlocProvider.of<NavigationControllerCubit>(context)
-                  .changeScreen(NavigationScreenState.setting);
+              BlocProvider.of<NavigationController>(context)
+                  .onPushScreen(NavigationScreen.setting);
               _scaffoldKey.currentState?.closeDrawer();
 
               setState(() {});
@@ -104,6 +113,10 @@ class _HomePageState extends State<HomePage> {
     }
   }*/
 
+  bool _isSelectedDrawerElement(DrawerItem item) => BlocProvider
+      .of<NavigationController>(context)
+      .currentScreen == item.navigationScreen;
+
   @override
   Widget build(BuildContext context) {
     Responsive responsive = Responsive.of(context);
@@ -111,9 +124,13 @@ class _HomePageState extends State<HomePage> {
     if (kDebugMode) {
       print("==== MediaQuery.of(context).size.width : $screenWidth");
     }
+    
 
     return WillPopScope(
-      onWillPop: () {
+      onWillPop: BlocProvider
+          .of<NavigationController>(context)
+          .onBackScreen,
+      /*() {
         switch (BlocProvider.of<NavigationControllerCubit>(context).state) {
           case NavigationScreenState.home:
             return Future.value(true);
@@ -121,16 +138,17 @@ class _HomePageState extends State<HomePage> {
           //case NavigationScreenState.setting:
           default:
             BlocProvider.of<NavigationControllerCubit>(context)
-                .changeScreen(NavigationScreenState.home);
+                .onPushScreen(NavigationScreenState.home);
             return Future.value(false);
           //case NavigationScreenState.help:
         }
-      },
+      },*/
       child: Row(
         children: <Widget>[
           if (screenWidth > kPhoneDimens && kIsWeb)
             NavigationRail(
-              selectedIndex: BlocProvider.of<NavigationControllerCubit>(context)
+              selectedIndex: BlocProvider
+                  .of<NavigationController>(context)
                   .state
                   .index,
               groupAlignment: 1.0,
@@ -212,7 +230,6 @@ class _HomePageState extends State<HomePage> {
                           const SizedBox(
                             width: 8.0,
                           ),
-
                         ],
                       ),
                       ifFalse: const SizedBox.shrink(),
@@ -228,40 +245,40 @@ class _HomePageState extends State<HomePage> {
                   PopupMenuButton(
                     //enabled: false,
                     tooltip: "",
-                      icon: const Icon(Icons.notifications),
-                      itemBuilder: (BuildContext context) =>
-                      <PopupMenuEntry<int>>[
-                            const PopupMenuItem<int>(
-                              value: 1,
-                              child: ListTile(
-                                title: Text('Heritier M.'),
-                                subtitle: Text(
-                                    "Bonjour, Je cherche une maison 3 pièce ?"),
-                              ),
-                            ),
-                            const PopupMenuItem<int>(
-                              value: 2,
-                              child: ListTile(
-                                title: Text('Mark'),
-                                subtitle: Text(
-                                    "Salut, je peux avoir votre adresse ?"),
-                              ),
-                            ),
-                            const PopupMenuItem<int>(
-                              value: 3,
-                              child: ListTile(
-                                title: Text('Sami Konda'),
-                                subtitle: Text("J'ai besoin d'aide, svp"),
-                              ),
-                            ),
-                            const PopupMenuItem<int>(
-                              value: 3,
-                              child: ListTile(
-                                title: Text('Olga Wivine'),
-                                subtitle: Text("Merci beaucoup."),
-                              ),
-                            ),
-                      ],
+                    icon: const Icon(Icons.notifications),
+                    itemBuilder: (BuildContext context) =>
+                        <PopupMenuEntry<int>>[
+                      const PopupMenuItem<int>(
+                        value: 1,
+                        child: ListTile(
+                          title: Text('Heritier M.'),
+                          subtitle:
+                              Text("Bonjour, Je cherche une maison 3 pièce ?"),
+                        ),
+                      ),
+                      const PopupMenuItem<int>(
+                        value: 2,
+                        child: ListTile(
+                          title: Text('Mark'),
+                          subtitle:
+                              Text("Salut, je peux avoir votre adresse ?"),
+                        ),
+                      ),
+                      const PopupMenuItem<int>(
+                        value: 3,
+                        child: ListTile(
+                          title: Text('Sami Konda'),
+                          subtitle: Text("J'ai besoin d'aide, svp"),
+                        ),
+                      ),
+                      const PopupMenuItem<int>(
+                        value: 3,
+                        child: ListTile(
+                          title: Text('Olga Wivine'),
+                          subtitle: Text("Merci beaucoup."),
+                        ),
+                      ),
+                    ],
                   ),
                 ],
               ),
@@ -293,18 +310,19 @@ class _HomePageState extends State<HomePage> {
                                 // ? : item.selectedIcon
                                 title: item.label,
                                 onTap: item.onPressed,
-                                selected:
-                                    BlocProvider.of<NavigationControllerCubit>(
-                                                context)
-                                            .state ==
-                                        item.navigationScreen,
+                                selected: _isSelectedDrawerElement(item),
                               ),
                             ))
                         .toList(),
                     const Spacer(),
                     const Divider(),
                     ListTile(
-                      onTap: () {},
+                      onTap: (){
+                        BlocProvider.of<NavigationController>(context)
+                            .onPushScreen(NavigationScreen.myspace);
+                        setState(() {});
+
+                      },
                       horizontalTitleGap: 32.0,
                       style: ListTileStyle.drawer,
                       leading: Ink(
@@ -326,7 +344,7 @@ class _HomePageState extends State<HomePage> {
                       ),
                     ),
                     ListTile(
-                      onTap: () {},
+                      onTap: (){},
                       horizontalTitleGap: 32.0,
                       style: ListTileStyle.drawer,
                       leading: Ink(
@@ -348,21 +366,14 @@ class _HomePageState extends State<HomePage> {
                   ],
                 ),
               ),
-              body:
-                  BlocBuilder<NavigationControllerCubit, NavigationScreenState>(
-                //bloc: NavigationControllerCubit(),
+              body: BlocBuilder<NavigationController,
+                  NavigationScreen>(
                 builder: (context, state) {
                   switch (state) {
-                    case NavigationScreenState.home:
-                      return const HomeScreen();
-                    case NavigationScreenState.explorer:
-                      return const RentHomeScreen();
-                    //break;
-                    case NavigationScreenState.setting:
-                      return const SettingPage();
-                    case NavigationScreenState.help:
-                      return Container();
-                    //break;
+                    case NavigationScreen.home: return const HomeScreen();
+                    case NavigationScreen.explorer: return const RentSpace();
+                    case NavigationScreen.setting: return const SettingScreen();
+                    case NavigationScreen.myspace: return const UserSpace();
                   }
 
                   //if(state is NavigationScreenHome)
@@ -441,7 +452,7 @@ class AppBarView extends StatelessWidget {
                   ),
                 ),
               ),
-              Container(
+              SizedBox(
                 width: appBar.preferredSize.height + 50,
                 height: appBar.preferredSize.height,
                 child: Row(
@@ -498,7 +509,7 @@ class AppBarView extends StatelessWidget {
 }
 
 class DrawerItem {
-  final NavigationScreenState navigationScreen;
+  final NavigationScreen navigationScreen;
   final Widget icon;
   final Widget selectedIcon;
   final Widget label;

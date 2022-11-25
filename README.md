@@ -1,4 +1,4 @@
-# exploress_location
+# Exploress KodishApp
 
 A new Flutter project.
 

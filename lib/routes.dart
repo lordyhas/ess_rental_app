@@ -20,7 +20,7 @@ class RouteManager {
     AddRentPage.routeName  : (context) => const AddRentPage(),
     AboutPage.routeName  : (context) => const AboutPage(),
     PlaceInfoScreen.routeName  : (context) => const PlaceInfoScreen(),
-    UserSpacePage.routeName  : (context) => const UserSpacePage(),
+    MySpacePage.routeName  : (context) => const MySpacePage(),
     //ProfilePage.routeName  : (context) => const ProfilePage(),
   };
 }

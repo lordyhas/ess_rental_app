@@ -134,8 +134,8 @@ class EssRentApp extends StatelessWidget {
         BlocProvider<MapsBloc>(
           create: (context) => MapsBloc(),
         ),
-        BlocProvider<NavigationControllerCubit>(
-          create: (context) => NavigationControllerCubit(),
+        BlocProvider<NavigationController>(
+          create: (context) => NavigationController(),
         ),
         BlocProvider<RentalControllerBloc>(
           create: (context) => RentalControllerBloc(),
@@ -154,6 +154,7 @@ class EssRentApp extends StatelessWidget {
         builder: (context, theme) {
           return MaterialApp(
             debugShowCheckedModeBanner: false,
+            title: "Exploress KodishaApp",
             navigatorKey: _navigatorKey,
             theme: ThemeData.dark().copyWith(
               visualDensity: VisualDensity.adaptivePlatformDensity,
@@ -187,6 +188,7 @@ class EssRentApp extends StatelessWidget {
             },
             onGenerateRoute: (_) => OnGeneratePage.route(),
             onUnknownRoute: (_) => On404Page.route(),
+
 
           );
         },

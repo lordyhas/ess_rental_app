@@ -1,18 +1,18 @@
 part of home_page;
 
-class SettingPage extends StatefulWidget {
+class SettingScreen extends StatefulWidget {
   final Function()? onMenuTap;
 
-  const SettingPage({
+  const SettingScreen({
     super.key,
     this.onMenuTap,
   });
 
   @override
-  State<SettingPage> createState() => _SettingPageState();
+  State<SettingScreen> createState() => _SettingScreenState();
 }
 
-class _SettingPageState extends State<SettingPage> {
+class _SettingScreenState extends State<SettingScreen> {
   bool notification = false;
   bool mail = false;
 
@@ -121,11 +121,12 @@ class _SettingPageState extends State<SettingPage> {
                                   title: const Text("Acceder à MySpace"),
                                   trailing: const Icon(Icons.arrow_forward_ios),
                                   onLongPress: () {
-                                    Go.to(
+
+                                    /*Go.to(
                                         context,
-                                        page: const UserSpacePage(),
-                                        routeName: UserSpacePage.routeName
-                                    );
+                                        page: const UserSpace(),
+                                        routeName: UserSpace.routeName
+                                    );*/
                                   },
                                 ),
                                 ListTile(

@@ -42,7 +42,7 @@ class SpaceRental extends StuffRental {
   bool get isNotEmpty => this != SpaceRental.empty;
 
   @override
-  RentalType get rentalType => RentalType.vehicle;
+  RentalType get rentalType => RentalType.space;
 
 
   @override

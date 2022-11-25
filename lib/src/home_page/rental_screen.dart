@@ -1,20 +1,20 @@
 part of home_page;
 
-class RentHomeScreen extends StatefulWidget {
+class RentSpace extends StatefulWidget {
   //final List<SpaceItemData> shopList;
   final void Function()? onMenuTap;
 
-  const RentHomeScreen({
+  const RentSpace({
     //required this.shopList,
     super.key,
     this.onMenuTap,
   });
 
   @override
-  State<RentHomeScreen> createState() => _RentHomeScreenState();
+  State<RentSpace> createState() => _RentSpaceState();
 }
 
-class _RentHomeScreenState extends State<RentHomeScreen>
+class _RentSpaceState extends State<RentSpace>
     with TickerProviderStateMixin {
   DateTime startDate = DateTime.now();
   DateTime endDate = DateTime.now().add(const Duration(days: 5));

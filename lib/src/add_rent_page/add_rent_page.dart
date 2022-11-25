@@ -51,8 +51,8 @@ class _RentScreenState extends State<RentScreen> {
   void initState() {
     super.initState();
     _index = StepperStep.zero;
-    controllers = List<TextEditingController>.generate(10,
-            (index) => TextEditingController());
+    controllers = List<TextEditingController>
+        .filled(10, TextEditingController());
     ctrl = {
       'id': TextEditingController(),
       'label': TextEditingController(),
@@ -63,6 +63,8 @@ class _RentScreenState extends State<RentScreen> {
       'description': TextEditingController(),
       'owner': TextEditingController(),
       'imageUrl': TextEditingController(),
+      'images': TextEditingController(),
+      'isTaken': TextEditingController(),
     };
 
 
