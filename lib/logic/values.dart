@@ -15,6 +15,8 @@ import 'package:latlong2/latlong.dart';
 export 'controller/my_bloc_controller.dart';
 export 'values/styles.dart';
 export 'values/dimens.dart';
+
+//export "package:exploress_repository/exploress_bloc.dart" hide AppBlocObserver;
 //export 'values/colors.dart';
 
 part 'category.dart';
@@ -115,3 +117,16 @@ void showToastFavorite({required BuildContext context, String? message}) =>
       //textStyleSubTitle: TextStyle(),
       //alignment: Alignment.topCenter,
     ).show();
+
+
+class AppConstant{
+  static const name = "KodishApp";
+  static const shortname = "Kodisha";
+  static const fullname = "Kodisha";
+  static const completeName = "Kodisha Application";
+  static const markName = "Exploress Kodisha";
+  static const organisationName = "Exploress";
+  static const developer = "Hassan K.";
+  static const developerId = "lordyhas";
+  static const developerOrg = "KDynamic Lab";
+}

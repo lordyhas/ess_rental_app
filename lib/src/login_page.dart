@@ -1,6 +1,5 @@
 library login_page;
 
-import 'package:exploress_location/logic/controller/login_bloc/login_cubit.dart';
 import 'package:exploress_location/widgets/widgets.dart';
 
 import 'package:flutter/cupertino.dart';

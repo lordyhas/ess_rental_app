@@ -295,7 +295,7 @@ class _HomePageState extends State<HomePage> {
                           ),
                           const Spacer(),
                           const Text(
-                            "SpaceForRent",
+                            AppConstant.name,
                             style: TextStyle(fontWeight: FontWeight.bold),
                           ),
                           const Spacer(),
@@ -410,7 +410,10 @@ class AppBarView extends StatelessWidget {
         ),
         child: Padding(
           padding: EdgeInsets.only(
-              top: MediaQuery.of(context).padding.top, left: 8, right: 8),
+              top: MediaQuery.of(context).padding.top,
+              left: 8,
+              right: 8,
+          ),
           child: Row(
             children: <Widget>[
               Container(
@@ -443,7 +446,7 @@ class AppBarView extends StatelessWidget {
               const Expanded(
                 child: Center(
                   child: Text(
-                    'SpaceForRent',
+                    'KodishApp',
                     style: TextStyle(
                       //color: Theme.of(context).primaryColorDark,
                       fontWeight: FontWeight.w600,
