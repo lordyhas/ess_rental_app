@@ -13,7 +13,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart' as maps;
+
+//import 'package:google_maps_flutter/google_maps_flutter.dart' as maps;
 import 'package:latlong2/latlong.dart' as dist;
 import 'package:exploress_location/data_test.dart';
 import 'package:utils_component/utils_component.dart' hide Go;
@@ -113,9 +114,9 @@ class _HomePageState extends State<HomePage> {
     }
   }*/
 
-  bool _isSelectedDrawerElement(DrawerItem item) => BlocProvider
-      .of<NavigationController>(context)
-      .currentScreen == item.navigationScreen;
+  bool _isSelectedDrawerElement(DrawerItem item) =>
+      BlocProvider.of<NavigationController>(context).currentScreen ==
+      item.navigationScreen;
 
   @override
   Widget build(BuildContext context) {
@@ -124,12 +125,9 @@ class _HomePageState extends State<HomePage> {
     if (kDebugMode) {
       print("==== MediaQuery.of(context).size.width : $screenWidth");
     }
-    
 
     return WillPopScope(
-      onWillPop: BlocProvider
-          .of<NavigationController>(context)
-          .onBackScreen,
+      onWillPop: BlocProvider.of<NavigationController>(context).onBackScreen,
       /*() {
         switch (BlocProvider.of<NavigationControllerCubit>(context).state) {
           case NavigationScreenState.home:
@@ -145,38 +143,35 @@ class _HomePageState extends State<HomePage> {
       },*/
       child: Row(
         children: <Widget>[
+          ///  NavigationRail ++++++++++++++++++++++
           if (screenWidth > kPhoneDimens && kIsWeb)
-            NavigationRail(
-              selectedIndex: BlocProvider
-                  .of<NavigationController>(context)
-                  .state
-                  .index,
-              groupAlignment: 1.0,
-              onDestinationSelected: (int index) {
-                items[index].onPressed!();
-                /*setState(() {
+            BlocBuilder<NavigationController, NavigationScreen>(
+              builder: (context, state) {
+                return NavigationRail(
+                  selectedIndex: state.index,
+                  groupAlignment: 1.0,
+                  onDestinationSelected: (int index) {
+                    items[index].onPressed!();
+                    /*setState(() {
                   _selectedIndex = index;
                 });*/
+                  },
+                  labelType: (screenWidth < 800)
+                      ? NavigationRailLabelType.none
+                      : NavigationRailLabelType.all,
+                  leading: floatingActionButton,
+                  destinations: items
+                      .map((item) => NavigationRailDestination(
+                            icon: item.icon,
+                            selectedIcon: item.selectedIcon,
+                            label: item.label,
+                          ))
+                      .toList(),
+                );
               },
-              labelType: (screenWidth < 800)
-                  ? NavigationRailLabelType.none
-                  : NavigationRailLabelType.all,
-              leading: floatingActionButton,
-              destinations: <NavigationRailDestination>[
-                ...items
-                    .map(
-                      (item) => NavigationRailDestination(
-                        icon: item.icon,
-                        selectedIcon: item.selectedIcon,
-                        label: item.label,
-                      ),
-                    )
-                    .toList(),
-              ],
             ),
 
-          ///const VerticalDivider(thickness: 1, width: 1),
-          // This is the main content.
+          //const VerticalDivider(thickness: 1, width: 1),
           Expanded(
             child: Scaffold(
               key: _scaffoldKey,
@@ -190,7 +185,7 @@ class _HomePageState extends State<HomePage> {
                 title: Row(
                   children: [
                     const Text(
-                      'SpaceForRent',
+                      'KodishApp',
                       style: TextStyle(
                         //color: Theme.of(context).primaryColorDark,
                         fontWeight: FontWeight.w600,
@@ -302,26 +297,29 @@ class _HomePageState extends State<HomePage> {
                         ],
                       ),
                     ),
-                    ...items
-                        .map((item) => SizedBox(
+                    BlocBuilder<NavigationController, NavigationScreen>(
+                      builder: (context, state) {
+                        return Column(
+                            children: items.map((item) => SizedBox(
                               child: ListTile(
                                 key: item.key,
                                 leading: item.icon,
                                 // ? : item.selectedIcon
                                 title: item.label,
                                 onTap: item.onPressed,
-                                selected: _isSelectedDrawerElement(item),
+                                selected: state == item.navigationScreen,
                               ),
-                            ))
-                        .toList(),
+                            )).toList(),
+                        );
+                      },
+                    ),
                     const Spacer(),
                     const Divider(),
                     ListTile(
-                      onTap: (){
+                      onTap: () {
                         BlocProvider.of<NavigationController>(context)
                             .onPushScreen(NavigationScreen.myspace);
                         setState(() {});
-
                       },
                       horizontalTitleGap: 32.0,
                       style: ListTileStyle.drawer,
@@ -344,7 +342,7 @@ class _HomePageState extends State<HomePage> {
                       ),
                     ),
                     ListTile(
-                      onTap: (){},
+                      onTap: () {},
                       horizontalTitleGap: 32.0,
                       style: ListTileStyle.drawer,
                       leading: Ink(
@@ -366,14 +364,17 @@ class _HomePageState extends State<HomePage> {
                   ],
                 ),
               ),
-              body: BlocBuilder<NavigationController,
-                  NavigationScreen>(
+              body: BlocBuilder<NavigationController, NavigationScreen>(
                 builder: (context, state) {
                   switch (state) {
-                    case NavigationScreen.home: return const HomeScreen();
-                    case NavigationScreen.explorer: return const RentSpace();
-                    case NavigationScreen.setting: return const SettingScreen();
-                    case NavigationScreen.myspace: return const UserSpace();
+                    case NavigationScreen.home:
+                      return const HomeScreen();
+                    case NavigationScreen.explorer:
+                      return const RentSpace();
+                    case NavigationScreen.setting:
+                      return const SettingScreen();
+                    case NavigationScreen.myspace:
+                      return const UserSpace();
                   }
 
                   //if(state is NavigationScreenHome)
@@ -410,9 +411,9 @@ class AppBarView extends StatelessWidget {
         ),
         child: Padding(
           padding: EdgeInsets.only(
-              top: MediaQuery.of(context).padding.top,
-              left: 8,
-              right: 8,
+            top: MediaQuery.of(context).padding.top,
+            left: 8,
+            right: 8,
           ),
           child: Row(
             children: <Widget>[

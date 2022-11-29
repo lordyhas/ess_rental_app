@@ -128,6 +128,7 @@ class EssRentApp extends StatelessWidget {
 
     return MultiBlocProvider(
       providers: [
+
         BlocProvider<StyleAppTheme>(
           create: (BuildContext context) => StyleAppTheme(),
         ),
@@ -154,7 +155,7 @@ class EssRentApp extends StatelessWidget {
         builder: (context, theme) {
           return MaterialApp(
             debugShowCheckedModeBanner: false,
-            title: "Exploress KodishaApp",
+            title: "Exploress KodishApp",
             navigatorKey: _navigatorKey,
             theme: ThemeData.dark().copyWith(
               visualDensity: VisualDensity.adaptivePlatformDensity,

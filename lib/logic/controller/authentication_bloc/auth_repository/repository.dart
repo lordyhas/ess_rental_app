@@ -295,7 +295,7 @@ class AuthenticationRepository {
     }
   }
 }
-
+/*
 class _AuthenticationRepository {
   /// {@macro authentication_repository}
   _AuthenticationRepository({
@@ -508,9 +508,9 @@ class _AuthenticationRepository {
     }
   }
 }
-
+*/
 extension on firebase_auth.User {
-  bool get emailNotVerified => !emailVerified;
+  //bool get emailNotVerified => !emailVerified;
 
   User get toUser {
 

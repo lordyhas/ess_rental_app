@@ -21,7 +21,7 @@ class RentalControllerState extends Equatable {
   const RentalControllerState.vehicle(
       VehicleRental vehicleRental,{
         RentalControllerStatus status = RentalControllerStatus.addingInfo,
-      }) : this._(rental: vehicleRental, status: status);
+      }) : this._(rental: vehicleRental, status: status, isMovable: true);
 
   const RentalControllerState.complete(
       StuffRental rental, {

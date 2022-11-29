@@ -54,7 +54,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     const SizedBox( height: 8.0,),
                     ListTile(
                       title: SelectableText(
-                        "Tsheleka Rental App",
+                        "Tsheleka KodishApp",
                         style: TextStyle(fontSize: h1Size()),
                       ),
                       subtitle: const SelectableText(

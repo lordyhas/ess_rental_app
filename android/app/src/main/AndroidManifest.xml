@@ -35,7 +35,7 @@
     <application
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher"
-        android:label="SpaceForRent">
+        android:label="KodishApp">
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyC2hum8BGZJZhXUzvEC23KP70besjww2tM" />

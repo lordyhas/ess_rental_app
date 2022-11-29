@@ -23,13 +23,11 @@ class RentForm extends StatelessWidget {
     'Salle',
   ];
 
-
-
   @override
   Widget build(BuildContext context) {
     //BlocProvider.of<RentalControllerBloc>(context).state;
 
-    BlocProvider.of<RentalControllerBloc>(context).addSpaceRentalPassed(SpaceRental.empty);
+    //BlocProvider.of<RentalControllerBloc>(context).addSpaceRentalPassed(SpaceRental.empty,);
     return Container(
       constraints: const BoxConstraints(maxWidth: 520),
       child: Column(
@@ -41,19 +39,36 @@ class RentForm extends StatelessWidget {
           ),
 
           BlocBuilder<RentalControllerBloc, RentalControllerState>(
-            builder: (context, state) => ButtonBar(
+            builder: (context, state) => Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
+                const Spacer(),
                 TabBarButton(
                   title: const Text("Immobilier"),
                   isSelected: state.isImmovable,
-                  onTap:(){},
-                ),
+                  onTap:() {
+                    BlocProvider
+                        .of<RentalControllerBloc>(context)
+                        .addSpaceRentalPassed(SpaceRental.empty);
+                    //setState(() {});
 
+                    print("SpaceRental.empty");
+                  },
+                ),
+                const SizedBox(width: 8.0,),
                 TabBarButton(
                   title: const Text("Mobilier"),
                   isSelected: state.isMovable,
-                  onTap:(){},
+                  onTap:() {
+                    BlocProvider
+                      .of<RentalControllerBloc>(context)
+                      .addVehicleRentalPassed(VehicleRental.empty);
+                    //setState(() {});
+                    print("VehicleRental.empty");
+
+                  }
                 ),
+                const SizedBox(width: 8.0,),
             ],),
           ),
 
@@ -253,13 +268,14 @@ class TabBarButton extends StatelessWidget {
     Key? key,
   }) :  super(key: key);
 
-  final Function onTap;
+  final Function() onTap;
   final bool isSelected;
   final Text title;
 
   @override
   Widget build(BuildContext context) {
     String txt = title.data!;
+    TextStyle? style = title.style;
     return Expanded(
       child: Container(
         decoration: BoxDecoration(
@@ -273,7 +289,7 @@ class TabBarButton extends StatelessWidget {
           child: InkWell(
             splashColor: Colors.white24,
             borderRadius: const BorderRadius.all(Radius.circular(24.0)),
-            onTap: () => onTap,
+            onTap: onTap,
             child: Padding(
               padding: const EdgeInsets.only(
                   top: 12, bottom: 12, left: 18, right: 18),
@@ -281,7 +297,7 @@ class TabBarButton extends StatelessWidget {
                 child: Text(
                   txt,
                   textAlign: TextAlign.left,
-                  style: TextStyle(
+                  style: style ?? TextStyle(
                     fontWeight: FontWeight.w600,
                     fontSize: 12,
                     letterSpacing: 0.27,

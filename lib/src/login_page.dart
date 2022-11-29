@@ -14,7 +14,7 @@ import 'package:formz/formz.dart';
 import 'package:utils_component/utils_component.dart';
 import 'package:exploress_location/logic/values.dart';
 
-import 'home_page.dart';
+import 'package:exploress_location/src/home_page.dart';
 
 part 'login_page/login_form.dart';
 
@@ -169,7 +169,7 @@ class _LoginPageState extends State<LoginPage>
                                       SizedBox(),
                                       Spacer(),
                                       SelectableText(
-                                        'Welcome to Tsheleka Rental App',
+                                        'Welcome to Tsheleka KodishApp',
                                         style: TextStyle(
                                           fontSize: 20,
                                           fontWeight: FontWeight.w600,
@@ -242,9 +242,11 @@ class _LoginPageState extends State<LoginPage>
                                     text: const TextSpan(
                                       text: 'S\'enregistrer',
                                       style: TextStyle(
-                                        //color: Theme.of(context).primaryColor.withOpacity(.8),
+                                        //color: Colors.white70, //Theme.of(context).primaryColor.withOpacity(.8),
                                         fontSize: 15,
                                       ),
+                                        //recognizer: TapGestureRecognizer()..onTap = (){},
+                                      //mouseCursor: SystemMouseCursors.text,
                                     ),
                                   ),
                                   const SizedBox(),
