@@ -128,27 +128,15 @@ class _HomePageState extends State<HomePage> {
 
     return WillPopScope(
       onWillPop: BlocProvider.of<NavigationController>(context).onBackScreen,
-      /*() {
-        switch (BlocProvider.of<NavigationControllerCubit>(context).state) {
-          case NavigationScreenState.home:
-            return Future.value(true);
-          //case NavigationScreenState.explorer:
-          //case NavigationScreenState.setting:
-          default:
-            BlocProvider.of<NavigationControllerCubit>(context)
-                .onPushScreen(NavigationScreenState.home);
-            return Future.value(false);
-          //case NavigationScreenState.help:
-        }
-      },*/
       child: Row(
         children: <Widget>[
           ///  NavigationRail ++++++++++++++++++++++
           if (screenWidth > kPhoneDimens && kIsWeb)
             BlocBuilder<NavigationController, NavigationScreen>(
               builder: (context, state) {
+                int index = state.index <= 2 ? state.index : 2;
                 return NavigationRail(
-                  selectedIndex: state.index,
+                  selectedIndex: index,
                   groupAlignment: 1.0,
                   onDestinationSelected: (int index) {
                     items[index].onPressed!();
@@ -198,8 +186,10 @@ class _HomePageState extends State<HomePage> {
                       ifTrue: Row(
                         children: [
                           TextButton(
-                            onPressed: () {},
                             child: const Text("My Space"),
+                            onPressed: () => BlocProvider
+                                .of<NavigationController>(context)
+                                .onPushScreen(NavigationScreen.myspace),
                           ),
                           const SizedBox(
                             width: 8.0,

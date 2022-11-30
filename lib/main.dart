@@ -81,8 +81,6 @@ void main() async {
 }
 
 
-
-
 class MyApp extends StatelessWidget {
   const MyApp({
     required this.authRepository,
@@ -153,22 +151,27 @@ class EssRentApp extends StatelessWidget {
       ],
       child: BlocBuilder<StyleAppTheme, ThemeData>(
         builder: (context, theme) {
-          return MaterialApp(
-            debugShowCheckedModeBanner: false,
-            title: "Exploress KodishApp",
-            navigatorKey: _navigatorKey,
-            theme: ThemeData.dark().copyWith(
-              visualDensity: VisualDensity.adaptivePlatformDensity,
-              primaryColorLight: Colors.teal,
-              floatingActionButtonTheme: const FloatingActionButtonThemeData(
-                backgroundColor: Colors.cyan,
-              ),
-            ),
-            //supportedLocales: const <Locale>[Locale('fr')],
-            //home: HomePage(),
-            //initialRoute: RouteManager.kRoutes.keys.elementAt(1),
-            routes: RouteManager.kRoutes,
-            builder: (context, child) {
+          return BlocBuilder<AuthenticationBloc, AuthenticationState>(
+            buildWhen: (prev, next) => prev != next,
+            builder: (context, connect) {
+              return MaterialApp(
+                debugShowCheckedModeBanner: false,
+                title: "Exploress KodishApp",
+                navigatorKey: _navigatorKey,
+                theme: ThemeData.dark().copyWith(
+                  visualDensity: VisualDensity.adaptivePlatformDensity,
+                  primaryColorLight: Colors.teal,
+                  floatingActionButtonTheme: FloatingActionButtonThemeData(
+                    backgroundColor: Colors.cyan.withOpacity(1),
+                  ),
+                ),
+                //supportedLocales: const <Locale>[Locale('fr')],
+                //home: HomePage(),
+                initialRoute: connect.status == AuthenticationStatus.authenticated
+                    ? HomePage.routeName
+                    : LoginPage.routeName,
+                routes: RouteManager.kRoutes,
+                /*builder: (context, child) {
               return BlocListener<AuthenticationBloc, AuthenticationState>(
                 listener: (context, state) {
                   switch (state.status) {
@@ -186,11 +189,13 @@ class EssRentApp extends StatelessWidget {
                 },
                 child: child,
               );
+            },*/
+                onGenerateRoute: (_) => OnGeneratePage.route(),
+                onUnknownRoute: (_) => On404Page.route(),
+
+
+              );
             },
-            onGenerateRoute: (_) => OnGeneratePage.route(),
-            onUnknownRoute: (_) => On404Page.route(),
-
-
           );
         },
       ),

@@ -41,14 +41,13 @@ class UserSpace extends StatelessWidget {
           constraints: const BoxConstraints(maxWidth: kMediumDimens),
           child: Column(
             children: [
-              const SizedBox(
-                height: 32.0,
-              ),
+              const SizedBox(height: 32.0,),
+              const H1("MySpace"),
               ListTile(
                 leading: ClipRRect(
                   borderRadius: BorderRadius.circular(100),
                   child: Image.asset(
-                    "assets/avatar/avatar_1.png",
+                    "assets/img/profile3.jpg",
                     fit: BoxFit.cover,
                   ),
                 ),

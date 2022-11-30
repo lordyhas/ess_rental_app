@@ -52,11 +52,13 @@ class _RentScreenState extends State<RentScreen> {
     super.initState();
     _index = StepperStep.zero;
     controllers = List<TextEditingController>
-        .filled(10, TextEditingController());
+        .generate(10, (index) => TextEditingController());
+        //.filled(10, TextEditingController());
     ctrl = {
       'id': TextEditingController(),
       'label': TextEditingController(),
       'room': TextEditingController(),
+      'price': TextEditingController(),
       'address': TextEditingController(),
       'coordinates': TextEditingController(),
       'spaceType': TextEditingController(),
@@ -81,7 +83,6 @@ class _RentScreenState extends State<RentScreen> {
       onStepCancel: () {
         switch(_index){
           case StepperStep.zero:
-
             break;
           case StepperStep.one:
             setState((){_index = StepperStep.zero;});
@@ -123,10 +124,10 @@ class _RentScreenState extends State<RentScreen> {
 
               ElevatedButton(
                   onPressed: controls.onStepContinue,
-                  child: const Text('Next')),
+                  child: const Text('Suivant')),
               TextButton(
                 onPressed: controls.onStepCancel,
-                child: Text(controls.currentStep==0?'Cancel':'Previous'),
+                child: Text(controls.currentStep == 0 ? 'Annulé' : 'Précédant'),
               ),
 
             ],
@@ -170,6 +171,4 @@ class _RentScreenState extends State<RentScreen> {
       ],
     );
   }
-
-
 }

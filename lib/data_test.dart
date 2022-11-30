@@ -7,10 +7,22 @@ import 'package:exploress_location/logic/model/data_model.dart';
 class DataTest {
   static List<ShopData> shops = [
     ShopData(
+      shopName: "Espace de travail",
+      shopCode: "prole123",
+      imagePath: "assets/local/loc_bureau_1.jpg",
+      email: 'travail@exploress.com',
+      rating: (3 + 3 + 4 + 5 + 2),
+      rater: 5,
+      phoneNumber: "+243 998731145",
+      phoneNumber2: "+243 848731145",
+      canDeliver: true,
+      location: const maps.LatLng(-11.6284708, 27.487585),
+    ),
+    ShopData(
       shopName: "Local avec 2 bureau",
       shopCode: "prostyle123",
       imagePath: "assets/local/loc_bureau_2.jpg",
-      email: 'prostyle243@exploress.com',
+      email: 'prole243@exploress.com',
       rating: (3 + 3 + 4 + 5 + 2),
       rater: 5,
       phoneNumber: "+243 998731145",
@@ -22,7 +34,7 @@ class DataTest {
       shopName: "Entrepot",
       shopCode: "galaxymobile1234",
       imagePath: "assets/local/loc_lib_2.png",
-      email: 'galaxymobile@exploress.com',
+      email: 'galaxymobi@exploress.com',
       rating: (3 + 3 + 4 + 5 + 2),
       rater: 5,
       phoneNumber: "+243 998466121",
@@ -57,6 +69,35 @@ class DataTest {
       canDeliver: true,
       location: const maps.LatLng(-11.628488, 27.483457),
     ),
+
+    ShopData(
+      shopCode: 'VIPQS1234',
+      imagePath: 'assets/local/loc_reunion_2.jpg',
+      shopName: 'Salle de reunion (VIP)',
+      email: 'jojo-vip@exploress.com',
+
+      //subTxt: 'Lubumbashi, CD',
+      rating: (3 + 3 + 4 + 5 + 2+5+5),
+      rater: 7,
+      phoneNumber: "+243 998466121",
+      phoneNumber2: "+243 8418321547",
+      canDeliver: true,
+      location: const maps.LatLng(-11.628488, 27.483457),
+    ),
+
+    ShopData(
+      shopName: "Magasin",
+      shopCode: "galaile1234",
+      imagePath: "assets/local/loc_lib_1.jpg",
+      email: 'magas@exploress.com',
+      rating: (3 + 3 + 4 + 5 + 2),
+      rater: 5,
+      phoneNumber: "+243 998466121",
+      phoneNumber2: "+243 8418321547",
+      canDeliver: true,
+      location: const maps.LatLng(-11.627637, 27.475301),
+    ),
+
   ];
 
   /*static void addProduct() {

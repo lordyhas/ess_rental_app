@@ -41,7 +41,7 @@ class _RentSpaceState extends State<RentSpace>
     super.dispose();
   }
 
-  List<RentItemData> get spaceList =>  DataTest.shops
+  List<RentItemData> get _spaceList =>  DataTest.shops
       .map(
         (s) => RentItemData(
       imagePath: s.imagePath!,
@@ -62,12 +62,12 @@ class _RentSpaceState extends State<RentSpace>
       perNight: 180,
       rent: s,
     ),
-  ).toList();
+  ).toList();//..addAll(spaceList..removeAt(1)..reversed.toList()..shuffle());
 
   @override
   Widget build(BuildContext context) {
     //Brightness _currentBrightness = Theme.of(context).brightness;
-
+    var spaceList = _spaceList..addAll(_spaceList..removeAt(1)..reversed.toList()..shuffle());
     var images = [
       "assets/img/pub_headset.jpeg",
       "assets/img/pub_sofa.jpeg",
@@ -79,6 +79,7 @@ class _RentSpaceState extends State<RentSpace>
           MapSample.route(initialPosition: spaceList[index].rent?.location),
       );
     }
+
 
     return Material(
       //backgroundColor: Theme.of(context).scaffoldBackgroundColor.withOpacity(0.9),

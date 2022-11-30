@@ -55,7 +55,8 @@ class _SettingScreenState extends State<SettingScreen> {
                                         MaterialPageRoute(
                                           builder: (_) => Scaffold(
                                             appBar: AppBar(
-                                              backgroundColor: Colors.transparent,
+                                              backgroundColor:
+                                                  Colors.transparent,
                                               elevation: 0.0,
                                               centerTitle: true,
                                               leading: IconButton(
@@ -67,12 +68,10 @@ class _SettingScreenState extends State<SettingScreen> {
                                               title: const Text("Profile info"),
                                             ),
                                             body: const SingleChildScrollView(
-                                                child: ProfilePage()
-                                            ),
+                                                child: ProfilePage()),
                                           ),
                                         ),
                                       );
-
                                       return;
                                     }
                                     showDialog(
@@ -118,16 +117,11 @@ class _SettingScreenState extends State<SettingScreen> {
                                 ),
                                 ListTile(
                                   leading: const Icon(Icons.space_dashboard),
-                                  title: const Text("Acceder à MySpace"),
+                                  title: const Text("Accéder à MySpace"),
                                   trailing: const Icon(Icons.arrow_forward_ios),
-                                  onLongPress: () {
-
-                                    /*Go.to(
-                                        context,
-                                        page: const UserSpace(),
-                                        routeName: UserSpace.routeName
-                                    );*/
-                                  },
+                                  onTap: () => BlocProvider
+                                      .of<NavigationController>(context)
+                                      .onPushScreen(NavigationScreen.myspace),
                                 ),
                                 ListTile(
                                   leading: const Icon(Icons.message),
@@ -262,11 +256,9 @@ class _SettingScreenState extends State<SettingScreen> {
                           title: const Text("About this app"),
                           trailing: const Icon(Icons.arrow_forward_ios),
                           onLongPress: () {
-                            Go.to(
-                                context,
+                            Go.to(context,
                                 page: const AboutPage(),
-                                routeName: AboutPage.routeName
-                            );
+                                routeName: AboutPage.routeName);
                           },
                         ),
 

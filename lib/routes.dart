@@ -11,7 +11,7 @@ class RouteManager {
   //static const routeName = '/home/explore';
   //static const routeName = "home/settings";
   static final kRoutes = <String, WidgetBuilder>{
-    "/"                 : (context) => const HomePage(),
+    //"/"                 : (context) => const HomePage(),
     "/home/explore"     : (context) => const HomePage(),
     "/home/settings"     : (context) => const HomePage(),
     HomePage.routeName  : (context) => const HomePage(),

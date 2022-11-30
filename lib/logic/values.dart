@@ -15,6 +15,7 @@ import 'package:latlong2/latlong.dart';
 export 'controller/my_bloc_controller.dart';
 export 'values/styles.dart';
 export 'values/dimens.dart';
+export 'utils.dart';
 
 //export "package:exploress_repository/exploress_bloc.dart" hide AppBlocObserver;
 //export 'values/colors.dart';
@@ -130,3 +131,5 @@ class AppConstant{
   static const developerId = "lordyhas";
   static const developerOrg = "KDynamic Lab";
 }
+
+

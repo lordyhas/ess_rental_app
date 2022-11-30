@@ -12,25 +12,28 @@ class SpaceRental extends StuffRental {
   final AddressData? address;
   final maps.LatLng? coordinates;
   final bool isTaken;
+  final int? price;
 
   const SpaceRental({
+    required this.id, // auto
     required this.label,
-    required this.id,
     required this.description,
     required this.spaceType,
-    this.owner,
+    required this.price,
+    this.owner, // auto
     this.room = 1,
     this.images = const [],
     this.address,
     this.coordinates,
-    this.isTaken = false,
+    this.isTaken = false, // auto
   });
 
 
   static const empty = SpaceRental(
-      label: '',
       id: '',
+      label: '',
       description: '',
+      price: null,
       spaceType: SpaceRentalType.apartment
   );
 
@@ -59,7 +62,9 @@ class SpaceRental extends StuffRental {
               images == other.images &&
               address == other.address &&
               coordinates == other.coordinates &&
-              isTaken == other.isTaken);
+              isTaken == other.isTaken &&
+              price == other.price
+          );
 
   @override
   int get hashCode =>
@@ -77,15 +82,17 @@ class SpaceRental extends StuffRental {
   @override
   String toString() {
     return 'SpaceRental{ id: $id, label: $label, room: $room, '
-        'spaceType: $spaceType, description: $description, '
+        'price: $price, spaceType: $spaceType, description: $description, '
         'owner: $owner, images: $images, address: $address, '
         'coordinates: $coordinates, isTaken: $isTaken,}';
   }
 
+  @override
   SpaceRental copyWith({
     id,
     String? label,
     int? room,
+    int? price,
     SpaceRentalType? spaceType,
     String? description,
     owner,
@@ -98,6 +105,7 @@ class SpaceRental extends StuffRental {
       id: id ?? this.id,
       label: label ?? this.label,
       room: room ?? this.room,
+      price: price ?? this.price,
       spaceType: spaceType ?? this.spaceType,
       description: description ?? this.description,
       owner: owner ?? this.owner,
@@ -113,6 +121,7 @@ class SpaceRental extends StuffRental {
       'id': id,
       'label': label,
       'room': room,
+      'price': price,
       'spaceType': spaceType,
       'description': description,
       'owner': owner,
@@ -128,6 +137,7 @@ class SpaceRental extends StuffRental {
       id: map['id'],
       label: map['label'] as String,
       room: map['room'] as int,
+      price: map['price'] as int,
       spaceType: map['spaceType'] as SpaceRentalType,
       description: map['description'] as String,
       owner: map['owner'] as dynamic,

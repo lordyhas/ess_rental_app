@@ -20,6 +20,8 @@ abstract class StuffRental {
 
   const StuffRental();
   RentalType get rentalType;
+
+  StuffRental copyWith();
 }
 /*
 abstract class AbstractModel extends Object{
