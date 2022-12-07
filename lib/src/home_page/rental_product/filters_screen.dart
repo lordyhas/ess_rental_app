@@ -2,16 +2,18 @@ import 'package:exploress_location/logic/values.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:exploress_location/src/home_page/rental_stuff/model/rental_model.dart';
-import 'package:exploress_location/src/home_page/rental_stuff/rental_stuff.dart';
+import 'package:exploress_location/src/home_page/rental_product/model/rental_model.dart';
+import 'package:exploress_location/src/home_page/rental_product/rental_product.dart';
 
 
 class FiltersScreen extends StatefulWidget {
+  const FiltersScreen({super.key});
+
   @override
-  _FiltersScreenState createState() => _FiltersScreenState();
+  State<FiltersScreen> createState() => _FiltersScreenState();
 }
 
-class _FiltersScreenState extends State<FiltersScreen> {
+class _FiltersScreenState extends  State<FiltersScreen> {
   late List<PopularFilterListData> popularFilterListData ;
   late List<PopularFilterListData> storeListData ;
 

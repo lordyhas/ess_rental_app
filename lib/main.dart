@@ -156,7 +156,7 @@ class EssRentApp extends StatelessWidget {
             builder: (context, connect) {
               return MaterialApp(
                 debugShowCheckedModeBanner: false,
-                title: "Exploress KodishApp",
+                title: AppConstant.markName,
                 navigatorKey: _navigatorKey,
                 theme: ThemeData.dark().copyWith(
                   visualDensity: VisualDensity.adaptivePlatformDensity,

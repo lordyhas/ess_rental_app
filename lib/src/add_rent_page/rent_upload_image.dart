@@ -94,7 +94,7 @@ class _UploadImageState extends State<UploadImage> {
                 child: Padding(
                   padding: const EdgeInsets.all(16.0),
                   child: BooleanBuilder(
-                    check: _croppedFile == null,
+                    condition: _croppedFile == null,
                     ifTrue: Container(
                       constraints: BoxConstraints(
                         maxWidth: 0.8 * screenWidth,

@@ -31,23 +31,23 @@ class _AboutState extends State<AboutPage>{
   @override
   void initState() {
     super.initState();
-    initPlatformPackageInfo();
+    //initPlatformPackageInfo();
     //PackageInfo packageInfo = await PackageInfo.fromPlatform();
     //appVersion = packageInfo.version;
 
   }
 
 
-  void initPlatformPackageInfo() async {
+  /*void initPlatformPackageInfo() async {
     PackageInfo packageInfo = await PackageInfo.fromPlatform();
     setState(() {
       appVersion = packageInfo.version;
     });
-    String appName = packageInfo.appName;
-    String packageName = packageInfo.packageName;
+    //String appName = packageInfo.appName;
+    //String packageName = packageInfo.packageName;
     //appVersion = packageInfo.version;
-    String buildNumber = packageInfo.buildNumber;
-  }
+    //String buildNumber = packageInfo.buildNumber;
+  }*/
 
 
 
@@ -98,20 +98,27 @@ class _AboutState extends State<AboutPage>{
                               ),
                               const SizedBox(height: 8.0,),
                               Text(
-                                "Tsheleka Rental App",
+                                "${AppConstant.completeName} (${AppConstant.name})",
                                 style: TextStyle(
                                     color: Theme.of(context).primaryColorLight,
                                     fontSize: 24),
                               ),
-                              const Text("@exploress.rental",),
+                              const Text("kodisha@exploress.space",),
 
                             ],),
                           ),
-                          ListTile(
-                            leading: const Icon(Icons.info),
-                            title: Text("Version", style: primaryTextStyle20,),
-                            subtitle: Text("$appVersion (non-stable)",),
+                          FutureBuilder<PackageInfo>(
+                            future: PackageInfo.fromPlatform(),
+                            builder: (context, snapshot) {
+                              String version = snapshot.data?.version ?? "";
+                              String number = snapshot.data?.buildNumber ?? "";
+                              return ListTile(
+                                leading: const Icon(Icons.info),
+                                title: Text("Version", style: primaryTextStyle20,),
+                                subtitle: Text("$version+$number (non-stable)",),
 
+                              );
+                            }
                           ),
                           ListTile(
                             leading: const Icon(Icons.update),

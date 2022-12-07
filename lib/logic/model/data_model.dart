@@ -13,15 +13,15 @@ part 'vehicle_rental.dart';
 
 
 enum RentalType{space, vehicle}
-enum SpaceRentalType{apartment, house, bureau, reception, hall}
-enum VehicleRentalType{A,B,C,D,E}
+enum RentalSpaceType{apartment, house, bureau, reception, hall}
+enum RentalVehicleType{A,B,C,D,E}
 
-abstract class StuffRental {
+abstract class RentalProduct {
 
-  const StuffRental();
+  const RentalProduct();
   RentalType get rentalType;
 
-  StuffRental copyWith();
+  RentalProduct copyWith();
 }
 /*
 abstract class AbstractModel extends Object{

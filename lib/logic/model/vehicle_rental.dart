@@ -1,10 +1,10 @@
 part of data.model;
 
-class VehicleRental extends StuffRental {
+class RentalVehicle extends RentalProduct {
   final dynamic id;
   final String mark;
   final String description;
-  final VehicleRentalType vehicleType;
+  final RentalVehicleType vehicleType;
 
 
   final dynamic owner;
@@ -17,7 +17,7 @@ class VehicleRental extends StuffRental {
   final int? price;
 
 
-  const VehicleRental({
+  const RentalVehicle({
     required this.mark,
     required this.id,
     required this.description,
@@ -34,22 +34,22 @@ class VehicleRental extends StuffRental {
   });
 
 
-  static const empty = VehicleRental(
+  static const empty = RentalVehicle(
       id: '',
       mark: '',
       description: '',
       price: null,
-      vehicleType: VehicleRentalType.B
+      vehicleType: RentalVehicleType.B
   );
 
 
   /// Convenience getter to determine whether the
-  /// current [VehicleRental] is empty.
-  bool get isEmpty => this == VehicleRental.empty;
+  /// current [RentalVehicle] is empty.
+  bool get isEmpty => this == RentalVehicle.empty;
 
   /// Convenience getter to determine whether the
-  /// current [VehicleRental] is not empty.
-  bool get isNotEmpty => this != VehicleRental.empty;
+  /// current [RentalVehicle] is not empty.
+  bool get isNotEmpty => this != RentalVehicle.empty;
 
   @override
   RentalType get rentalType => RentalType.vehicle;
@@ -59,7 +59,7 @@ class VehicleRental extends StuffRental {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-          (other is VehicleRental &&
+          (other is RentalVehicle &&
               runtimeType == other.runtimeType &&
               id == other.id &&
               mark == other.mark &&
@@ -99,12 +99,12 @@ class VehicleRental extends StuffRental {
   }
 
   @override
-  VehicleRental copyWith({
+  RentalVehicle copyWith({
     dynamic id,
     String? mark,
     int? seat,
     int? price,
-    VehicleRentalType? vehicleType,
+    RentalVehicleType? vehicleType,
     String? description,
     dynamic owner,
     List<dynamic>? images,
@@ -113,7 +113,7 @@ class VehicleRental extends StuffRental {
     maps.LatLng? coordinates,
     bool? isTaken,
   }) {
-    return VehicleRental(
+    return RentalVehicle(
       id: id ?? this.id,
       mark: mark ?? this.mark,
       seat: seat ?? this.seat,
@@ -146,13 +146,13 @@ class VehicleRental extends StuffRental {
     };
   }
 
-  factory VehicleRental.fromMap(Map<String, dynamic> map) {
-    return VehicleRental(
+  factory RentalVehicle.fromMap(Map<String, dynamic> map) {
+    return RentalVehicle(
       id: map['id'] as dynamic,
       mark: map['mark'] as String,
       seat: map['seat'] as int,
       price: map['price'] as int,
-      vehicleType: map['vehicleType'] as VehicleRentalType,
+      vehicleType: map['vehicleType'] as RentalVehicleType,
       description: map['description'] as String,
       owner: map['owner'] as dynamic,
       images: map['images'] as List<dynamic>,

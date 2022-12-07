@@ -21,11 +21,12 @@ import 'package:utils_component/utils_component.dart' hide Go;
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:exploress_location/src/maps_test.dart';
 import 'package:exploress_location/src/perference_page/about_page.dart';
-import 'package:exploress_location/src/home_page/rental_stuff/rental_stuff.dart';
-import 'package:exploress_location/src/home_page/rental_stuff/filters_screen.dart';
-import 'package:exploress_location/src/home_page/rental_stuff/model/rental_model.dart';
+import 'package:exploress_location/src/home_page/rental_product/rental_product.dart';
+import 'package:exploress_location/src/home_page/rental_product/filters_screen.dart';
+import 'package:exploress_location/src/home_page/rental_product/model/rental_model.dart';
 import 'package:exploress_location/src/home_page/shop_info_screen.dart';
 import 'package:exploress_location/src/myspace_page.dart';
+
 
 part 'home_page/rental_screen.dart';
 
@@ -104,19 +105,7 @@ class _HomePageState extends State<HomePage> {
         child: const Icon(CupertinoIcons.map),
       );
 
-  /*void _onMenuTap() {
-    _scaffoldKey.currentState?.openDrawer();
-    //Scaffold.of(context).openDrawer();
-    if (kDebugMode) {
-      print('======== Scaffold.of(context).openDrawer();\n'
-          '======== Scaffold.hasDrawer(context): '
-          '${Scaffold.hasDrawer(context)}');
-    }
-  }*/
 
-  bool _isSelectedDrawerElement(DrawerItem item) =>
-      BlocProvider.of<NavigationController>(context).currentScreen ==
-      item.navigationScreen;
 
   @override
   Widget build(BuildContext context) {
@@ -182,7 +171,7 @@ class _HomePageState extends State<HomePage> {
                     ),
                     const Spacer(),
                     BooleanBuilder(
-                      check: screenWidth > (kPhoneDimens - 40) && kIsWeb,
+                      condition: screenWidth > (kPhoneDimens - 40) && kIsWeb,
                       ifTrue: Row(
                         children: [
                           TextButton(
@@ -421,7 +410,7 @@ class AppBarView extends StatelessWidget {
                       Navigator.pop(context);
                     },
                     child: BooleanBuilder(
-                      check: Responsive.of(context).isPhone,
+                      condition: Responsive.of(context).isPhone,
                       ifFalse: const Padding(
                         padding: EdgeInsets.all(8.0),
                         child: null, //,

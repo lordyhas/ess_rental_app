@@ -3,7 +3,7 @@ part of rent_page;
 class RentForm extends StatelessWidget {
 
   final void Function(bool)? onValidForm;
-  final void Function(StuffRental)? onComplete;
+  final void Function(RentalProduct)? onComplete;
   final GlobalKey<FormState> validator;
   final List<TextEditingController> controllers;
 
@@ -54,7 +54,7 @@ class RentForm extends StatelessWidget {
                   isSelected: state.isImmovable,
                   onTap:() => BlocProvider
                         .of<RentalControllerBloc>(context)
-                        .addSpaceRentalPassed(SpaceRental.empty),
+                        .addSpaceRentalPassed(RentalSpace.empty),
                 ),
                 const SizedBox(width: 8.0,),
                 TabBarButton(
@@ -62,7 +62,7 @@ class RentForm extends StatelessWidget {
                   isSelected: state.isMovable,
                   onTap:() => BlocProvider
                       .of<RentalControllerBloc>(context)
-                      .addVehicleRentalPassed(VehicleRental.empty),
+                      .addVehicleRentalPassed(RentalVehicle.empty),
                 ),
                 const SizedBox(width: 8.0,),
             ],),
@@ -81,7 +81,7 @@ class RentForm extends StatelessWidget {
               return Form(
                 key: validator,
                 child: BooleanBuilder(
-                  check: state.isMovable,
+                  condition: state.isMovable,
                   /// Form : movable ###
                   ifTrue: Column(
                     children: [
@@ -110,11 +110,11 @@ class RentForm extends StatelessWidget {
                             labelText: 'Mark *',
                           ),
                           onEditingComplete: (){
-                            print("onEditingComplete: Mark[${controllers[0].text}]");
+                            //print("onEditingComplete: Mark[${controllers[0].text}]");
                           },
                           onChanged: (str) {},
                           onSaved: (String? value) {
-                            print("onSaved: Mark[${controllers[0].text}}]");
+                            //print("onSaved: Mark[${controllers[0].text}}]");
                           },
                           validator: (v) {
                             if (v!.length < 3) return 'Mark est requis.';
@@ -142,10 +142,10 @@ class RentForm extends StatelessWidget {
                             labelText: 'Description *',
                           ),
                           onEditingComplete: (){
-                            print("onEditingComplete: Description[${controllers[1].text}}]");
+                            //print("onEditingComplete: Description[${controllers[1].text}}]");
                           },
                           onSaved: (String? value) {
-                            print("onSaved: Description[${controllers[1].text}}]");
+                            //print("onSaved: Description[${controllers[1].text}}]");
                           },
                           validator: (v) {
                             if (v!.isEmpty) return 'Détails est requis.';
@@ -177,15 +177,12 @@ class RentForm extends StatelessWidget {
                           onEditingComplete: (){
                             //print("onEditingComplete: Prix[${controllers[2].text}}]");
                           },
-                          onSaved: (String? value) {
+                          onSaved: (value) {
                             //print("onSaved: Prix[${controllers[2].text}}]");
                           },
                           validator: (v) {
                             if (v!.isEmpty) return 'Prix est requis.';
-                            final RegExp priceExp = RegExp(r'(^\d*\.?\d*)');
-                            if (!priceExp.hasMatch(v)) {
-                              return 'Please enter only number .';
-                            }
+                            if(v.isNumeric) return 'Prix doit être un nombre.';
                             return null;
                           },
                         ),
@@ -211,7 +208,7 @@ class RentForm extends StatelessWidget {
                             //^[0-9]{1,6}$
                             final RegExp nameExp = RegExp(r'(^\d*\.?\d*)');
                             if (!nameExp.hasMatch(v)) {
-                                  return 'Please enter only number .';
+                              return 'Please enter only number .';
                             }
                             return null;
                           },
@@ -259,7 +256,7 @@ class RentForm extends StatelessWidget {
                                 ));
                           }).toList(),
                           onChanged: (newValue) {
-                            /// todo: do other stuff with _category doesn't work
+                            ///todo: do other stuff with _category doesn't work
                             //setState(() => _subcategory = newValue!);
                           },
 
@@ -586,5 +583,6 @@ class _RadioItem extends StatelessWidget {
     );
   }
 }
+
 
 

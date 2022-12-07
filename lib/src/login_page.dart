@@ -169,7 +169,8 @@ class _LoginPageState extends State<LoginPage>
                                       SizedBox(),
                                       Spacer(),
                                       SelectableText(
-                                        'Welcome to Tsheleka KodishApp',
+                                        "Welcome to ${AppConstant.name}",
+                                        //'Welcome to Tsheleka KodishApp',
                                         style: TextStyle(
                                           fontSize: 20,
                                           fontWeight: FontWeight.w600,

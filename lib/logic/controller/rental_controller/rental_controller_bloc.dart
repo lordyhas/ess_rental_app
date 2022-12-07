@@ -30,7 +30,7 @@ class RentalControllerBloc
       Emitter<RentalControllerState> emit){
     emit(RentalControllerState.space(event.rental));
   }
-  void addSpaceRentalPassed(SpaceRental rent) => add(SpaceRentalPassed(rent));
+  void addSpaceRentalPassed(RentalSpace rent) => add(SpaceRentalPassed(rent));
 
   void _onSpaceRentalImaged(SpaceRentalImaged event,
       Emitter<RentalControllerState> emit){
@@ -39,14 +39,14 @@ class RentalControllerBloc
         status: RentalControllerStatus.addingImages
     ));
   }
-  void addSpaceRentalImaged(SpaceRental rent) => add(SpaceRentalImaged(rent));
+  void addSpaceRentalImaged(RentalSpace rent) => add(SpaceRentalImaged(rent));
 
   void _onSpaceRentalCompleted(SpaceRentalCompleted event,
       Emitter<RentalControllerState> emit){
     emit(RentalControllerState.complete(event.rental));
 
   }
-  void addSpaceRentalCompleted(SpaceRental r) => add(SpaceRentalCompleted(r));
+  void addSpaceRentalCompleted(RentalSpace r) => add(SpaceRentalCompleted(r));
 
 
   // --- --- ---
@@ -56,7 +56,7 @@ class RentalControllerBloc
       Emitter<RentalControllerState> emit){
     emit(RentalControllerState.vehicle(event.rental));
   }
-  void addVehicleRentalPassed(VehicleRental r) => add(VehicleRentalPassed(r));
+  void addVehicleRentalPassed(RentalVehicle r) => add(VehicleRentalPassed(r));
 
   void _onVehicleRentalImaged(VehicleRentalImaged event,
       Emitter<RentalControllerState> emit){
@@ -65,14 +65,14 @@ class RentalControllerBloc
         status: RentalControllerStatus.addingImages
     ));
   }
-  void addVehicleRentalImaged(VehicleRental r) => add(VehicleRentalImaged(r));
+  void addVehicleRentalImaged(RentalVehicle r) => add(VehicleRentalImaged(r));
 
   void _onVehicleRentalCompleted(VehicleRentalCompleted event,
       Emitter<RentalControllerState> emit){
     emit(RentalControllerState.complete(event.rental));
   }
 
-  void addVehicleRentalCompleted(VehicleRental r) =>
+  void addVehicleRentalCompleted(RentalVehicle r) =>
       add(VehicleRentalCompleted(r));
   
 

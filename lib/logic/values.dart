@@ -16,6 +16,9 @@ export 'controller/my_bloc_controller.dart';
 export 'values/styles.dart';
 export 'values/dimens.dart';
 export 'utils.dart';
+export 'extension.dart';
+
+
 
 //export "package:exploress_repository/exploress_bloc.dart" hide AppBlocObserver;
 //export 'values/colors.dart';
@@ -120,16 +123,6 @@ void showToastFavorite({required BuildContext context, String? message}) =>
     ).show();
 
 
-class AppConstant{
-  static const name = "KodishApp";
-  static const shortname = "Kodisha";
-  static const fullname = "Kodisha";
-  static const completeName = "Kodisha Application";
-  static const markName = "Exploress Kodisha";
-  static const organisationName = "Exploress";
-  static const developer = "Hassan K.";
-  static const developerId = "lordyhas";
-  static const developerOrg = "KDynamic Lab";
-}
+
 
 

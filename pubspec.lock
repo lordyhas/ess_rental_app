@@ -1249,7 +1249,7 @@ packages:
     description:
       path: "."
       ref: HEAD
-      resolved-ref: "5c3522b19ebd2a09222525b1d564af0193871daa"
+      resolved-ref: d971a440336aa5b7a19bce1e2b5048322249e3d3
       url: "https://github.com/lordyhas/utils_component"
     source: git
     version: "0.0.1"

@@ -3,34 +3,34 @@ part of 'rental_controller_bloc.dart';
 enum RentalControllerStatus{initial, addingInfo, addingImages, checkingAll}
 
 class RentalControllerState extends Equatable {
-  final StuffRental rental;
+  final RentalProduct rental;
   final RentalControllerStatus status;
   final bool isCompleted;
   final bool _isMovable;
   const RentalControllerState._({
-    this.rental =  SpaceRental.empty,
+    this.rental =  RentalSpace.empty,
     this.status = RentalControllerStatus.initial,
     this.isCompleted = false,
     bool isMovable = false, }) : _isMovable = isMovable;
   const RentalControllerState.initial() : this._();
   const RentalControllerState.space(
-      SpaceRental spaceRental, {
+      RentalSpace spaceRental, {
         RentalControllerStatus status = RentalControllerStatus.addingInfo,
       }) : this._(rental: spaceRental, status: status, isMovable: false);
 
   const RentalControllerState.vehicle(
-      VehicleRental vehicleRental,{
+      RentalVehicle vehicleRental,{
         RentalControllerStatus status = RentalControllerStatus.addingInfo,
       }) : this._(rental: vehicleRental, status: status, isMovable: true);
 
   const RentalControllerState.complete(
-      StuffRental rental, {
+      RentalProduct rental, {
         RentalControllerStatus status = RentalControllerStatus.checkingAll,
       }) : this._(
       rental: rental,
       status: status,
       isCompleted: true,
-      isMovable: StuffRental is VehicleRental);
+      isMovable: RentalProduct is RentalVehicle);
 
   bool get isMovable => _isMovable;
   bool get isImmovable => !_isMovable;

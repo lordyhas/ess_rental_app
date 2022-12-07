@@ -78,97 +78,100 @@ class _RentScreenState extends State<RentScreen> {
 
     //BlocProvider.of<RentalControllerBloc>(context).state;
 
-    return Stepper(
-      currentStep: _index.index,
-      onStepCancel: () {
-        switch(_index){
-          case StepperStep.zero:
-            break;
-          case StepperStep.one:
-            setState((){_index = StepperStep.zero;});
-            break;
-          case StepperStep.two:
-            setState((){_index = StepperStep.one;});
-            break;
-        }
-      },
-      onStepContinue: () {
-        switch(_index){
-          case StepperStep.zero:
-            if (validator.currentState!.validate()){
-              validator.currentState!.save();
+    return SizedBox(
+      width: 720,
+      child: Stepper(
+        currentStep: _index.index,
+        onStepCancel: () {
+          switch(_index){
+            case StepperStep.zero:
+              break;
+            case StepperStep.one:
+              setState((){_index = StepperStep.zero;});
+              break;
+            case StepperStep.two:
               setState((){_index = StepperStep.one;});
-            }
-            break;
-          case StepperStep.one:
-            setState((){_index = StepperStep.two;});
-            break;
-          case StepperStep.two:
-          //setState((){_index = StepperStep.one;});
-            break;
-        }
-      },
-      onStepTapped: null,
-      /*(int index) {
-      setState(() {
-        _index = index;
-      });
-    },*/
-      controlsBuilder: (BuildContext context, ControlsDetails controls) {
-        return Container(
-          constraints: const BoxConstraints(
-            maxWidth: 520.0,
-          ),
-          child: ButtonBar(
-            children: [
+              break;
+          }
+        },
+        onStepContinue: () {
+          switch(_index){
+            case StepperStep.zero:
+              if (validator.currentState!.validate()){
+                validator.currentState!.save();
+                setState((){_index = StepperStep.one;});
+              }
+              break;
+            case StepperStep.one:
+              setState((){_index = StepperStep.two;});
+              break;
+            case StepperStep.two:
+            //setState((){_index = StepperStep.one;});
+              break;
+          }
+        },
+        onStepTapped: null,
+        /*(int index) {
+        setState(() {
+          _index = index;
+        });
+      },*/
+        controlsBuilder: (BuildContext context, ControlsDetails controls) {
+          return Container(
+            constraints: const BoxConstraints(
+              maxWidth: 520.0,
+            ),
+            child: ButtonBar(
+              children: [
 
-              ElevatedButton(
-                  onPressed: controls.onStepContinue,
-                  child: const Text('Suivant')),
-              TextButton(
-                onPressed: controls.onStepCancel,
-                child: Text(controls.currentStep == 0 ? 'Annulé' : 'Précédant'),
+                ElevatedButton(
+                    onPressed: controls.onStepContinue,
+                    child: const Text('Suivant')),
+                TextButton(
+                  onPressed: controls.onStepCancel,
+                  child: Text(controls.currentStep == 0 ? 'Annulé' : 'Précédant'),
+                ),
+
+              ],
+            ),
+          );
+        },
+        steps: <Step>[
+          Step(
+            title: const Text("Info à propos "),
+            content: Container(
+              alignment: Alignment.centerLeft,
+              child:  SizedBox(
+                  child: RentForm(
+                    controllers: controllers,
+                    validator: validator,
+                    onComplete: (_){},
+                    onValidForm: (_){},
+                  )
               ),
-
-            ],
+            ),
           ),
-        );
-      },
-      steps: <Step>[
-        Step(
-          title: const Text("Info à propos "),
-          content: Container(
-            alignment: Alignment.centerLeft,
-            child:  SizedBox(
-                child: RentForm(
-                  controllers: controllers,
-                  validator: validator,
-                  onComplete: (_){},
-                  onValidForm: (_){},
+          Step(
+            title: const Text('Téléversé l\'image'),
+            content: Container(
+                alignment: Alignment.centerLeft,
+                child: const SizedBox(
+                  child: UploadImage(),
                 )
             ),
           ),
-        ),
-        Step(
-          title: const Text('Téléversé l\'image'),
-          content: Container(
-              alignment: Alignment.centerLeft,
-              child: const SizedBox(
-                child: UploadImage(),
-              )
+          Step(
+            title: const Text('Vérfication'),
+            content: Container(
+                alignment: Alignment.centerLeft,
+                child: const SizedBox(
+                  height: 400,
+                  child: Placeholder(),
+                )
+            ),
           ),
-        ),
-        Step(
-          title: const Text('Vérfication'),
-          content: Container(
-              alignment: Alignment.centerLeft,
-              child: const SizedBox(
-                height: 400,
-                child: Placeholder(),
-              )
-          ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }

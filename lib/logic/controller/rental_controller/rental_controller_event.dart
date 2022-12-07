@@ -10,7 +10,7 @@ abstract class RentalControllerEvent extends Equatable {
 
 
 class SpaceRentalPassed extends RentalControllerEvent {
-  final SpaceRental rental;
+  final RentalSpace rental;
 
   const SpaceRentalPassed(this.rental);
   @override
@@ -18,7 +18,7 @@ class SpaceRentalPassed extends RentalControllerEvent {
 }
 
 class SpaceRentalImaged extends RentalControllerEvent {
-  final SpaceRental rental;
+  final RentalSpace rental;
 
   const SpaceRentalImaged(this.rental);
   @override
@@ -26,7 +26,7 @@ class SpaceRentalImaged extends RentalControllerEvent {
 }
 
 class SpaceRentalCompleted extends RentalControllerEvent {
-  final SpaceRental rental;
+  final RentalSpace rental;
 
   const SpaceRentalCompleted(this.rental);
 
@@ -37,7 +37,7 @@ class SpaceRentalCompleted extends RentalControllerEvent {
 
 
 class VehicleRentalPassed extends RentalControllerEvent {
-  final VehicleRental rental;
+  final RentalVehicle rental;
 
   const VehicleRentalPassed(this.rental);
 
@@ -46,7 +46,7 @@ class VehicleRentalPassed extends RentalControllerEvent {
 }
 
 class VehicleRentalImaged extends RentalControllerEvent {
-  final VehicleRental rental;
+  final RentalVehicle rental;
 
   const VehicleRentalImaged(this.rental);
 
@@ -55,7 +55,7 @@ class VehicleRentalImaged extends RentalControllerEvent {
 }
 
 class VehicleRentalCompleted extends RentalControllerEvent {
-  final VehicleRental rental;
+  final RentalVehicle rental;
 
   const VehicleRentalCompleted(this.rental);
 

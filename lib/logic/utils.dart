@@ -1,6 +1,20 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
+
+class AppConstant{
+  static const name = "KodishApp";
+  static const shortname = "Kodisha";
+  static const fullname = "Tsheleka KodishApp";
+  static const completeName = "Kodisha Application";
+  static const markName = "Exploress Kodisha";
+  static const organisationName = "Exploress";
+  static const developer = "Hassan K.";
+  static const developerId = "lordyhas";
+  static const developerOrg = "KDynamic Lab";
+}
+
+
 class _Title extends StatelessWidget {
   final String text;
   final double? fontSize;
@@ -43,4 +57,7 @@ class H1 extends _Title {
 class H2 extends _Title {
   const H2(String data,{Key? key}) : super(data,fontSize: 18,key: key);
 }
+
+
+
 

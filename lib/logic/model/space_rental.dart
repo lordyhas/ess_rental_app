@@ -1,10 +1,10 @@
 part of data.model;
 
-class SpaceRental extends StuffRental {
+class RentalSpace extends RentalProduct {
   final String label;
   final dynamic id;
   final String description;
-  final SpaceRentalType spaceType;
+  final RentalSpaceType spaceType;
 
   final dynamic owner;
   final int room;
@@ -14,7 +14,7 @@ class SpaceRental extends StuffRental {
   final bool isTaken;
   final int? price;
 
-  const SpaceRental({
+  const RentalSpace({
     required this.id, // auto
     required this.label,
     required this.description,
@@ -29,20 +29,20 @@ class SpaceRental extends StuffRental {
   });
 
 
-  static const empty = SpaceRental(
+  static const empty = RentalSpace(
       id: '',
       label: '',
       description: '',
       price: null,
-      spaceType: SpaceRentalType.apartment
+      spaceType: RentalSpaceType.apartment
   );
 
 
-  /// Convenience getter to determine whether the current [SpaceRental] is empty.
-  bool get isEmpty => this == SpaceRental.empty;
+  /// Convenience getter to determine whether the current [RentalSpace] is empty.
+  bool get isEmpty => this == RentalSpace.empty;
 
-  /// Convenience getter to determine whether the current [SpaceRental] is not empty.
-  bool get isNotEmpty => this != SpaceRental.empty;
+  /// Convenience getter to determine whether the current [RentalSpace] is not empty.
+  bool get isNotEmpty => this != RentalSpace.empty;
 
   @override
   RentalType get rentalType => RentalType.space;
@@ -51,7 +51,7 @@ class SpaceRental extends StuffRental {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-          (other is SpaceRental &&
+          (other is RentalSpace &&
               runtimeType == other.runtimeType &&
               id == other.id &&
               label == other.label &&
@@ -88,12 +88,12 @@ class SpaceRental extends StuffRental {
   }
 
   @override
-  SpaceRental copyWith({
+  RentalSpace copyWith({
     id,
     String? label,
     int? room,
     int? price,
-    SpaceRentalType? spaceType,
+    RentalSpaceType? spaceType,
     String? description,
     owner,
     List<dynamic>? images,
@@ -101,7 +101,7 @@ class SpaceRental extends StuffRental {
     maps.LatLng? coordinates,
     bool? isTaken,
   }) {
-    return SpaceRental(
+    return RentalSpace(
       id: id ?? this.id,
       label: label ?? this.label,
       room: room ?? this.room,
@@ -132,13 +132,13 @@ class SpaceRental extends StuffRental {
     };
   }
 
-  factory SpaceRental.fromMap(Map<String, dynamic> map) {
-    return SpaceRental(
+  factory RentalSpace.fromMap(Map<String, dynamic> map) {
+    return RentalSpace(
       id: map['id'],
       label: map['label'] as String,
       room: map['room'] as int,
       price: map['price'] as int,
-      spaceType: map['spaceType'] as SpaceRentalType,
+      spaceType: map['spaceType'] as RentalSpaceType,
       description: map['description'] as String,
       owner: map['owner'] as dynamic,
       images: map['images'] as List<dynamic>,
