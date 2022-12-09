@@ -11,7 +11,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:image_cropper/image_cropper.dart';
-import 'package:utils_component/utils_component.dart' hide Go;
+//import 'package:utils_component/utils_component.dart' hide Go;
 
 part 'rent_verification.dart';
 part 'rent_upload_image.dart';

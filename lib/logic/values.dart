@@ -17,6 +17,7 @@ export 'values/styles.dart';
 export 'values/dimens.dart';
 export 'utils.dart';
 export 'extension.dart';
+export 'package:utils_component/utils_component.dart' hide Responsive, Go;
 
 
 

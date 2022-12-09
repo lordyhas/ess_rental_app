@@ -160,16 +160,16 @@ class EssRentApp extends StatelessWidget {
                 navigatorKey: _navigatorKey,
                 theme: ThemeData.dark().copyWith(
                   visualDensity: VisualDensity.adaptivePlatformDensity,
-                  primaryColorLight: Colors.teal,
+                  primaryColorLight: Colors.tealAccent.shade400,
                   floatingActionButtonTheme: FloatingActionButtonThemeData(
                     backgroundColor: Colors.cyan.withOpacity(1),
                   ),
                 ),
                 //supportedLocales: const <Locale>[Locale('fr')],
                 //home: HomePage(),
-                initialRoute: connect.status == AuthenticationStatus.authenticated
+                initialRoute: HomePage.routeName, /*connect.status == AuthenticationStatus.authenticated
                     ? HomePage.routeName
-                    : LoginPage.routeName,
+                    : LoginPage.routeName,*/
                 routes: RouteManager.kRoutes,
                 /*builder: (context, child) {
               return BlocListener<AuthenticationBloc, AuthenticationState>(

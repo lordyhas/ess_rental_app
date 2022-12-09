@@ -1,20 +1,20 @@
 part of home_page;
 
-class RentSpace extends StatefulWidget {
+class RentProductScreen extends StatefulWidget {
   //final List<SpaceItemData> shopList;
   final void Function()? onMenuTap;
 
-  const RentSpace({
+  const   RentProductScreen({
     //required this.shopList,
     super.key,
     this.onMenuTap,
   });
 
   @override
-  State<RentSpace> createState() => _RentSpaceState();
+  State<RentProductScreen> createState() => _RentProductScreenState();
 }
 
-class _RentSpaceState extends State<RentSpace>
+class _RentProductScreenState extends State<RentProductScreen>
     with TickerProviderStateMixin {
   DateTime startDate = DateTime.now();
   DateTime endDate = DateTime.now().add(const Duration(days: 5));
@@ -67,11 +67,9 @@ class _RentSpaceState extends State<RentSpace>
   @override
   Widget build(BuildContext context) {
     //Brightness _currentBrightness = Theme.of(context).brightness;
-    var spaceList = _spaceList..addAll(_spaceList..removeAt(1)..reversed.toList()..shuffle());
-    var images = [
-      "assets/img/pub_headset.jpeg",
-      "assets/img/pub_sofa.jpeg",
-    ];
+    var spaceList = _spaceList..addAll(_spaceList
+      ..removeAt(1)..reversed.toList()
+      ..shuffle());
 
     void onMapClickOpenPage(int index) {
       Navigator.push(
@@ -94,8 +92,10 @@ class _RentSpaceState extends State<RentSpace>
                         children: [
                           SizedBox(
                             height: 200,
-                            child: Image.asset(
-                              images.elementAt(Random().nextInt(2)),
+                            child: Image.asset([
+                                "assets/img/pub_headset.jpeg",
+                                "assets/img/pub_sofa.jpeg",
+                              ].elementAt(Random().nextInt(2)),
                               //colorBlendMode: BlendMode,
                               fit: BoxFit.cover,
                               width: MediaQuery.of(context).size.width,
@@ -111,16 +111,7 @@ class _RentSpaceState extends State<RentSpace>
                           Column(
                             children: <Widget>[
                               getSearchBarUI(context),
-                              /*Container(
-                                    margin: const EdgeInsets.symmetric(
-                                        vertical: 16.0),
-                                    child: const Text(
-                                      "Find a shop near to you, Exploress",
-                                      style: TextStyle(
-                                          fontSize: 18, color: Colors.white70),
-                                    )),*/
                               getTimeDateUI(context),
-                              //getTimeDateUI(),
                             ],
                           ),
                         ],
@@ -130,8 +121,8 @@ class _RentSpaceState extends State<RentSpace>
               SliverPersistentHeader(
                 pinned: true,
                 floating: true,
-                delegate: ShopContestTabHeader(
-                  context,
+                delegate: RContestTabHeader(context, secondary: true,
+                    title: const Text("32 bureau a louer disponible")
                 ),
               ),
             ];
@@ -143,40 +134,25 @@ class _RentSpaceState extends State<RentSpace>
                 padding: const EdgeInsets.only(bottom: 32.0),
                 child: SpaceListView(
                   //heroTag: shopData.shopCode+"$index",
-
+                  onHueClick: (index) => onMapClickOpenPage(index),
+                  onLikeClick: (index) => showToastFavorite(context: context),
+                  spaces: spaceList,
                   onShopClick: (index) {
                     PlaceInfoData data = PlaceInfoData(
                         rent: spaceList.first.rent!,
                         onMapClick: () {
-                          Navigator.push(
-                              context,
-                              MapSample.route(
-                                initialPosition:
-                                spaceList[0].rent?.location,
-                              ));
-                        });
-
-
-                    Go.to(context,
-                      page: PlaceInfoScreen(placeData: data),
-                      routeName: PlaceInfoScreen.routeName,
-                      args: data,
+                          Navigator.push(context, MapSample.route(
+                            initialPosition: spaceList[0].rent?.location,));
+                        }
                     );
 
-
-
-
+                    Go.to(context, page: PlaceInfoScreen(placeData: data),
+                      routeName: PlaceInfoScreen.routeName, args: data,);
                   },
-                  onHueClick: (index) => onMapClickOpenPage(index),
-                  onLikeClick: (index) {
-                    showToastFavorite(context: context);
-                  },
-
-                  spaces: spaceList,
-                  //animation: animation,
-                  //animationController: animationController,
-                )),
-          )),
+                ),
+            ),
+          ),
+      ),
     );
   }
 
@@ -207,8 +183,7 @@ class _RentSpaceState extends State<RentSpace>
                   ],
                 ),
                 child: Padding(
-                  padding: const EdgeInsets.only(
-                      left: 16, right: 16, top: 4, bottom: 4),
+                  padding: const EdgeInsets.symmetric(horizontal: 16),//only(left: 16, right: 16, top: 4, bottom: 4),
                   child: TextField(
                     onChanged: (String txt) {},
                     style: const TextStyle(
@@ -230,7 +205,7 @@ class _RentSpaceState extends State<RentSpace>
           /// Search button
           Container(
             decoration: BoxDecoration(
-              color: Theme.of(context).colorScheme.secondary,
+              color: Theme.of(context).primaryColorLight,
               borderRadius: const BorderRadius.all(
                 Radius.circular(38.0),
               ),
@@ -238,17 +213,13 @@ class _RentSpaceState extends State<RentSpace>
             child: Material(
               color: Colors.transparent,
               child: InkWell(
-                borderRadius: const BorderRadius.all(
-                  Radius.circular(32.0),
-                ),
+                borderRadius: const BorderRadius.all(Radius.circular(32.0),),
                 onTap: () {
-                  //FocusScope.of(context).requestFocus(FocusNode());
+                  FocusScope.of(context).requestFocus(FocusNode());
                 },
-                child: Padding(
-                  padding: const EdgeInsets.all(16.0),
-                  child: Icon(FontAwesomeIcons.magnifyingGlass,
-                      size: 20,
-                      color: shopAppTheme.buildLightShopTheme.backgroundColor),
+                child: const Padding(
+                  padding: EdgeInsets.all(16.0),
+                  child: Icon(FontAwesomeIcons.magnifyingGlass, size: 20,),
                 ),
               ),
             ),
@@ -330,7 +301,9 @@ class _RentSpaceState extends State<RentSpace>
                             height: 8,
                           ),
                           Text(
-                            '${DateFormat("dd, MMM").format(startDate)} - ${DateFormat("dd, MMM").format(endDate)}',
+                            '${DateFormat("dd, MMM")
+                                .format(startDate)} - ${DateFormat("dd, MMM")
+                                .format(endDate)}',
                             style: const TextStyle(
                               fontWeight: FontWeight.w100,
                               fontSize: 16,
@@ -406,20 +379,24 @@ class _RentSpaceState extends State<RentSpace>
   }
 }
 
-class ShopContestTabHeader extends SliverPersistentHeaderDelegate {
-  const ShopContestTabHeader(
-    this.context, {
+class RContestTabHeader extends SliverPersistentHeaderDelegate {
+  const RContestTabHeader(this.context, {
     this.onSearchDataEnter,
+    this.secondary = false,
+    this.title,
   });
 
+  final bool secondary;
+  final Text? title;
   final BuildContext context;
   final Function()? onSearchDataEnter;
 
   @override
-  Widget build(
-      BuildContext context, double shrinkOffset, bool overlapsContent) {
+  Widget build(context, double shrinkOffset, bool overlapsContent) {
     //final shopAppTheme = BlocProvider.of<StyleAppTheme>(context);
-
+    Color? filBarColor = secondary? Theme.of(context).primaryColorLight : null;
+    Widget? h3 = !secondary ? H3(title!.data!) : null;
+    print("xxxxxxxxxxxxxxxxxxxxxxxx => "+title!.data!);
     return SizedBox(
       //color: Theme.of(context).scaffoldBackgroundColor,
       child: Stack(
@@ -448,15 +425,15 @@ class ShopContestTabHeader extends SliverPersistentHeaderDelegate {
             ///color: HotelAppTheme.buildLightTheme().backgroundColor,
             child: Padding(
               padding:
-                  const EdgeInsets.only(left: 16, right: 16, top: 8, bottom: 4),
+              const EdgeInsets.only(left: 16, right: 16, top: 8, bottom: 4),
               child: Row(
                 children: <Widget>[
-                  const Expanded(
+                  Expanded(
                     child: Padding(
-                      padding: EdgeInsets.all(8.0),
-                      child: Text(
-                        '32 bureau a louer disponible',
-                        style: TextStyle(
+                      padding: const EdgeInsets.all(8.0),
+                      child: h3 ?? Text(
+                        title?.data ?? "",
+                        style: const TextStyle(
                           fontWeight: FontWeight.w100,
                           fontSize: 16,
                         ),
@@ -479,7 +456,7 @@ class ShopContestTabHeader extends SliverPersistentHeaderDelegate {
                           context,
                           MaterialPageRoute<dynamic>(
                               builder: (BuildContext context) =>
-                                  FiltersScreen(),
+                              const FiltersScreen(),
                               fullscreenDialog: true),
                         );
                       },
@@ -497,10 +474,11 @@ class ShopContestTabHeader extends SliverPersistentHeaderDelegate {
                             Padding(
                               padding: const EdgeInsets.all(8.0),
                               child: Icon(Icons.sort,
-                                  color: Theme.of(context)
-                                      .colorScheme
-                                      .secondary //shopAppTheme.buildLightShopTheme.primaryColor
-                                  ),
+                                color: filBarColor ?? Theme.of(context)
+                                    .floatingActionButtonTheme
+                                    .backgroundColor,
+                                //shopAppTheme.buildLightShopTheme.primaryColor
+                              ),
                             ),
                           ],
                         ),
@@ -535,6 +513,8 @@ class ShopContestTabHeader extends SliverPersistentHeaderDelegate {
     return false;
   }
 }
+
+
 /*
 void _barBottomNav(){
   Align(
@@ -563,3 +543,4 @@ void _barBottomNav(){
 }
 
  */
+

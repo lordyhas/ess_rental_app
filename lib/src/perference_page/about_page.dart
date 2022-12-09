@@ -110,6 +110,7 @@ class _AboutState extends State<AboutPage>{
                           FutureBuilder<PackageInfo>(
                             future: PackageInfo.fromPlatform(),
                             builder: (context, snapshot) {
+
                               String version = snapshot.data?.version ?? "";
                               String number = snapshot.data?.buildNumber ?? "";
                               return ListTile(

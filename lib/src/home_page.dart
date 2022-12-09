@@ -17,7 +17,6 @@ import 'package:intl/intl.dart';
 //import 'package:google_maps_flutter/google_maps_flutter.dart' as maps;
 import 'package:latlong2/latlong.dart' as dist;
 import 'package:exploress_location/data_test.dart';
-import 'package:utils_component/utils_component.dart' hide Go;
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:exploress_location/src/maps_test.dart';
 import 'package:exploress_location/src/perference_page/about_page.dart';
@@ -29,10 +28,10 @@ import 'package:exploress_location/src/myspace_page.dart';
 
 
 part 'home_page/rental_screen.dart';
-
 part 'setting_profile_screen.dart';
-
 part 'home_page/home_screen.dart';
+part 'home_page/nested_web_view.dart';
+part 'home_page/app_bar_view.dart';
 
 class HomePage extends StatefulWidget {
   static const routeName = '/home';
@@ -171,14 +170,17 @@ class _HomePageState extends State<HomePage> {
                     ),
                     const Spacer(),
                     BooleanBuilder(
-                      condition: screenWidth > (kPhoneDimens - 40) && kIsWeb,
+                      condition:() => screenWidth > (kPhoneDimens-40) && kIsWeb,
                       ifTrue: Row(
                         children: [
                           TextButton(
                             child: const Text("My Space"),
-                            onPressed: () => BlocProvider
-                                .of<NavigationController>(context)
-                                .onPushScreen(NavigationScreen.myspace),
+                            onPressed: () {
+                              BlocProvider
+                                  .of<NavigationController>(context)
+                                  .onPushScreen(NavigationScreen.myspace);
+                              setState(() {});
+                            },
                           ),
                           const SizedBox(
                             width: 8.0,
@@ -347,13 +349,13 @@ class _HomePageState extends State<HomePage> {
                 builder: (context, state) {
                   switch (state) {
                     case NavigationScreen.home:
-                      return const HomeScreen();
+                      return const AnchorLayout(child: HomeScreen());
                     case NavigationScreen.explorer:
-                      return const RentSpace();
+                      return const RentProductScreen();
                     case NavigationScreen.setting:
                       return const SettingScreen();
                     case NavigationScreen.myspace:
-                      return const UserSpace();
+                      return const AnchorLayout(child: UserSpace());
                   }
 
                   //if(state is NavigationScreenHome)
@@ -367,129 +369,6 @@ class _HomePageState extends State<HomePage> {
   }
 }
 
-class AppBarView extends StatelessWidget {
-  final void Function()? onMenuTap;
-
-  const AppBarView({this.onMenuTap, Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    //double screenWidth = MediaQuery.of(context).size.width;
-    AppBar appBar = AppBar();
-    return PreferredSize(
-      preferredSize: appBar.preferredSize,
-      child: Container(
-        decoration: BoxDecoration(
-          color: Theme.of(context).scaffoldBackgroundColor,
-          boxShadow: <BoxShadow>[
-            BoxShadow(
-                color: Colors.grey.withOpacity(0.2),
-                offset: const Offset(0, 2),
-                blurRadius: 8.0),
-          ],
-        ),
-        child: Padding(
-          padding: EdgeInsets.only(
-            top: MediaQuery.of(context).padding.top,
-            left: 8,
-            right: 8,
-          ),
-          child: Row(
-            children: <Widget>[
-              Container(
-                alignment: Alignment.centerLeft,
-                width: appBar.preferredSize.height + 40,
-                height: appBar.preferredSize.height,
-                child: Material(
-                  color: Colors.transparent,
-                  child: InkWell(
-                    borderRadius: const BorderRadius.all(
-                      Radius.circular(32.0),
-                    ),
-                    onTap: () {
-                      Navigator.pop(context);
-                    },
-                    child: BooleanBuilder(
-                      condition: Responsive.of(context).isPhone,
-                      ifFalse: const Padding(
-                        padding: EdgeInsets.all(8.0),
-                        child: null, //,
-                      ),
-                      ifTrue: IconButton(
-                        icon: const Icon(Icons.menu),
-                        onPressed: onMenuTap,
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-              const Expanded(
-                child: Center(
-                  child: Text(
-                    'KodishApp',
-                    style: TextStyle(
-                      //color: Theme.of(context).primaryColorDark,
-                      fontWeight: FontWeight.w600,
-                      fontSize: 22,
-                    ),
-                  ),
-                ),
-              ),
-              SizedBox(
-                width: appBar.preferredSize.height + 50,
-                height: appBar.preferredSize.height,
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: <Widget>[
-                    /*Material(
-                      color: Colors.transparent,
-                      child: InkWell(
-                        borderRadius: const BorderRadius.all(
-                          Radius.circular(32.0),
-                        ),
-                        onTap: () {},
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: IconButton(
-                              onPressed: (){},
-                              icon: Icon(Icons.favorite_border,
-                                color: Theme.of(context).primaryColorDark,
-                              )
-
-                          ),
-                        ),
-                      ),
-                    ),*/
-                    Material(
-                      color: Colors.transparent,
-                      child: InkWell(
-                        borderRadius: const BorderRadius.all(
-                          Radius.circular(32.0),
-                        ),
-                        onTap: () {
-                          Navigator.push(context, MapSample.route());
-                        },
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Responsive.of(context).isPhone
-                              ? null
-                              : const Icon(
-                                  FontAwesomeIcons.locationDot,
-                                ),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              )
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-}
 
 class DrawerItem {
   final NavigationScreen navigationScreen;
@@ -510,6 +389,9 @@ class DrawerItem {
     this.key,
   });
 }
+
+
+
 
 /*
  Container(

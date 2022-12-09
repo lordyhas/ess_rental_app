@@ -1,3 +1,4 @@
+import 'package:exploress_location/logic/values.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
@@ -25,37 +26,51 @@ class _Title extends StatelessWidget {
     if(!kIsWeb) return Container();
     return Column(
       children: [
-        const SizedBox(height: 32.0,),
+        //const SizedBox(height: 32.0,),
         Row(
           children: [
             Text('Home',
               style: TextStyle(
                 fontWeight: FontWeight.w700,
-                fontSize: fontSize ?? 24,
+                fontSize: fontSize,
               ),
             ),
-            const Icon(Icons.arrow_forward_ios),
+            BooleanBuilder(
+                condition: () => fontSize != null,
+                ifTrue: const Icon(Icons.arrow_forward_ios),
+                ifFalse: const Icon(Icons.chevron_right),
+            ),
+
             Text(text,
               style: TextStyle(
                 fontWeight: FontWeight.w700,
-                fontSize: fontSize ?? 24,
+                fontSize: fontSize,
               ),
             ),
-            const Icon(Icons.arrow_forward_ios, ), //arrow_forward_ios
+            if(text.isNotEmpty)
+            BooleanBuilder(
+              condition: () => fontSize != null,
+              ifTrue: const Icon(Icons.arrow_forward_ios),
+              ifFalse: const Icon(Icons.chevron_right),
+            ), //arrow_forward_ios
           ],
         ),
-        const SizedBox(height: 32.0,),
+        //const SizedBox(height: 32.0,),
       ],
     );
   }
 }
 
 class H1 extends _Title {
-  const H1(String data,{Key? key}) : super(data,key: key);
+  const H1(String data,{Key? key}) : super(data,fontSize: 24, key: key);
 }
 
 class H2 extends _Title {
   const H2(String data,{Key? key}) : super(data,fontSize: 18,key: key);
+}
+
+class H3 extends _Title {
+  const H3(String data,{Key? key}) : super(data,key: key);
 }
 
 

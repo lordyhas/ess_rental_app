@@ -81,7 +81,7 @@ class RentForm extends StatelessWidget {
               return Form(
                 key: validator,
                 child: BooleanBuilder(
-                  condition: state.isMovable,
+                  condition: () => state.isMovable,
                   /// Form : movable ###
                   ifTrue: Column(
                     children: [

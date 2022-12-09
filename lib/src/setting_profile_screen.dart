@@ -160,7 +160,7 @@ class _SettingScreenState extends State<SettingScreen> {
                             ClipRRect(
                                 borderRadius: BorderRadius.circular(100.0),
                                 child: Image.asset(
-                                  "assets/avatar/avatar_1.png",
+                                  "assets/img/profile3.jpg" ,
                                   height: 100,
                                 )),
                             const SizedBox(

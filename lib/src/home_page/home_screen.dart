@@ -80,9 +80,11 @@ class _HomeScreenState extends State<HomeScreen> {
                                 ),
                               ),
                             ),
-                            onPressed: () => Go.to(context,
+                            onPressed: () => Go.to(
+                                context,
                                 page: const AddRentPage(),
-                                routeName: AddRentPage.routeName),
+                                routeName: AddRentPage.routeName
+                            ),
                           ),
                           TextButton(
                             child: Padding(
