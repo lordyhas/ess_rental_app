@@ -421,7 +421,6 @@ class RentForm extends StatelessWidget {
                             //setState(() => _subcategory = newValue!);
                           },
 
-
                           decoration: InputDecoration(
                             focusColor: Theme.of(context).primaryColor,
                             border: const UnderlineInputBorder(),
@@ -522,44 +521,47 @@ class _RadioButtonGroupState extends State<_RadioButtonGroup> {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: <Widget>[
-        const SizedBox(width: 42.0,),
-        _RadioItem(
-          title: const Text('par heure'),
-          leading: Radio<Per>(
-            value: Per.hour,
-            groupValue: _character,
-            onChanged: (Per? value) {
-              setState(() {_character = value;});
-              widget.onSelected(value ??  Per.day);
-            },
+    return Padding(
+      padding: const EdgeInsets.only(left: 42.0),
+      child: Wrap(
+        children: <Widget>[
+          //const SizedBox(width: 42.0,),
+          _RadioItem(
+            title: const Text('par heure'),
+            leading: Radio<Per>(
+              value: Per.hour,
+              groupValue: _character,
+              onChanged: (Per? value) {
+                setState(() {_character = value;});
+                widget.onSelected(value ??  Per.day);
+              },
+            ),
           ),
-        ),
-        _RadioItem(
-          title: const Text('par jour'),
-          leading: Radio<Per>(
-            value: Per.day,
-            groupValue: _character,
-            onChanged: (Per? value) {
-              setState(() {_character = value;});
-              widget.onSelected(value ??  Per.day);
-            },
+          _RadioItem(
+            title: const Text('par jour'),
+            leading: Radio<Per>(
+              value: Per.day,
+              groupValue: _character,
+              onChanged: (Per? value) {
+                setState(() {_character = value;});
+                widget.onSelected(value ??  Per.day);
+              },
+            ),
           ),
-        ),
 
-        _RadioItem(
-          title: const Text('par mois'),
-          leading: Radio<Per>(
-            value: Per.month,
-            groupValue: _character,
-            onChanged: (Per? value) {
-              setState(() {_character = value;});
-              widget.onSelected(value ??  Per.day);
-            },
+          _RadioItem(
+            title: const Text('par mois'),
+            leading: Radio<Per>(
+              value: Per.month,
+              groupValue: _character,
+              onChanged: (Per? value) {
+                setState(() {_character = value;});
+                widget.onSelected(value ??  Per.day);
+              },
+            ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }
