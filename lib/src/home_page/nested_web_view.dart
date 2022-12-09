@@ -7,6 +7,7 @@ class AnchorLayout extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    //final ScrollController _scrollController = ScrollController();
     if(!kIsWeb) return child;
     return NestedScrollView(
       //controller: _scrollController,
@@ -16,6 +17,7 @@ class AnchorLayout extends StatelessWidget {
             delegate: SliverChildBuilderDelegate(
                     (BuildContext context, int index) {
                   return Stack(
+                    alignment: AlignmentDirectional.topEnd,
                     children: [
                       SizedBox(
                         height: 150,
@@ -38,78 +40,89 @@ class AnchorLayout extends StatelessWidget {
                         //MediaQuery.of(context).size.width,
                         color: Colors.black.withOpacity(0.6),
                       ),
-                      /// ----------------- Search Part --------------
+
                       Column(
+                        mainAxisAlignment: MainAxisAlignment.end,
                         children: <Widget>[
+
                           //getSearchBarUI(context),
-                          Padding(
-                            padding: const EdgeInsets.only(left: 16, right: 16, top: 8, bottom: 8),
-                            child: Row(
-                              children: <Widget>[
-                                /// Search Entry Widget
-                                Expanded(
-                                  child: Padding(
-                                    padding: const EdgeInsets.only(right: 16, top: 8, bottom: 8),
-                                    child: Container(
-                                      decoration: BoxDecoration(
-                                        color: Colors.grey.shade300.withOpacity(0.70),
-                                        borderRadius: const BorderRadius.all(
-                                          Radius.circular(38.0),
-                                        ),
-                                        /*boxShadow: <BoxShadow>[
+                          /// ----------------- Search Part --------------
+                          Container(
+                            //width: 500,
+                            constraints: const BoxConstraints(maxWidth: 600),
+                            child: Padding(
+                              padding: const EdgeInsets.only(left: 16, right: 16, top: 8, bottom: 8),
+                              child: Row(
+                                children: <Widget>[
+                                  /// Search Entry Widget
+                                  Expanded(
+                                    child: Padding(
+                                      padding: const EdgeInsets.only(right: 16, top: 8, bottom: 8),
+                                      child: Container(
+
+                                        decoration: BoxDecoration(
+                                          color: Colors.grey.shade300.withOpacity(0.70),
+                                          borderRadius: const BorderRadius.all(
+                                            Radius.circular(38.0),
+                                          ),
+                                          /*boxShadow: <BoxShadow>[
                                           BoxShadow(
                                               color: Colors.grey.withOpacity(0.5),
                                               offset: const Offset(0, 2),
                                               blurRadius: 8.0),
                                         ],*/
-                                      ),
-                                      child: Padding(
-                                        padding: const EdgeInsets.symmetric(horizontal: 16),//only(left: 16, right: 16, top: 4, bottom: 4),
-                                        child: TextField(
-                                          onChanged: (String txt) {},
-                                          style: const TextStyle(
-                                            fontSize: 18,
-                                            color: Colors.black,
-                                          ),
-                                          cursorColor: Theme.of(context).colorScheme.secondary,
-                                          decoration: const InputDecoration(
-                                            border: InputBorder.none,
-                                            hintText: 'Lubumbashi...',
-                                            hintStyle: TextStyle(color: Colors.black),
+                                        ),
+                                        child: Padding(
+                                          padding: const EdgeInsets.symmetric(horizontal: 16),//only(left: 16, right: 16, top: 4, bottom: 4),
+                                          child: Container(
+                                            //constraints: const BoxConstraints(maxWidth: 400),
+                                            child: TextField(
+                                              onChanged: (String txt) {},
+                                              style: const TextStyle(
+                                                fontSize: 18,
+                                                color: Colors.black,
+                                              ),
+                                              cursorColor: Theme.of(context).colorScheme.secondary,
+                                              decoration: const InputDecoration(
+                                                border: InputBorder.none,
+                                                hintText: 'Lubumbashi...',
+                                                hintStyle: TextStyle(color: Colors.black),
+                                              ),
+                                            ),
                                           ),
                                         ),
                                       ),
                                     ),
                                   ),
-                                ),
 
-                                /// Search button
-                                Container(
-                                  decoration: BoxDecoration(
-                                    color: Theme.of(context).floatingActionButtonTheme.backgroundColor,
-                                    borderRadius: const BorderRadius.all(
-                                      Radius.circular(38.0),
-                                    ),
-                                  ),
-                                  child: Material(
-                                    color: Colors.transparent,
-                                    child: InkWell(
+                                  /// Search button
+                                  Container(
+                                    decoration: BoxDecoration(
+                                      color: Theme.of(context).floatingActionButtonTheme.backgroundColor,
                                       borderRadius: const BorderRadius.all(
-                                        Radius.circular(32.0),
+                                        Radius.circular(38.0),
                                       ),
-                                      onTap: () {
-                                        //FocusScope.of(context).requestFocus(FocusNode());
-                                      },
-                                      child: const Padding(
-                                        padding: EdgeInsets.all(16.0),
-                                        child: Icon(
-                                          FontAwesomeIcons.magnifyingGlass,
-                                          size: 20,),
+                                    ),
+                                    child: Material(
+                                      color: Colors.transparent,
+                                      child: InkWell(
+                                        borderRadius: const BorderRadius.all(
+                                          Radius.circular(32.0),
+                                        ),
+                                        onTap: () {
+                                          //FocusScope.of(context).requestFocus(FocusNode());
+                                        },
+                                        child: const Padding(
+                                          padding: EdgeInsets.all(16.0),
+                                          child: Icon(
+                                            FontAwesomeIcons.magnifyingGlass,
+                                            size: 20,),
+                                        ),
                                       ),
                                     ),
                                   ),
-                                ),
-                              ],
+                                ],
+                              ),
                             ),
                           ),
                           Container(

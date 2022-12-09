@@ -21,7 +21,7 @@ class _RentProductScreenState extends State<RentProductScreen>
 
   AnimationController? animationController;
 
-  final ScrollController _scrollController = ScrollController();
+
 
   @override
   void initState() {

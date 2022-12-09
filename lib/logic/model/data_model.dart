@@ -1,10 +1,6 @@
-
-
 library data.model;
 
-
 import 'package:google_maps_flutter/google_maps_flutter.dart' as maps;
-
 import 'package:latlong2/latlong.dart' as geo;
 
 part 'shop_data.dart';
@@ -13,8 +9,8 @@ part 'vehicle_rental.dart';
 
 
 enum RentalType{space, vehicle}
-enum RentalSpaceType{apartment, house, bureau, reception, hall}
-enum RentalVehicleType{A,B,C,D,E}
+enum RentalSpaceType{apartment, house, bureau, reception, hall, unknown}
+enum RentalVehicleType{A,B,C,D,E, unknown}
 
 abstract class RentalProduct {
 

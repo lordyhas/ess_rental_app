@@ -26,11 +26,11 @@ part 'routes.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  if (kIsWeb) {
+  /*if (kIsWeb) {
     await Firebase.initializeApp(options: firebaseOptions);
   } else {
     await Firebase.initializeApp();
-  }
+  }*/
 
   Bloc.observer = AppBlocObserver();
 

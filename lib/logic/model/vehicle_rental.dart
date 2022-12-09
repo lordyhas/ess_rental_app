@@ -39,7 +39,7 @@ class RentalVehicle extends RentalProduct {
       mark: '',
       description: '',
       price: null,
-      vehicleType: RentalVehicleType.B
+      vehicleType: RentalVehicleType.unknown
   );
 
 

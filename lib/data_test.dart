@@ -4,6 +4,7 @@ import 'package:latlong2/latlong.dart' as dist;
 
 import 'package:exploress_location/logic/model/data_model.dart';
 
+
 class DataTest {
   static List<ShopData> shops = [
     ShopData(

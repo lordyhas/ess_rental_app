@@ -34,7 +34,7 @@ class RentalSpace extends RentalProduct {
       label: '',
       description: '',
       price: null,
-      spaceType: RentalSpaceType.apartment
+      spaceType: RentalSpaceType.unknown
   );
 
 
