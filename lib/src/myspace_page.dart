@@ -173,9 +173,7 @@ class UserSpace extends StatelessWidget {
                       children: [
                         Container(
                           padding: const EdgeInsets.all(16.0),
-                          constraints: const BoxConstraints(
-                            maxWidth: 150,
-                          ),
+                          constraints: const BoxConstraints(maxWidth: 150,),
                           decoration: BoxDecoration(
                             color: Colors.black12,
                             borderRadius: BorderRadius.circular(20),
@@ -343,12 +341,11 @@ class UserSpace extends StatelessWidget {
               Container(
                 //constraints: const BoxConstraints(maxHeight: 200),
                 margin: const EdgeInsets.symmetric(vertical: 8.0),
-                constraints:  Responsive.of(context).size.width > 1363 ? null :  const BoxConstraints(maxWidth: kPhoneDimens),
+                constraints:  Responsive.of(context).size.width > 1363
+                    ? null :  const BoxConstraints(maxWidth: kPhoneDimens),
                 height: 300,
                 decoration: BoxDecoration(
-                  image: const DecorationImage(
-                      image: AssetImage("assets/img/bg_material_1.jpg"),
-                      fit: BoxFit.cover),
+                  border: Border.all(color: Colors.grey),
                   borderRadius: BorderRadius.circular(20),
                   //boxShadow: [BoxShadow(color: Theme.of(context).primaryColorLight)],
                 ),
