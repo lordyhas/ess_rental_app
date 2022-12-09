@@ -27,7 +27,7 @@ class _SettingScreenState extends State<SettingScreen> {
             child: Column(
               children: [
                 SizedBox(
-                  height: 520,
+                  height: 560,
                   child: Stack(
                     children: [
                       Padding(

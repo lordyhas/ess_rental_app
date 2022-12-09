@@ -65,7 +65,7 @@ class _HomePageState extends State<HomePage> {
               BlocProvider.of<NavigationController>(context)
                   .onPushScreen(NavigationScreen.home);
               closeDrawer();
-              setState(() {});
+              //setState(() {});
             }),
         DrawerItem(
             navigationScreen: NavigationScreen.explorer,
@@ -75,8 +75,9 @@ class _HomePageState extends State<HomePage> {
             onPressed: () {
               BlocProvider.of<NavigationController>(context)
                   .onPushScreen(NavigationScreen.explorer);
-              _scaffoldKey.currentState?.closeDrawer();
-              setState(() {});
+              closeDrawer();
+              //_scaffoldKey.currentState?.closeDrawer();
+              //setState(() {});
             }),
         DrawerItem(
             navigationScreen: NavigationScreen.setting,
@@ -86,9 +87,10 @@ class _HomePageState extends State<HomePage> {
             onPressed: () {
               BlocProvider.of<NavigationController>(context)
                   .onPushScreen(NavigationScreen.setting);
-              _scaffoldKey.currentState?.closeDrawer();
+              //_scaffoldKey.currentState?.closeDrawer();
+              closeDrawer();
 
-              setState(() {});
+              //setState(() {});
             }),
       ];
 
@@ -265,10 +267,7 @@ class _HomePageState extends State<HomePage> {
                       child: Column(
                         children: [
                           const Spacer(),
-                          Image.asset(
-                            "assets/icon_app.png",
-                            width: 100,
-                          ),
+                          Image.asset("assets/icon_app.png", width: 100,),
                           const Spacer(),
                           const Text(
                             AppConstant.name,
@@ -300,23 +299,24 @@ class _HomePageState extends State<HomePage> {
                       onTap: () {
                         BlocProvider.of<NavigationController>(context)
                             .onPushScreen(NavigationScreen.myspace);
-                        setState(() {});
+                        closeDrawer();
+
                       },
                       horizontalTitleGap: 32.0,
                       style: ListTileStyle.drawer,
                       leading: Ink(
                         decoration: BoxDecoration(
                             shape: BoxShape.circle,
-                            color: Theme.of(context).colorScheme.secondary),
+                            color: Theme.of(context).primaryColorLight),
                         child: const Padding(
                           padding: EdgeInsets.all(8.0),
                           child: Icon(
-                            Icons.person,
+                            Icons.space_dashboard,
                           ),
                         ),
                       ),
                       title: const Text(
-                        "Profile",
+                        "MySpace",
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
                         ),

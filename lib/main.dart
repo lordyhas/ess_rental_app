@@ -26,11 +26,11 @@ part 'routes.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  /*if (kIsWeb) {
+  if (kIsWeb) {
     await Firebase.initializeApp(options: firebaseOptions);
   } else {
     await Firebase.initializeApp();
-  }*/
+  }
 
   Bloc.observer = AppBlocObserver();
 
@@ -190,8 +190,8 @@ class EssRentApp extends StatelessWidget {
                 child: child,
               );
             },*/
-                onGenerateRoute: (_) => OnGeneratePage.route(),
-                onUnknownRoute: (_) => On404Page.route(),
+                //onGenerateRoute: (_) => OnGeneratePage.route(),
+                //onUnknownRoute: (_) => On404Page.route(),
 
 
               );

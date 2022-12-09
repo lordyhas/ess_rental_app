@@ -57,7 +57,7 @@ class UserSpace extends StatelessWidget {
                     margin: const EdgeInsets.symmetric(vertical: 8.0),
                     padding: const EdgeInsets.symmetric(vertical: 16.0),
                     constraints: const BoxConstraints(maxWidth: kPhoneDimens),
-                    height: 300,
+                    height: 320,
                     decoration: BoxDecoration(
                       border: Border.all(color: Colors.grey),
                       borderRadius: BorderRadius.circular(20),
@@ -79,8 +79,10 @@ class UserSpace extends StatelessWidget {
                         const SizedBox(
                           height: 32.0,
                         ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        Wrap(
+                          spacing: 8.0,
+                          runSpacing: 8.0,
+                          //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
                             InkWell(
                               borderRadius: BorderRadius.circular(20),
@@ -164,7 +166,7 @@ class UserSpace extends StatelessWidget {
                     //constraints: const BoxConstraints(maxHeight: 200),
                     margin: const EdgeInsets.symmetric(vertical: 8.0),
                     constraints: const BoxConstraints(maxWidth: kPhoneDimens),
-                    height: 300,
+                    height: 320,
                     decoration: BoxDecoration(
                       image: const DecorationImage(
                           image: AssetImage("assets/img/bg_material_2.jpg"),
@@ -173,174 +175,180 @@ class UserSpace extends StatelessWidget {
                       //boxShadow: [BoxShadow(color: Theme.of(context).primaryColorLight)],
                     ),
 
-                    child: Column(
-                      children: [
-                        const Spacer(),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          children: [
-                            Container(
-                              padding: const EdgeInsets.all(16.0),
-                              constraints: const BoxConstraints(maxWidth: 150,),
-                              decoration: BoxDecoration(
-                                color: Colors.black12,
-                                borderRadius: BorderRadius.circular(20),
-                              ),
-                              child: SizedBox(
-                                width: boxWidth,
-                                child: Column(
-                                  children: [
-                                    Text(
-                                      "Vue",
-                                      style: textStyle,
-                                    ),
-                                    Text.rich(TextSpan(children: [
-                                      TextSpan(text: "4", style: numStyle),
-                                      const TextSpan(
-                                        text: "",
-                                      )
-                                    ])),
-                                  ],
+                    child: Container(
+                      child: Column(
+                        children: [
+                          const Spacer(),
+                          Wrap(
+                            spacing: 8.0,
+                            runSpacing: 8.0,
+                            //mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                              Container(
+                                padding: const EdgeInsets.all(16.0),
+                                constraints: const BoxConstraints(maxWidth: 150,),
+                                decoration: BoxDecoration(
+                                  color: Colors.black12,
+                                  borderRadius: BorderRadius.circular(20),
+                                ),
+                                child: SizedBox(
+                                  width: boxWidth,
+                                  child: Column(
+                                    children: [
+                                      Text(
+                                        "Vue",
+                                        style: textStyle,
+                                      ),
+                                      Text.rich(TextSpan(children: [
+                                        TextSpan(text: "4", style: numStyle),
+                                        const TextSpan(
+                                          text: "",
+                                        )
+                                      ])),
+                                    ],
+                                  ),
                                 ),
                               ),
-                            ),
-                            Container(
-                              padding: const EdgeInsets.all(16.0),
-                              constraints: const BoxConstraints(maxWidth: 150),
-                              decoration: BoxDecoration(
-                                color: Colors.black12,
-                                borderRadius: BorderRadius.circular(20),
-                              ),
-                              child: SizedBox(
-                                width: boxWidth,
-                                child: Column(
-                                  children: [
-                                    Text(
-                                      "Like",
-                                      style: textStyle,
-                                    ),
-                                    Text.rich(TextSpan(children: [
-                                      TextSpan(text: "496", style: numStyle),
-                                      const TextSpan(
-                                        text: "\$",
-                                      )
-                                    ])),
-                                  ],
+                              Container(
+                                padding: const EdgeInsets.all(16.0),
+                                constraints: const BoxConstraints(maxWidth: 150),
+                                decoration: BoxDecoration(
+                                  color: Colors.black12,
+                                  borderRadius: BorderRadius.circular(20),
+                                ),
+                                child: SizedBox(
+                                  width: boxWidth,
+                                  child: Column(
+                                    children: [
+                                      Text(
+                                        "Like",
+                                        style: textStyle,
+                                      ),
+                                      Text.rich(TextSpan(children: [
+                                        TextSpan(text: "496", style: numStyle),
+                                        const TextSpan(
+                                          text: "\$",
+                                        )
+                                      ])),
+                                    ],
+                                  ),
                                 ),
                               ),
-                            ),
-                            Container(
-                              padding: const EdgeInsets.all(16.0),
-                              constraints: const BoxConstraints(
-                                maxWidth: 150,
-                              ),
-                              decoration: BoxDecoration(
-                                color: Colors.black12,
-                                borderRadius: BorderRadius.circular(20),
-                              ),
-                              child: SizedBox(
-                                width: boxWidth,
-                                child: Column(
-                                  children: [
-                                    Text(
-                                      "Déjà loué",
-                                      style: textStyle,
-                                    ),
-                                    Text.rich(TextSpan(children: [
-                                      TextSpan(text: "4", style: numStyle),
-                                      const TextSpan(
-                                        text: "\$",
-                                      )
-                                    ])),
-                                  ],
+                              Container(
+                                padding: const EdgeInsets.all(16.0),
+                                constraints: const BoxConstraints(
+                                  maxWidth: 150,
+                                ),
+                                decoration: BoxDecoration(
+                                  color: Colors.black12,
+                                  borderRadius: BorderRadius.circular(20),
+                                ),
+                                child: SizedBox(
+                                  width: boxWidth,
+                                  child: Column(
+                                    children: [
+                                      Text(
+                                        "Déjà loué",
+                                        style: textStyle,
+                                      ),
+                                      Text.rich(TextSpan(children: [
+                                        TextSpan(text: "4", style: numStyle),
+                                        const TextSpan(
+                                          text: "\$",
+                                        )
+                                      ])),
+                                    ],
+                                  ),
                                 ),
                               ),
-                            ),
-                          ],
-                        ),
-                        const Spacer(),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          children: [
-                            Container(
-                              padding: const EdgeInsets.all(16.0),
-                              constraints: const BoxConstraints(maxWidth: 150),
-                              decoration: BoxDecoration(
-                                color: Colors.black12,
-                                borderRadius: BorderRadius.circular(20),
-                              ),
-                              child: SizedBox(
-                                width: boxWidth,
-                                child: Column(
-                                  children: [
-                                    Text(
-                                      "Espace",
-                                      style: textStyle,
-                                    ),
-                                    Text.rich(TextSpan(children: [
-                                      TextSpan(text: "240", style: numStyle),
-                                      const TextSpan(
-                                        text: "Mb",
-                                      )
-                                    ])),
-                                  ],
+                            ],
+                          ),
+                          const Spacer(),
+                          Wrap(
+                            spacing: 8.0,
+                            runSpacing: 8.0,
+                            //mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                              Container(
+                                padding: const EdgeInsets.all(16.0),
+                                constraints: const BoxConstraints(maxWidth: 150),
+                                decoration: BoxDecoration(
+                                  color: Colors.black12,
+                                  borderRadius: BorderRadius.circular(20),
+                                ),
+                                child: SizedBox(
+                                  width: boxWidth,
+                                  child: Column(
+                                    children: [
+                                      Text(
+                                        "Espace",
+                                        style: textStyle,
+                                      ),
+                                      Text.rich(TextSpan(children: [
+                                        TextSpan(text: "240", style: numStyle),
+                                        const TextSpan(
+                                          text: "Mb",
+                                        )
+                                      ])),
+                                    ],
+                                  ),
                                 ),
                               ),
-                            ),
-                            Container(
-                              padding: const EdgeInsets.all(16.0),
-                              constraints: const BoxConstraints(maxWidth: 150),
-                              decoration: BoxDecoration(
-                                color: Colors.black12,
-                                borderRadius: BorderRadius.circular(20),
-                              ),
-                              child: SizedBox(
-                                width: boxWidth,
-                                child: Column(
-                                  children: [
-                                    Text(
-                                      "Frais",
-                                      style: textStyle,
-                                    ),
-                                    Text.rich(TextSpan(children: [
-                                      TextSpan(text: "4", style: numStyle),
-                                      const TextSpan(
-                                        text: "\$",
-                                      )
-                                    ])),
-                                  ],
+                              Container(
+                                padding: const EdgeInsets.all(16.0),
+                                constraints: const BoxConstraints(maxWidth: 150),
+                                decoration: BoxDecoration(
+                                  color: Colors.black12,
+                                  borderRadius: BorderRadius.circular(20),
+                                ),
+                                child: SizedBox(
+                                  width: boxWidth,
+                                  child: Column(
+                                    children: [
+                                      Text(
+                                        "Frais",
+                                        style: textStyle,
+                                      ),
+                                      Text.rich(TextSpan(children: [
+                                        TextSpan(text: "4", style: numStyle),
+                                        const TextSpan(
+                                          text: "\$",
+                                        )
+                                      ])),
+                                    ],
+                                  ),
                                 ),
                               ),
-                            ),
-                            Container(
-                              padding: const EdgeInsets.all(16.0),
-                              constraints: const BoxConstraints(maxWidth: 150),
-                              decoration: BoxDecoration(
-                                color: Colors.black12,
-                                borderRadius: BorderRadius.circular(20),
-                              ),
-                              child: SizedBox(
-                                width: boxWidth,
-                                child: Column(
-                                  children: [
-                                    const Text(
-                                      "Gain",
-                                      style: TextStyle(color: Colors.white70),
-                                    ),
-                                    Text.rich(TextSpan(children: [
-                                      TextSpan(text: "1250", style: numStyle),
-                                      const TextSpan(
-                                        text: "\$",
-                                      )
-                                    ])),
-                                  ],
+                              Container(
+                                padding: const EdgeInsets.all(16.0),
+                                constraints: const BoxConstraints(maxWidth: 150),
+                                decoration: BoxDecoration(
+                                  color: Colors.black12,
+                                  borderRadius: BorderRadius.circular(20),
+                                ),
+                                child: SizedBox(
+                                  width: boxWidth,
+                                  child: Column(
+                                    children: [
+                                      const Text(
+                                        "Gain",
+                                        style: TextStyle(color: Colors.white70),
+                                      ),
+                                      Text.rich(TextSpan(children: [
+                                        TextSpan(text: "1250", style: numStyle),
+                                        const TextSpan(
+                                          text: "\$",
+                                        )
+                                      ])),
+                                    ],
+                                  ),
                                 ),
                               ),
-                            ),
-                          ],
-                        ),
-                        const Spacer(),
-                      ],
+                            ],
+                          ),
+                          const Spacer(),
+                        ],
+                      ),
                     ),
 
                   ),
