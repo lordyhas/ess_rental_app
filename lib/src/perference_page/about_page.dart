@@ -68,7 +68,7 @@ class _AboutState extends State<AboutPage>{
           extendBodyBehindAppBar: true,
           //backgroundColor: Theme.of(context).backgroundColor,
           appBar: AppBar(
-            backgroundColor: Colors.transparent,
+            backgroundColor: Theme.of(context).cardColor.withOpacity(0.5),
 
             //textTheme: Theme.of(context).textTheme,
             title: const Text('About',),
@@ -176,7 +176,7 @@ class _AboutState extends State<AboutPage>{
                           ListTile(
                             leading: const Icon(FontAwesomeIcons.user),
                             title: Text("Hassan K.",style: primaryTextStyle20,),
-                            subtitle: const Text("hassankajila.com"), //Text("dev.haspro@gmail.com",),
+                            subtitle: const Text("@lordyhas"), //Text("dev.haspro@gmail.com",),
                             onTap: () async {
                               final Uri url = Uri.parse("https://linktr.ee/hassankajila");
                               if (!await launchUrl(url)) {

@@ -255,7 +255,7 @@ class _SettingScreenState extends State<SettingScreen> {
                           //leading: const Icon(Icons.dark_mode),
                           title: const Text("About this app"),
                           trailing: const Icon(Icons.arrow_forward_ios),
-                          onLongPress: () {
+                          onTap: () {
                             Go.to(context,
                                 page: const AboutPage(),
                                 routeName: AboutPage.routeName);
@@ -273,7 +273,7 @@ class _SettingScreenState extends State<SettingScreen> {
                             builder: (context, snapshot) {
                               if (snapshot.hasData) {
                                 return ListTile(
-                                  leading: const Icon(Icons.more_horiz),
+                                  leading: const Icon(Icons.launch_sharp),
                                   title: const Text("Last Update"),
                                   subtitle: Text(
                                       "version beta : ${snapshot.data?.version} "),
