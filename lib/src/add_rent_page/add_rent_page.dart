@@ -21,7 +21,7 @@ part 'rent_form.dart';
 enum StepperStep{zero,one,two}
 
 class AddRentPage extends StatelessWidget {
-  static const routeName = "/home/user/rent?id=sfr";
+  static const routeName = "/home/user/form?id=sfr";
   const AddRentPage({Key? key}) : super(key: key);
 
   @override
@@ -45,16 +45,19 @@ class _RentScreenState extends State<RentScreen> {
   late StepperStep _index;
   final GlobalKey<FormState> validator = GlobalKey<FormState>();
   late final List<TextEditingController> controllers;
-  late final Map<String,TextEditingController> ctrl;
+  late final Map<String,TextEditingController> spaceCtrl;
+  late final Map<String,TextEditingController> vehicleCtrl;
 
   @override
   void initState() {
+    RentalSpace space = RentalSpace.empty;
+    RentalVehicle vehicle = RentalVehicle.empty ;
     super.initState();
     _index = StepperStep.zero;
     controllers = List<TextEditingController>
         .generate(10, (index) => TextEditingController());
         //.filled(10, TextEditingController());
-    ctrl = {
+    /*ctrl = {
       'id': TextEditingController(),
       'label': TextEditingController(),
       'room': TextEditingController(),
@@ -67,7 +70,9 @@ class _RentScreenState extends State<RentScreen> {
       'imageUrl': TextEditingController(),
       'images': TextEditingController(),
       'isTaken': TextEditingController(),
-    };
+    };*/
+    spaceCtrl = space.toMap().map((key, value) => MapEntry(key, TextEditingController()));
+    vehicleCtrl = vehicle.toMap().map((key, value) => MapEntry(key, TextEditingController()));
 
 
   }
@@ -99,10 +104,20 @@ class _RentScreenState extends State<RentScreen> {
             case StepperStep.zero:
               if (validator.currentState!.validate()){
                 validator.currentState!.save();
+                //context.watch<RentalControllerBloc>();
+
                 setState((){_index = StepperStep.one;});
               }
               break;
             case StepperStep.one:
+
+              if(context.read<RentalControllerBloc>().isImmovable){
+                RentalSpace space = context.read<RentalControllerBloc>().state.space;
+              }else{
+                RentalVehicle vehicle = context.read<RentalControllerBloc>().state.vehicle;
+                //RentalVehicle vehicle = RentalVehicle.fromMap(map);
+              }
+
               setState((){_index = StepperStep.two;});
               break;
             case StepperStep.two:
@@ -144,6 +159,8 @@ class _RentScreenState extends State<RentScreen> {
               child:  SizedBox(
                   child: RentForm(
                     controllers: controllers,
+                    spaceController: spaceCtrl,
+                    vehicleController: vehicleCtrl,
                     validator: validator,
                     onComplete: (_){},
                     onValidForm: (_){},

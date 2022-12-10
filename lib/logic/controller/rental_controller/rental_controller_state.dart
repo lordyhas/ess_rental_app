@@ -3,37 +3,52 @@ part of 'rental_controller_bloc.dart';
 enum RentalControllerStatus{initial, addingInfo, addingImages, checkingAll}
 
 class RentalControllerState extends Equatable {
-  final RentalProduct rental;
+  final RentalSpace _space;
+  final RentalVehicle _vehicle;
   final RentalControllerStatus status;
   final bool isCompleted;
   final bool _isMovable;
+
   const RentalControllerState._({
-    this.rental =  RentalSpace.empty,
+    RentalSpace space =  RentalSpace.empty,
+    RentalVehicle vehicle = RentalVehicle.empty,
     this.status = RentalControllerStatus.initial,
     this.isCompleted = false,
-    bool isMovable = false, }) : _isMovable = isMovable;
+    bool isMovable = false,
+  }) :  _isMovable = isMovable,
+        _space = space,
+        _vehicle = vehicle;
+
   const RentalControllerState.initial() : this._();
+
   const RentalControllerState.space(
       RentalSpace spaceRental, {
         RentalControllerStatus status = RentalControllerStatus.addingInfo,
-      }) : this._(rental: spaceRental, status: status, isMovable: false);
+      }) : this._(space: spaceRental, status: status, isMovable: false);
 
   const RentalControllerState.vehicle(
       RentalVehicle vehicleRental,{
         RentalControllerStatus status = RentalControllerStatus.addingInfo,
-      }) : this._(rental: vehicleRental, status: status, isMovable: true);
+      }) : this._(vehicle: vehicleRental, status: status, isMovable: true);
 
   const RentalControllerState.complete(
       RentalProduct rental, {
         RentalControllerStatus status = RentalControllerStatus.checkingAll,
       }) : this._(
-      rental: rental,
+      space: rental is RentalSpace ? rental : RentalSpace.empty,
+      vehicle: rental is RentalVehicle ? rental : RentalVehicle.empty,
       status: status,
       isCompleted: true,
-      isMovable: RentalProduct is RentalVehicle);
+      isMovable: rental is RentalVehicle);
 
   bool get isMovable => _isMovable;
   bool get isImmovable => !_isMovable;
+
+  RentalProduct get rental => _isMovable ? _vehicle  : _space;
+  RentalVehicle get vehicle =>  _vehicle;
+  RentalSpace get space =>  _space;
+
+
 
 
   /*const RentalControllerState.modify(): this._(

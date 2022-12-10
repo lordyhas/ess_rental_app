@@ -7,15 +7,20 @@ class RentForm extends StatelessWidget {
   final GlobalKey<FormState> validator;
   final List<TextEditingController> controllers;
 
+  final Map<String,TextEditingController> spaceController;
+  final Map<String,TextEditingController> vehicleController;
+
   const RentForm({
     required this.validator,
     required this.controllers,
+    required this.spaceController,
+    required this.vehicleController,
     this.onValidForm,
     this.onComplete,
     super.key,
   });
 
-  List<String> get _immovableTypeList => <String>[
+  /*List<String> get _immovableTypeList => <String>[
     'Appartement',
     'Bureau',
     'Entrepot',
@@ -27,13 +32,28 @@ class RentForm extends StatelessWidget {
     'Categories B',
     'Categories C',
     'Categories D',
-  ];
+  ];*/
+
+  Map<String, RentalSpaceType> get _immovableTypeList => {
+    'Appartement': RentalSpaceType.apartment,
+    'Bureau' : RentalSpaceType.bureau,
+    'Entrepot' : RentalSpaceType.reception,
+    'Salle' : RentalSpaceType.hall,
+  };
+
+  Map<String, RentalVehicleType> get _movableTypeList => {
+    'Categories A': RentalVehicleType.A,
+    'Categories B': RentalVehicleType.B,
+    'Categories C': RentalVehicleType.C,
+    'Categories D': RentalVehicleType.D,
+  };
 
   @override
   Widget build(BuildContext context) {
-    //BlocProvider.of<RentalControllerBloc>(context).state;
+    RentalSpace space = context.read<RentalControllerBloc>().state.space;
+    RentalVehicle vehicle = context.read<RentalControllerBloc>().state.vehicle;
 
-    //BlocProvider.of<RentalControllerBloc>(context).addSpaceRentalPassed(SpaceRental.empty,);
+
     return Container(
       constraints: const BoxConstraints(maxWidth: 520),
       child: Column(
@@ -71,18 +91,11 @@ class RentForm extends StatelessWidget {
 
           BlocBuilder<RentalControllerBloc, RentalControllerState>(
             builder: (_, state) {
-              /*switch(state.isMovable){
-                case true:
-                  break;
-                case false:
-                  break;
-              }*/
-
               return Form(
                 key: validator,
                 child: BooleanBuilder(
                   condition: () => state.isMovable,
-                  /// Form : movable ###
+                  /// Form : movable => vehicle ###
                   ifTrue: Column(
                     children: [
                       const Padding(
@@ -99,13 +112,13 @@ class RentForm extends StatelessWidget {
                             horizontal: 8.0, vertical: 8.0),
                         child: TextFormField(
                           cursorColor: Theme.of(context).primaryColor,
-                          controller: controllers[0],
+                          controller: vehicleController['mark'],
                           textCapitalization: TextCapitalization.words,
                           decoration: InputDecoration(
                             focusColor: Theme.of(context).primaryColor,
                             border: const UnderlineInputBorder(),
                             filled: true,
-                            icon: const Icon(Icons.bookmark_border),
+                            //icon: const Icon(Icons.bookmark_border),
                             hintText: 'Entrez le marque ou modele',
                             labelText: 'Mark *',
                           ),
@@ -118,10 +131,6 @@ class RentForm extends StatelessWidget {
                           },
                           validator: (v) {
                             if (v!.length < 3) return 'Mark est requis.';
-                            //final RegExp nameExp = RegExp(r'^[A-Za-z ]+$');
-                            /*if (!nameExp.hasMatch(v)) {
-                                  return 'Please enter only alphabetical characters.';
-                                }*/
                             return null;
                           },
                         ),
@@ -130,14 +139,14 @@ class RentForm extends StatelessWidget {
                         padding: const EdgeInsets.symmetric(
                             horizontal: 8.0, vertical: 8.0),
                         child: TextFormField(
-                          controller: controllers[1],
+                          controller: vehicleController['description'],
                           textCapitalization: TextCapitalization.sentences,
                           maxLines: 3,
                           decoration: InputDecoration(
                             focusColor: Theme.of(context).primaryColor,
                             border: const UnderlineInputBorder(),
                             filled: true,
-                            icon: const Icon(Icons.bookmark_border),
+                            //icon: const Icon(Icons.bookmark_border),
                             hintText: 'Décriver votre bien à louer ?',
                             labelText: 'Description *',
                           ),
@@ -162,14 +171,14 @@ class RentForm extends StatelessWidget {
                         padding: const EdgeInsets.symmetric(
                             horizontal: 8.0, vertical: 8.0),
                         child: TextFormField(
-                          controller: controllers[2],
+                          controller: vehicleController['price'],
                           textCapitalization: TextCapitalization.words,
                           keyboardType: TextInputType.number,
                           decoration: InputDecoration(
                             focusColor: Theme.of(context).primaryColor,
                             border: const UnderlineInputBorder(),
                             filled: true,
-                            icon: const Icon(Icons.bookmark_border),
+                            //icon: const Icon(Icons.bookmark_border),
                             hintText: 'prix par jour en dollar americain ?',
                             labelText: 'Prix/jour (en \$) *',
                           ),
@@ -191,14 +200,14 @@ class RentForm extends StatelessWidget {
                         padding: const EdgeInsets.symmetric(
                             horizontal: 8.0, vertical: 8.0),
                         child: TextFormField(
-                          controller: controllers[3],
+                          controller: vehicleController['door'],
                           textCapitalization: TextCapitalization.none,
                           keyboardType: TextInputType.number,
                           decoration: InputDecoration(
                             focusColor: Theme.of(context).primaryColor,
                             border: const UnderlineInputBorder(),
                             filled: true,
-                            icon: const Icon(Icons.bookmark_border),
+                            //icon: const Icon(Icons.bookmark_border),
                             hintText: 'Combien des portes ?',
                             labelText: 'Nombre de porte',
                           ),
@@ -219,14 +228,14 @@ class RentForm extends StatelessWidget {
                         padding: const EdgeInsets.symmetric(
                             horizontal: 8.0, vertical: 8.0),
                         child: TextFormField(
-                          controller: controllers[4],
+                          controller: vehicleController['seat'],
                           textCapitalization: TextCapitalization.none,
                           keyboardType: TextInputType.number,
                           decoration: InputDecoration(
                             focusColor: Theme.of(context).primaryColor,
                             border: const UnderlineInputBorder(),
                             filled: true,
-                            icon: const Icon(Icons.bookmark_border),
+                            //icon: const Icon(Icons.bookmark_border),
                             hintText: 'Combien des sieges ?',
                             labelText: 'Nombre de sieges',
                           ),
@@ -240,21 +249,21 @@ class RentForm extends StatelessWidget {
                       Container(
                         padding: const EdgeInsets.symmetric(
                             horizontal: 8.0, vertical: 8.0),
-                        child: DropdownButtonFormField<String>(
+                        child: DropdownButtonFormField<RentalVehicleType>(
                           //controller: controllers[5],
-                          items: _movableTypeList.map((String category) {
-                            return DropdownMenuItem(
-                                value: category,
+                          items: _movableTypeList.map((k, v) {
+                            return MapEntry(DropdownMenuItem(
+                                value: v,
                                 child: Row(
                                   children: <Widget>[
                                     const Icon(Icons.tag, size: 20),
                                     const SizedBox(
                                       width: 8.0,
                                     ),
-                                    Text(category),
+                                    Text(k),
                                   ],
-                                ));
-                          }).toList(),
+                                )),0);
+                          }).keys.toList(),
                           onChanged: (newValue) {
                             ///todo: do other stuff with _category doesn't work
                             //setState(() => _subcategory = newValue!);
@@ -264,11 +273,11 @@ class RentForm extends StatelessWidget {
                             focusColor: Theme.of(context).primaryColor,
                             border: const UnderlineInputBorder(),
                             filled: true,
-                            icon: const Icon(Icons.bookmark_border),
+                            //icon: const Icon(Icons.bookmark_border),
                             hintText: 'Specify your product?',
                             labelText: 'Category *',
                           ),
-                          onSaved: (String? value) {
+                          onSaved: (value) {
                             //setState(() => _subcategory = value!);
                           },
                           //validator: (v) {},
@@ -277,7 +286,7 @@ class RentForm extends StatelessWidget {
                     ],
                   ),
 
-                  /// Form : immovable ###
+                  /// Form : immovable => space ################################
                   ifFalse: Column(
                     children: [
                       const Padding(
@@ -300,18 +309,18 @@ class RentForm extends StatelessWidget {
                             focusColor: Theme.of(context).primaryColor,
                             border: const UnderlineInputBorder(),
                             filled: true,
-                            icon: const Icon(Icons.bookmark_border),
+                            //icon: const Icon(Icons.bookmark_border),
                             hintText: 'Entrez un titre ou indentifiant',
                             labelText: 'Libellé *',
                           ),
                           onChanged: (str) {},
-                          onSaved: (String? value) {},
+                          onSaved: (String? value) {
+                            space = space.copyWith(label: value);
+                            //context.read<RentalControllerBloc>().addSpaceRentalPassed(space);
+                          },
                           validator: (v) {
-                            if (v!.length < 3) return 'Libellé est requis.';
-                            //final RegExp nameExp = RegExp(r'^[A-Za-z ]+$');
-                            /*if (!nameExp.hasMatch(v)) {
-                                  return 'Please enter only alphabetical characters.';
-                                }*/
+                            if(v!.isEmpty) return 'Libellé est requis.';
+                            if(v.length < 3)return'Un libellé long est requis.';
                             return null;
                           },
                         ),
@@ -327,11 +336,14 @@ class RentForm extends StatelessWidget {
                             focusColor: Theme.of(context).primaryColor,
                             border: const UnderlineInputBorder(),
                             filled: true,
-                            icon: const Icon(Icons.bookmark_border),
+                            //icon: const Icon(Icons.bookmark_border),
                             hintText: 'Décriver votre bien à louer ?',
                             labelText: 'Description *',
                           ),
-                          onSaved: (String? value) {},
+                          onSaved: (String? value) {
+                            space = space.copyWith(description: value);
+                            //context.read<RentalControllerBloc>().addSpaceRentalPassed(space);
+                          },
                           validator: (v) {
                             if (v!.isEmpty) return 'Détails est requis.';
                             return null;
@@ -354,13 +366,16 @@ class RentForm extends StatelessWidget {
                             focusColor: Theme.of(context).primaryColor,
                             border: const UnderlineInputBorder(),
                             filled: true,
-                            icon: const Icon(Icons.bookmark_border),
+                           // icon: const Icon(Icons.bookmark_border),
                             hintText: 'prix par jour en dollar americain ?',
                             labelText: 'Prix/jour (en \$) *',
                           ),
 
                           onEditingComplete: (){},
-                          onSaved: (String? value) {},
+                          onSaved: (String? value) {
+                            space = space.copyWith(price: value!.toInt());
+                            //context.read<RentalControllerBloc>().addSpaceRentalPassed(space);
+                          },
                           validator: (v) {
                             if (v!.isEmpty) return 'Prix est requis.';
                             final RegExp priceExp = RegExp(r'(^\d*\.?\d*)');
@@ -382,11 +397,14 @@ class RentForm extends StatelessWidget {
                             focusColor: Theme.of(context).primaryColor,
                             border: const UnderlineInputBorder(),
                             filled: true,
-                            icon: const Icon(Icons.bookmark_border),
+                            //icon: const Icon(Icons.bookmark_border),
                             hintText: 'Combien des chambres ?',
                             labelText: 'Nombre de chambre',
                           ),
-                          onSaved: (String? value) {},
+                          onSaved: (String? value) {
+                            space = space.copyWith(room: value!.toInt());
+                            //context.read<RentalControllerBloc>().addSpaceRentalPassed(space);
+                          },
                           validator: (v) {
                             if (v!.isEmpty) return 'Nombre de chambre est requis.';
                             //^[0-9]{1,6}$
@@ -401,37 +419,39 @@ class RentForm extends StatelessWidget {
                       Container(
                         padding: const EdgeInsets.symmetric(
                             horizontal: 8.0, vertical: 8.0),
-                        child: DropdownButtonFormField<String>(
+                        child: DropdownButtonFormField<RentalSpaceType>(
                           //controller: controllers[5],
-                          items: _immovableTypeList.map((String category) {
-                            return DropdownMenuItem(
-                                value: category,
+                          items: _immovableTypeList.map((k, v) {
+                            return MapEntry(DropdownMenuItem(
+                                value: v,
                                 child: Row(
                                   children: <Widget>[
                                     const Icon(Icons.tag, size: 20),
                                     const SizedBox(
                                       width: 8.0,
                                     ),
-                                    Text(category),
+                                    Text(k),
                                   ],
-                                ));
-                          }).toList(),
+                                )),0);
+                          }).keys.toList(),
                           onChanged: (newValue) {
                             /// todo: do other stuff with _category doesn't work
                             //setState(() => _subcategory = newValue!);
+                          },
+                          onSaved: (RentalSpaceType? value) {
+                            space = space.copyWith(spaceType: value);
+                            context.read<RentalControllerBloc>().addSpaceRentalPassed(space);
                           },
 
                           decoration: InputDecoration(
                             focusColor: Theme.of(context).primaryColor,
                             border: const UnderlineInputBorder(),
                             filled: true,
-                            icon: const Icon(Icons.bookmark_border),
+                            //icon: const Icon(Icons.bookmark_border),
                             hintText: 'Specify your product?',
                             labelText: 'Category *',
                           ),
-                          onSaved: (String? value) {
-                            //setState(() => _subcategory = value!);
-                          },
+
                           //validator: (v) {},
                         ),
                       ),
