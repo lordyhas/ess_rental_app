@@ -74,7 +74,7 @@ class RentForm extends StatelessWidget {
                   isSelected: state.isImmovable,
                   onTap:() => BlocProvider
                         .of<RentalControllerBloc>(context)
-                        .addSpaceRentalPassed(RentalSpace.empty),
+                        .addSpaceRentalPassed(context.read<RentalControllerBloc>().state.space),
                 ),
                 const SizedBox(width: 8.0,),
                 TabBarButton(
@@ -82,7 +82,7 @@ class RentForm extends StatelessWidget {
                   isSelected: state.isMovable,
                   onTap:() => BlocProvider
                       .of<RentalControllerBloc>(context)
-                      .addVehicleRentalPassed(RentalVehicle.empty),
+                      .addVehicleRentalPassed(context.read<RentalControllerBloc>().state.vehicle),
                 ),
                 const SizedBox(width: 8.0,),
             ],),
@@ -127,7 +127,7 @@ class RentForm extends StatelessWidget {
                           },
                           onChanged: (str) {},
                           onSaved: (String? value) {
-                            //print("onSaved: Mark[${controllers[0].text}}]");
+                            vehicle = vehicle.copyWith(mark: value);
                           },
                           validator: (v) {
                             if (v!.length < 3) return 'Mark est requis.';
@@ -154,7 +154,7 @@ class RentForm extends StatelessWidget {
                             //print("onEditingComplete: Description[${controllers[1].text}}]");
                           },
                           onSaved: (String? value) {
-                            //print("onSaved: Description[${controllers[1].text}}]");
+                            vehicle = vehicle.copyWith(description: value);
                           },
                           validator: (v) {
                             if (v!.isEmpty) return 'Détails est requis.';
@@ -162,11 +162,7 @@ class RentForm extends StatelessWidget {
                           },
                         ),
                       ),
-                      _RadioButtonGroup(
-                        onSelected: (Per value) {
-                          //print(value);
-                        },
-                      ),
+
                       Container(
                         padding: const EdgeInsets.symmetric(
                             horizontal: 8.0, vertical: 8.0),
@@ -179,15 +175,12 @@ class RentForm extends StatelessWidget {
                             border: const UnderlineInputBorder(),
                             filled: true,
                             //icon: const Icon(Icons.bookmark_border),
-                            hintText: 'prix par jour en dollar americain ?',
-                            labelText: 'Prix/jour (en \$) *',
+                            hintText: 'prix ${_RadioButtonGroup.labels[state.vehicle.pricePer.index]} en dollar américain ?',
+                            labelText: 'Prix/${_RadioButtonGroup.labels[state.vehicle.pricePer.index]} (en \$) *',
                           ),
-
-                          onEditingComplete: (){
-                            //print("onEditingComplete: Prix[${controllers[2].text}}]");
-                          },
+                          onEditingComplete: (){},
                           onSaved: (value) {
-                            //print("onSaved: Prix[${controllers[2].text}}]");
+                            vehicle = vehicle.copyWith(price: value!.toInt());
                           },
                           validator: (v) {
                             if (v!.isEmpty) return 'Prix est requis.';
@@ -195,6 +188,12 @@ class RentForm extends StatelessWidget {
                             return null;
                           },
                         ),
+                      ),
+                      _RadioButtonGroup(
+                        onSelected: (PricePer value) {
+                          vehicle = vehicle.copyWith(pricePer: value);
+                          context.read<RentalControllerBloc>().addVehicleRentalPassed(vehicle);
+                        },
                       ),
                       Container(
                         padding: const EdgeInsets.symmetric(
@@ -211,7 +210,9 @@ class RentForm extends StatelessWidget {
                             hintText: 'Combien des portes ?',
                             labelText: 'Nombre de porte',
                           ),
-                          onSaved: (String? value) {},
+                          onSaved: (String? value) {
+                            vehicle = vehicle.copyWith(door: value!.toInt());
+                          },
                           validator: (v) {
                             if (v!.isEmpty) return 'Nombre de porte est requis.';
                             //^[0-9]{1,6}$
@@ -239,9 +240,12 @@ class RentForm extends StatelessWidget {
                             hintText: 'Combien des sieges ?',
                             labelText: 'Nombre de sieges',
                           ),
-                          onSaved: (String? value) {},
+                          onSaved: (String? value) {
+                            vehicle = vehicle.copyWith(seat: value!.toInt());
+                          },
                           validator: (v) {
-                            //if (v!.isEmpty) return 'Nombre de siege est requis.';
+                            // if (v!.isEmpty) return
+                            // 'Nombre de siege est requis.';
                             return null;
                           },
                         ),
@@ -264,23 +268,23 @@ class RentForm extends StatelessWidget {
                                   ],
                                 )),0);
                           }).keys.toList(),
-                          onChanged: (newValue) {
-                            ///todo: do other stuff with _category doesn't work
-                            //setState(() => _subcategory = newValue!);
+                          onChanged: (v){},
+                          onSaved: (value) {
+                            vehicle = vehicle.copyWith(vehicleType: value);
+                            context.read<RentalControllerBloc>().addVehicleRentalPassed(vehicle);
                           },
-
                           decoration: InputDecoration(
                             focusColor: Theme.of(context).primaryColor,
                             border: const UnderlineInputBorder(),
                             filled: true,
                             //icon: const Icon(Icons.bookmark_border),
-                            hintText: 'Specify your product?',
-                            labelText: 'Category *',
+                            hintText: 'Spécifier la catégorie?',
+                            labelText: 'Catégorie *',
                           ),
-                          onSaved: (value) {
-                            //setState(() => _subcategory = value!);
+                          validator: (v) {
+                            if(v == null) return "Chosir une catégorie";
+                            return null;
                           },
-                          //validator: (v) {},
                         ),
                       ),
                     ],
@@ -350,11 +354,7 @@ class RentForm extends StatelessWidget {
                           },
                         ),
                       ),
-                      _RadioButtonGroup(
-                        onSelected: (Per value) {
-                          //print(value);
-                        },
-                      ),
+
                       Container(
                         padding: const EdgeInsets.symmetric(
                             horizontal: 8.0, vertical: 8.0),
@@ -367,8 +367,8 @@ class RentForm extends StatelessWidget {
                             border: const UnderlineInputBorder(),
                             filled: true,
                            // icon: const Icon(Icons.bookmark_border),
-                            hintText: 'prix par jour en dollar americain ?',
-                            labelText: 'Prix/jour (en \$) *',
+                            hintText: 'prix ${_RadioButtonGroup.labels[state.space.pricePer.index]} en dollar americain ?',
+                            labelText: 'Prix/${_RadioButtonGroup.labels[state.space.pricePer.index]} (en \$) *',
                           ),
 
                           onEditingComplete: (){},
@@ -386,9 +386,19 @@ class RentForm extends StatelessWidget {
                           },
                         ),
                       ),
+
+                      _RadioButtonGroup(
+                        onSelected: (PricePer value) {
+                          space = space.copyWith(pricePer: value);
+                          context.read<RentalControllerBloc>().addSpaceRentalPassed(space);
+                        },
+                      ),
+
                       Container(
                         padding: const EdgeInsets.symmetric(
-                            horizontal: 8.0, vertical: 8.0),
+                            horizontal: 8.0,
+                            vertical: 8.0
+                        ),
                         child: TextFormField(
                           controller: controllers[3],
                           textCapitalization: TextCapitalization.none,
@@ -398,20 +408,14 @@ class RentForm extends StatelessWidget {
                             border: const UnderlineInputBorder(),
                             filled: true,
                             //icon: const Icon(Icons.bookmark_border),
-                            hintText: 'Combien des chambres ?',
-                            labelText: 'Nombre de chambre',
+                            hintText: 'Combien des pièces ?',
+                            labelText: 'Nombre des pièces',
                           ),
                           onSaved: (String? value) {
                             space = space.copyWith(room: value!.toInt());
-                            //context.read<RentalControllerBloc>().addSpaceRentalPassed(space);
                           },
                           validator: (v) {
-                            if (v!.isEmpty) return 'Nombre de chambre est requis.';
-                            //^[0-9]{1,6}$
-                            /*final RegExp nameExp = RegExp(r'(@"^\d$")');
-                                if (!nameExp.hasMatch(v)) {
-                                  return 'Please enter only number .';
-                                }*/
+                            if (v!.isEmpty) return 'Nombre de pièce est requis.';
                             return null;
                           },
                         ),
@@ -434,10 +438,7 @@ class RentForm extends StatelessWidget {
                                   ],
                                 )),0);
                           }).keys.toList(),
-                          onChanged: (newValue) {
-                            /// todo: do other stuff with _category doesn't work
-                            //setState(() => _subcategory = newValue!);
-                          },
+                          onChanged: (newValue) {},
                           onSaved: (RentalSpaceType? value) {
                             space = space.copyWith(spaceType: value);
                             context.read<RentalControllerBloc>().addSpaceRentalPassed(space);
@@ -448,11 +449,14 @@ class RentForm extends StatelessWidget {
                             border: const UnderlineInputBorder(),
                             filled: true,
                             //icon: const Icon(Icons.bookmark_border),
-                            hintText: 'Specify your product?',
-                            labelText: 'Category *',
+                            hintText: 'Spécifier la catégorie?',
+                            labelText: 'Catégorie *',
                           ),
 
-                          //validator: (v) {},
+                          validator: (v) {
+                            if(v == null) return "Chosir une catégorie";
+                            return null;
+                          },
                         ),
                       ),
                     ],
@@ -526,18 +530,20 @@ class TabBarButton extends StatelessWidget {
 }
 
 
-enum Per {hour, day, month}
+
 
 class _RadioButtonGroup extends StatefulWidget {
-  final Function(Per value) onSelected;
+  final Function(PricePer value) onSelected;
   const _RadioButtonGroup({required this.onSelected,});
+
+  static const List<String> labels = ['par heure', 'par jour', 'par mois'];
 
   @override
   State<_RadioButtonGroup> createState() => _RadioButtonGroupState();
 }
 
 class _RadioButtonGroupState extends State<_RadioButtonGroup> {
-  Per? _character = Per.day;
+  PricePer? _character = PricePer.day;
 
   @override
   Widget build(BuildContext context) {
@@ -547,36 +553,36 @@ class _RadioButtonGroupState extends State<_RadioButtonGroup> {
         children: <Widget>[
           //const SizedBox(width: 42.0,),
           _RadioItem(
-            title: const Text('par heure'),
-            leading: Radio<Per>(
-              value: Per.hour,
+            title: Text(_RadioButtonGroup.labels[0]),
+            leading: Radio<PricePer>(
+              value: PricePer.hour,
               groupValue: _character,
-              onChanged: (Per? value) {
+              onChanged: (PricePer? value) {
                 setState(() {_character = value;});
-                widget.onSelected(value ??  Per.day);
+                widget.onSelected(value ??  PricePer.day);
               },
             ),
           ),
           _RadioItem(
-            title: const Text('par jour'),
-            leading: Radio<Per>(
-              value: Per.day,
+            title: Text(_RadioButtonGroup.labels[1]),
+            leading: Radio<PricePer>(
+              value: PricePer.day,
               groupValue: _character,
-              onChanged: (Per? value) {
+              onChanged: (PricePer? value) {
                 setState(() {_character = value;});
-                widget.onSelected(value ??  Per.day);
+                widget.onSelected(value ??  PricePer.day);
               },
             ),
           ),
 
           _RadioItem(
-            title: const Text('par mois'),
-            leading: Radio<Per>(
-              value: Per.month,
+            title: Text(_RadioButtonGroup.labels[2]),
+            leading: Radio<PricePer>(
+              value: PricePer.month,
               groupValue: _character,
-              onChanged: (Per? value) {
+              onChanged: (PricePer? value) {
                 setState(() {_character = value;});
-                widget.onSelected(value ??  Per.day);
+                widget.onSelected(value ??  PricePer.day);
               },
             ),
           ),

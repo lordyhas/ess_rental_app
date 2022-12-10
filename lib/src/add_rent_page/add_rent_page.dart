@@ -125,12 +125,12 @@ class _RentScreenState extends State<RentScreen> {
               break;
           }
         },
-        onStepTapped: null,
-        /*(int index) {
-        setState(() {
-          _index = index;
-        });
-      },*/
+        onStepTapped:// null,
+            (int index) {
+              setState(() {
+                _index = StepperStep.values[index];
+              });
+            },
         controlsBuilder: (BuildContext context, ControlsDetails controls) {
           return Container(
             constraints: const BoxConstraints(
@@ -138,15 +138,13 @@ class _RentScreenState extends State<RentScreen> {
             ),
             child: ButtonBar(
               children: [
-
                 ElevatedButton(
                     onPressed: controls.onStepContinue,
                     child: const Text('Suivant')),
                 TextButton(
                   onPressed: controls.onStepCancel,
-                  child: Text(controls.currentStep == 0 ? 'Annulé' : 'Précédant'),
+                  child: Text(controls.currentStep==0 ? 'Annulé' : 'Précédant'),
                 ),
-
               ],
             ),
           );

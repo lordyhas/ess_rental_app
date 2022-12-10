@@ -13,6 +13,7 @@ class RentalSpace extends RentalProduct {
   final maps.LatLng? coordinates;
   final bool isTaken;
   final int? price;
+  final PricePer pricePer;
 
   const RentalSpace({
     required this.id, // auto
@@ -26,6 +27,7 @@ class RentalSpace extends RentalProduct {
     this.address,
     this.coordinates,
     this.isTaken = false, // auto
+    this.pricePer = PricePer.day, // auto
   });
 
 
@@ -63,7 +65,8 @@ class RentalSpace extends RentalProduct {
               address == other.address &&
               coordinates == other.coordinates &&
               isTaken == other.isTaken &&
-              price == other.price
+              price == other.price &&
+              pricePer == other.pricePer
           );
 
   @override
@@ -81,7 +84,7 @@ class RentalSpace extends RentalProduct {
 
   @override
   String toString() {
-    return 'SpaceRental{ id: $id, label: $label, room: $room, '
+    return 'SpaceRental{ id: $id, label: $label, room: $room, pricePer: $pricePer,'
         'price: $price, spaceType: $spaceType, description: $description, '
         'owner: $owner, images: $images, address: $address, '
         'coordinates: $coordinates, isTaken: $isTaken,}';
@@ -100,6 +103,7 @@ class RentalSpace extends RentalProduct {
     AddressData? address,
     maps.LatLng? coordinates,
     bool? isTaken,
+    PricePer? pricePer
   }) {
     return RentalSpace(
       id: id ?? this.id,
@@ -113,6 +117,7 @@ class RentalSpace extends RentalProduct {
       address: address ?? this.address,
       coordinates: coordinates ?? this.coordinates,
       isTaken: isTaken ?? this.isTaken,
+      pricePer: pricePer ?? this.pricePer,
     );
   }
 
@@ -122,13 +127,14 @@ class RentalSpace extends RentalProduct {
       'label': label,
       'room': room,
       'price': price,
-      'spaceType': spaceType,
+      'spaceType': spaceType.index,
       'description': description,
       'owner': owner,
       'images': images,
-      'address': address,
-      'coordinates': coordinates,
+      'address': address?.toMap(),
+      'coordinates': coordinates?.toJson(),
       'isTaken': isTaken,
+      'pricePer': pricePer.index,
     };
   }
 
@@ -138,12 +144,13 @@ class RentalSpace extends RentalProduct {
       label: map['label'] as String,
       room: map['room'] as int,
       price: map['price'] as int,
-      spaceType: map['spaceType'] as RentalSpaceType,
+      spaceType: RentalSpaceType.values[map['spaceType']],
       description: map['description'] as String,
       owner: map['owner'] as dynamic,
       images: map['images'] as List<dynamic>,
-      address: map['address'] as AddressData,
-      coordinates: map['coordinates'] as maps.LatLng,
+      address: AddressData.fromMap(map['address']),
+      coordinates: maps.LatLng.fromJson(map['coordinates']),
+      pricePer: PricePer.values[map['pricePer']],
       isTaken: map['isTaken'] as bool,
     );
   }

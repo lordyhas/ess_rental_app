@@ -12,6 +12,8 @@ enum RentalType{space, vehicle}
 enum RentalSpaceType{apartment, house, bureau, reception, hall, unknown}
 enum RentalVehicleType{A,B,C,D,E, unknown}
 
+enum PricePer{hour, day, month}
+
 abstract class RentalProduct {
 
   const RentalProduct();

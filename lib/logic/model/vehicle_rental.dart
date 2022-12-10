@@ -16,6 +16,8 @@ class RentalVehicle extends RentalProduct {
   final bool isTaken;
   final int? price;
 
+  final PricePer pricePer;
+
 
   const RentalVehicle({
     required this.mark,
@@ -31,6 +33,7 @@ class RentalVehicle extends RentalProduct {
     this.address,
     this.coordinates,
     this.isTaken = false,
+    this.pricePer = PricePer.day,
   });
 
 
@@ -72,7 +75,8 @@ class RentalVehicle extends RentalProduct {
               address == other.address &&
               coordinates == other.coordinates &&
               isTaken == other.isTaken &&
-              price == other.price
+              price == other.price &&
+              pricePer == other.pricePer
           );
 
   @override
@@ -93,8 +97,8 @@ class RentalVehicle extends RentalProduct {
   String toString() {
     return 'VehicleRental{ '
         'id: $id, mark: $mark, seat: $seat, vehicleType: $vehicleType, '
-        'price: $price, description: $description, owner: $owner, '
-        'images: $images, door: $door, address: $address, '
+        'pricePer: $pricePer, price: $price, description: $description, '
+        'owner: $owner, images: $images, door: $door, address: $address, '
         'coordinates: $coordinates, isTaken: $isTaken,}';
   }
 
@@ -112,6 +116,7 @@ class RentalVehicle extends RentalProduct {
     AddressData? address,
     maps.LatLng? coordinates,
     bool? isTaken,
+    PricePer? pricePer,
   }) {
     return RentalVehicle(
       id: id ?? this.id,
@@ -126,6 +131,7 @@ class RentalVehicle extends RentalProduct {
       address: address ?? this.address,
       coordinates: coordinates ?? this.coordinates,
       isTaken: isTaken ?? this.isTaken,
+      pricePer: pricePer ?? this.pricePer,
     );
   }
 
@@ -135,13 +141,14 @@ class RentalVehicle extends RentalProduct {
       'mark': mark,
       'seat': seat,
       'price': price,
-      'vehicleType': vehicleType,
+      'vehicleType': vehicleType.index,
       'description': description,
       'owner': owner,
       'images': images,
       'door': door,
-      'address': address,
-      'coordinates': coordinates,
+      'address': address?.toMap(),
+      'coordinates': coordinates?.toJson(),
+      'pricePer': pricePer.index,
       'isTaken': isTaken,
     };
   }
@@ -152,13 +159,13 @@ class RentalVehicle extends RentalProduct {
       mark: map['mark'] as String,
       seat: map['seat'] as int,
       price: map['price'] as int,
-      vehicleType: map['vehicleType'] as RentalVehicleType,
+      vehicleType: RentalVehicleType.values[map['vehicleType']],
       description: map['description'] as String,
       owner: map['owner'] as dynamic,
       images: map['images'] as List<dynamic>,
       door: map['door'] as int,
-      address: map['address'] as AddressData,
-      coordinates: map['coordinates'] as maps.LatLng,
+      address: AddressData.fromMap(map['address']),
+      coordinates: maps.LatLng.fromJson(map['coordinates']),
       isTaken: map['isTaken'] as bool,
     );
   }

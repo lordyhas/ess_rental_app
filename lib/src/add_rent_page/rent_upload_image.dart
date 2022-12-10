@@ -94,7 +94,7 @@ class _UploadImageState extends State<UploadImage> {
                 child: Padding(
                   padding: const EdgeInsets.all(16.0),
                   child: BooleanBuilder(
-                    condition: () => _croppedFile == null,
+                    condition: () => _croppedFile != null,
                     ifTrue: Container(
                       constraints: BoxConstraints(
                         maxWidth: 0.8 * screenWidth,
@@ -147,7 +147,7 @@ class _UploadImageState extends State<UploadImage> {
                 ),
               ),
               Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 4.0),
+                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
                   child: ButtonBar(
                     children: [
                       ElevatedButton(
@@ -156,7 +156,7 @@ class _UploadImageState extends State<UploadImage> {
                         },
                         child: const Text('Upload'),
                       ),
-                      if (_croppedFile != null)
+                      /*if (_croppedFile != null)
                         FloatingActionButton(
                           onPressed: () {
                             _clear();
@@ -164,7 +164,7 @@ class _UploadImageState extends State<UploadImage> {
                           backgroundColor: const Color(0xFFBC764A),
                           tooltip: 'Crop',
                           child: const Icon(Icons.delete),
-                        )
+                        )*/
                     ],
                   )),
             ],
