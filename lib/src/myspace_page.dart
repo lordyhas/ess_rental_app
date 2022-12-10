@@ -74,7 +74,7 @@ class UserSpace extends StatelessWidget {
                             ),
                           ),
                           title: const Text("Unknown Name"),
-                          subtitle: const Text("guest-user@exploress.com"),
+                          subtitle: const Text("guest-user@exploress.space"),
                         ),
                         const SizedBox(
                           height: 32.0,
@@ -166,7 +166,7 @@ class UserSpace extends StatelessWidget {
                     //constraints: const BoxConstraints(maxHeight: 200),
                     margin: const EdgeInsets.symmetric(vertical: 8.0),
                     constraints: const BoxConstraints(maxWidth: kPhoneDimens),
-                    height: 320,
+                    height: Responsive.of(context).isPhone ? 400: 320,
                     decoration: BoxDecoration(
                       image: const DecorationImage(
                           image: AssetImage("assets/img/bg_material_2.jpg"),
@@ -178,7 +178,11 @@ class UserSpace extends StatelessWidget {
                     child: Container(
                       child: Column(
                         children: [
+                          Row(),
                           const Spacer(),
+
+                          //const Spacer(),
+                          //const ListTile(),
                           Wrap(
                             spacing: 8.0,
                             runSpacing: 8.0,
@@ -347,6 +351,8 @@ class UserSpace extends StatelessWidget {
                             ],
                           ),
                           const Spacer(),
+                          //const Spacer(),
+                          //const ListTile(),
                         ],
                       ),
                     ),

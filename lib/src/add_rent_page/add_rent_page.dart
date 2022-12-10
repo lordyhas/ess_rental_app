@@ -112,9 +112,9 @@ class _RentScreenState extends State<RentScreen> {
             case StepperStep.one:
 
               if(context.read<RentalControllerBloc>().isImmovable){
-                RentalSpace space = context.read<RentalControllerBloc>().state.space;
+                //RentalSpace space = context.read<RentalControllerBloc>().state.space;
               }else{
-                RentalVehicle vehicle = context.read<RentalControllerBloc>().state.vehicle;
+                //RentalVehicle vehicle = context.read<RentalControllerBloc>().state.vehicle;
                 //RentalVehicle vehicle = RentalVehicle.fromMap(map);
               }
 
