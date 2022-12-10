@@ -36,13 +36,13 @@ class UserSpace extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     double boxWidth = 100.0;
-    final ScrollController _scrollController = ScrollController();
+    final ScrollController scrollController = ScrollController();
 
     return Material(
       child: Scrollbar(
-        controller: _scrollController,
+        controller: scrollController,
         child: SingleChildScrollView(
-          controller: _scrollController,
+          controller: scrollController,
           child: Center(
             child: Container(
               padding: const EdgeInsets.symmetric(horizontal: 8.0),

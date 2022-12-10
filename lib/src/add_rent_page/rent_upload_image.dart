@@ -60,7 +60,8 @@ class _UploadImageState extends State<UploadImage> {
         await ImagePicker().pickImage(source: ImageSource.gallery);
     if (pickedFile != null) {
       setState(() {});
-      if (_croppedFile == null) _cropImage(pickedFile.path);
+      //if (_croppedFile == null) _cropImage(pickedFile.path);
+      _cropImage(pickedFile.path);
     }
   }
 
@@ -89,8 +90,8 @@ class _UploadImageState extends State<UploadImage> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               SizedBox(
-                height: 300,
-                width: 300,
+                height: 320,
+                width: 320,
                 child: Padding(
                   padding: const EdgeInsets.all(16.0),
                   child: BooleanBuilder(
