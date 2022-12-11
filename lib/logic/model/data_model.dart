@@ -11,6 +11,15 @@ part 'vehicle_rental.dart';
 enum RentalType{space, vehicle}
 enum RentalSpaceType{apartment, house, bureau, reception, hall, unknown}
 enum RentalVehicleType{A,B,C,D,E, unknown}
+/*abstract class RentalSpaceType{
+  static const apartment = 0;
+  static const house = 1;
+  static const bureau = 2;
+  static const reception = 3;
+  static const hall = 4;
+  static const unknown = 1;
+}*/
+
 
 enum PricePer{hour, day, month}
 

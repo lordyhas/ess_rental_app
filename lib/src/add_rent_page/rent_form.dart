@@ -32,21 +32,21 @@ class RentForm extends StatelessWidget {
     'Categories B',
     'Categories C',
     'Categories D',
-  ];*/
+  ];* /
 
-  Map<String, RentalSpaceType> get _immovableTypeList => {
+  Map<String, RentalSpaceType> get __immovableTypeList => {
     'Appartement': RentalSpaceType.apartment,
     'Bureau' : RentalSpaceType.bureau,
-    'Entrepot' : RentalSpaceType.reception,
+    'Entrépot' : RentalSpaceType.reception,
     'Salle' : RentalSpaceType.hall,
   };
 
-  Map<String, RentalVehicleType> get _movableTypeList => {
+  Map<String, RentalVehicleType> get __movableTypeList => {
     'Categories A': RentalVehicleType.A,
     'Categories B': RentalVehicleType.B,
     'Categories C': RentalVehicleType.C,
     'Categories D': RentalVehicleType.D,
-  };
+  };*/
 
   @override
   Widget build(BuildContext context) {
@@ -180,7 +180,9 @@ class RentForm extends StatelessWidget {
                           ),
                           onEditingComplete: (){},
                           onSaved: (value) {
-                            vehicle = vehicle.copyWith(price: value!.toInt());
+                            int v = value!.toInt().abs();
+                            if(v == 0) v = 1;
+                            vehicle = vehicle.copyWith(price: v);
                           },
                           validator: (v) {
                             if (v!.isEmpty) return 'Prix est requis.';
@@ -211,7 +213,9 @@ class RentForm extends StatelessWidget {
                             labelText: 'Nombre de porte',
                           ),
                           onSaved: (String? value) {
-                            vehicle = vehicle.copyWith(door: value!.toInt());
+                            int v = value!.toInt().abs();
+                            if(v == 0) v = 1;
+                            vehicle = vehicle.copyWith(door: v);
                           },
                           validator: (v) {
                             if (v!.isEmpty) return 'Nombre de porte est requis.';
@@ -241,7 +245,9 @@ class RentForm extends StatelessWidget {
                             labelText: 'Nombre de sieges',
                           ),
                           onSaved: (String? value) {
-                            vehicle = vehicle.copyWith(seat: value!.toInt());
+                            int v = value!.toInt().abs();
+                            if(v == 0) v = 1;
+                            vehicle = vehicle.copyWith(seat: v);
                           },
                           validator: (v) {
                             // if (v!.isEmpty) return
@@ -255,7 +261,7 @@ class RentForm extends StatelessWidget {
                             horizontal: 8.0, vertical: 8.0),
                         child: DropdownButtonFormField<RentalVehicleType>(
                           //controller: controllers[5],
-                          items: _movableTypeList.map((k, v) {
+                          items: RentalVehicle.vehicleTypeString.map((v, k) {
                             return MapEntry(DropdownMenuItem(
                                 value: v,
                                 child: Row(
@@ -264,7 +270,7 @@ class RentForm extends StatelessWidget {
                                     const SizedBox(
                                       width: 8.0,
                                     ),
-                                    Text(k),
+                                    Text("Catégorie $k"),
                                   ],
                                 )),0);
                           }).keys.toList(),
@@ -373,7 +379,9 @@ class RentForm extends StatelessWidget {
 
                           onEditingComplete: (){},
                           onSaved: (String? value) {
-                            space = space.copyWith(price: value!.toInt());
+                            int v = value!.toInt().abs();
+                            if(v == 0) v = 1;
+                            space = space.copyWith(price: v);
                             //context.read<RentalControllerBloc>().addSpaceRentalPassed(space);
                           },
                           validator: (v) {
@@ -412,7 +420,9 @@ class RentForm extends StatelessWidget {
                             labelText: 'Nombre des pièces',
                           ),
                           onSaved: (String? value) {
-                            space = space.copyWith(room: value!.toInt());
+                            int v = value!.toInt().abs();
+                            if(v == 0) v = 1;
+                            space = space.copyWith(room: v);
                           },
                           validator: (v) {
                             if (v!.isEmpty) return 'Nombre de pièce est requis.';
@@ -425,7 +435,7 @@ class RentForm extends StatelessWidget {
                             horizontal: 8.0, vertical: 8.0),
                         child: DropdownButtonFormField<RentalSpaceType>(
                           //controller: controllers[5],
-                          items: _immovableTypeList.map((k, v) {
+                          items: RentalSpace.spaceTypeString.map((v, k) {
                             return MapEntry(DropdownMenuItem(
                                 value: v,
                                 child: Row(

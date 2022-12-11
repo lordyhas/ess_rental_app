@@ -14,7 +14,7 @@ class _UploadImageState extends State<UploadImage> {
   Future<void> _uploadImage() async {
     final pickedFile = await ImagePicker().pickImage(
         source: ImageSource.gallery
-    ).then((value) => null);
+    );
     if (pickedFile != null) {
       final croppedFile = await ImageCropper().cropImage(
         maxHeight: 800,
@@ -49,10 +49,11 @@ class _UploadImageState extends State<UploadImage> {
 
       setState(() {
         _croppedFile = croppedFile;
+        widget.onUploaded(_croppedFile);
       });
-      Future.delayed(
+      /*Future.delayed(
           const Duration(seconds: 1), () => widget.onUploaded(_croppedFile),
-      );
+      );*/
 
     }
   }

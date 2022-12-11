@@ -10,7 +10,7 @@ class RentalVehicle extends RentalProduct {
   final dynamic owner;
   final int? door;
   final int seat;
-  final List<dynamic> images;
+  final List<String> images;
   final AddressData? address;
   final maps.LatLng? coordinates;
   final bool isTaken;
@@ -35,6 +35,14 @@ class RentalVehicle extends RentalProduct {
     this.isTaken = false,
     this.pricePer = PricePer.day,
   });
+
+  static const Map<RentalVehicleType, String> vehicleTypeString = {
+    RentalVehicleType.A: "A",
+    RentalVehicleType.B: "B",
+    RentalVehicleType.C: "C",
+    RentalVehicleType.D: "B",
+
+  };
 
 
   static const empty = RentalVehicle(
@@ -113,7 +121,7 @@ class RentalVehicle extends RentalProduct {
     RentalVehicleType? vehicleType,
     String? description,
     dynamic owner,
-    List<dynamic>? images,
+    List<String>? images,
     int? door,
     AddressData? address,
     maps.LatLng? coordinates,
@@ -164,7 +172,7 @@ class RentalVehicle extends RentalProduct {
       vehicleType: RentalVehicleType.values[map['vehicleType']],
       description: map['description'] as String,
       owner: map['owner'] as dynamic,
-      images: map['images'] as List<dynamic>,
+      images: map['images'] as List<String>,
       door: map['door'] as int,
       address: AddressData.fromMap(map['address']),
       coordinates: maps.LatLng.fromJson(map['coordinates']),

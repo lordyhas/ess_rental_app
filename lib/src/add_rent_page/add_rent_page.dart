@@ -43,6 +43,7 @@ class RentScreen extends StatefulWidget {
 
 class _RentScreenState extends State<RentScreen> {
   late StepperStep _index;
+  CroppedFile? croppedFile;
   final GlobalKey<FormState> validator = GlobalKey<FormState>();
   late final List<TextEditingController> controllers;
   late final Map<String,TextEditingController> spaceCtrl;
@@ -82,7 +83,7 @@ class _RentScreenState extends State<RentScreen> {
   Widget build(BuildContext context) {
 
     //BlocProvider.of<RentalControllerBloc>(context).state;
-    CroppedFile? croppedFile;
+
 
 
     return SizedBox(
@@ -116,11 +117,11 @@ class _RentScreenState extends State<RentScreen> {
 
               if(context.read<RentalControllerBloc>().isImmovable){
                 RentalSpace space = context.read<RentalControllerBloc>()
-                    .state.space.copyWith(images: [croppedFile?.path]);
+                    .state.space.copyWith(images: [croppedFile!.path]);
                 context.read<RentalControllerBloc>().addSpaceRentalImaged(space);
               }else{
                 RentalVehicle vehicle = context.read<RentalControllerBloc>()
-                    .state.vehicle.copyWith(images: [croppedFile?.path]);
+                    .state.vehicle.copyWith(images: [croppedFile!.path]);
                 context.read<RentalControllerBloc>().addVehicleRentalImaged(vehicle);
               }
 
@@ -132,7 +133,7 @@ class _RentScreenState extends State<RentScreen> {
           }
         },
         onStepTapped: null,
-            /*(int index) {
+        /*(int index) {
               setState(() {
                 _index = StepperStep.values[index];
               });
@@ -168,7 +169,7 @@ class _RentScreenState extends State<RentScreen> {
                     validator: validator,
                     onComplete: (_){},
                     onValidForm: (_){},
-                  )
+                  ),
               ),
             ),
           ),
@@ -182,6 +183,8 @@ class _RentScreenState extends State<RentScreen> {
                       setState(() {
                         croppedFile = file;
                       });
+                      //print("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
+                      //print(croppedFile!.path);
                     },
                   ),
                 )
@@ -193,20 +196,103 @@ class _RentScreenState extends State<RentScreen> {
                 alignment: Alignment.centerLeft,
                 child: SizedBox(
                   height: 500,
-                  child: Column(
-                    children: [
-                      Card(
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(8.0),
+                  child: BooleanBuilder(
+                    condition: () => context.read<RentalControllerBloc>().isImmovable,
+                    ifTrue: Column(
+                      children: [
+                        if(context.read<RentalControllerBloc>().space.images.isNotEmpty)
+                          SizedBox(
+                            height: 320,
+                            width: 320,
+                            child: Card(
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(8.0),
+                              ),
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(8.0),
+                                child: Responsive.of(context).isOnlyWeb
+                                    ? Image.network(context.read<RentalControllerBloc>().space.images.first)
+                                    : Image.file(File(context.read<RentalControllerBloc>().space.images.first)),
+                              ),
+                            ),
+                          ),
+
+                        const SizedBox(width: 16.0,),
+                        Row(
+                          children: [
+                            Builder(
+                                builder: (context) {
+                                  final val = context.read<RentalControllerBloc>().state.space;
+                                  return Text.rich(TextSpan(
+                                    children: [
+                                      const TextSpan(text: "Titre : "),
+                                      TextSpan(text: "${val.label} \n"),
+                                      const TextSpan(text: "Description : "),
+                                      TextSpan(text: "${val.description} \n"),
+                                      const TextSpan(text: "Pièce(s) : "),
+                                      TextSpan(text: "${val.room} \n"),
+                                      const TextSpan(text: "Prix : "),
+                                      TextSpan(text: "${val.price} \n"),
+                                      const TextSpan(text: "Catégorie :"),
+                                      TextSpan(text: "${RentalSpace.spaceTypeString[val.spaceType]} \n"),
+
+
+                                    ],
+                                  ));
+                                }
+                            ),
+                          ],
                         ),
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(8.0),
-                          child: Responsive.of(context).isOnlyWeb
-                              ? Image.network(context.read<RentalControllerBloc>().state.space.images.first)
-                              : Image.file(File(context.read<RentalControllerBloc>().state.space.images.first)),
+
+
+                      ],
+                    ),
+                    ifFalse: Column(
+                      children: [
+                        if(context.read<RentalControllerBloc>().vehicle.images.isNotEmpty)
+                          SizedBox(
+                            height: 320,
+                            width: 320,
+                            child: Card(
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(8.0),
+                              ),
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(8.0),
+                                child: Responsive.of(context).isOnlyWeb
+                                    ? Image.network(context.read<RentalControllerBloc>().vehicle.images.first)
+                                    : Image.file(File(context.read<RentalControllerBloc>().vehicle.images.first)),
+                              ),
+                            ),
+                          ),
+                        const SizedBox(width: 16.0,),
+                        Row(
+                          children: [
+                            Builder(
+                                builder: (context) {
+                                  final val = context.read<RentalControllerBloc>().vehicle;
+                                  return Text.rich(TextSpan(
+                                    children: [
+                                      const TextSpan(text: "Titre : "),
+                                      TextSpan(text: "${val.mark} \n"),
+                                      const TextSpan(text: "Description : "),
+                                      TextSpan(text: "${val.description} \n"),
+                                      const TextSpan(text: "Pièce(s) : "),
+                                      TextSpan(text: "${val.door} \n"),
+                                      const TextSpan(text: "Prix : "),
+                                      TextSpan(text: "${val.price} \n"),
+                                      const TextSpan(text: "Catégorie :"),
+                                      TextSpan(text: "${RentalVehicle.vehicleTypeString[val.vehicleType]} \n"),
+
+                                    ],
+                                  ));
+                                }
+                            ),
+                          ],
                         ),
-                      ),
-                    ],
+
+                      ],
+                    ),
                   ),
                 ),
             ),

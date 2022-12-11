@@ -8,7 +8,7 @@ class RentalSpace extends RentalProduct {
 
   final dynamic owner;
   final int room;
-  final List<dynamic> images;
+  final List<String> images;
   final AddressData? address;
   final maps.LatLng? coordinates;
   final bool isTaken;
@@ -27,10 +27,15 @@ class RentalSpace extends RentalProduct {
     this.address,
     this.coordinates,
     this.isTaken = false, // auto
-    this.pricePer = PricePer.day, // auto
+    this.pricePer = PricePer.day,
   });
 
-
+  static const Map<RentalSpaceType, String> spaceTypeString = {
+    RentalSpaceType.hall      : "Salle",
+    RentalSpaceType.apartment : "Appartement",
+    RentalSpaceType.bureau    : "Bureau",
+    RentalSpaceType.reception : "Entrépot",
+  };
 
   static const empty = RentalSpace(
       id: '',
@@ -102,7 +107,7 @@ class RentalSpace extends RentalProduct {
     RentalSpaceType? spaceType,
     String? description,
     owner,
-    List<dynamic>? images,
+    List<String>? images,
     AddressData? address,
     maps.LatLng? coordinates,
     bool? isTaken,
@@ -150,7 +155,7 @@ class RentalSpace extends RentalProduct {
       spaceType: RentalSpaceType.values[map['spaceType']],
       description: map['description'] as String,
       owner: map['owner'] as dynamic,
-      images: map['images'] as List<dynamic>,
+      images: map['images'] as List<String>,
       address: AddressData.fromMap(map['address']),
       coordinates: maps.LatLng.fromJson(map['coordinates']),
       pricePer: PricePer.values[map['pricePer']],
