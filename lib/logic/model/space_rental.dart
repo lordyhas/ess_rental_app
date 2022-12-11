@@ -31,6 +31,7 @@ class RentalSpace extends RentalProduct {
   });
 
 
+
   static const empty = RentalSpace(
       id: '',
       label: '',
@@ -45,6 +46,8 @@ class RentalSpace extends RentalProduct {
 
   /// Convenience getter to determine whether the current [RentalSpace] is not empty.
   bool get isNotEmpty => this != RentalSpace.empty;
+
+  bool get isComplete => isNotEmpty && images.isNotEmpty;
 
   @override
   RentalType get rentalType => RentalType.space;

@@ -82,6 +82,8 @@ class _RentScreenState extends State<RentScreen> {
   Widget build(BuildContext context) {
 
     //BlocProvider.of<RentalControllerBloc>(context).state;
+    CroppedFile? croppedFile;
+
 
     return SizedBox(
       width: 720,
@@ -110,12 +112,16 @@ class _RentScreenState extends State<RentScreen> {
               }
               break;
             case StepperStep.one:
+              if(croppedFile.isNull) break;
 
               if(context.read<RentalControllerBloc>().isImmovable){
-                //RentalSpace space = context.read<RentalControllerBloc>().state.space;
+                RentalSpace space = context.read<RentalControllerBloc>()
+                    .state.space.copyWith(images: [croppedFile?.path]);
+                context.read<RentalControllerBloc>().addSpaceRentalImaged(space);
               }else{
-                //RentalVehicle vehicle = context.read<RentalControllerBloc>().state.vehicle;
-                //RentalVehicle vehicle = RentalVehicle.fromMap(map);
+                RentalVehicle vehicle = context.read<RentalControllerBloc>()
+                    .state.vehicle.copyWith(images: [croppedFile?.path]);
+                context.read<RentalControllerBloc>().addVehicleRentalImaged(vehicle);
               }
 
               setState((){_index = StepperStep.two;});
@@ -125,12 +131,12 @@ class _RentScreenState extends State<RentScreen> {
               break;
           }
         },
-        onStepTapped:// null,
-            (int index) {
+        onStepTapped: null,
+            /*(int index) {
               setState(() {
                 _index = StepperStep.values[index];
               });
-            },
+            },*/
         controlsBuilder: (BuildContext context, ControlsDetails controls) {
           return Container(
             constraints: const BoxConstraints(
@@ -170,8 +176,14 @@ class _RentScreenState extends State<RentScreen> {
             title: const Text('Téléversé l\'image'),
             content: Container(
                 alignment: Alignment.centerLeft,
-                child: const SizedBox(
-                  child: UploadImage(),
+                child: SizedBox(
+                  child: UploadImage(
+                    onUploaded: (file){
+                      setState(() {
+                        croppedFile = file;
+                      });
+                    },
+                  ),
                 )
             ),
           ),
@@ -179,10 +191,24 @@ class _RentScreenState extends State<RentScreen> {
             title: const Text('Vérfication'),
             content: Container(
                 alignment: Alignment.centerLeft,
-                child: const SizedBox(
-                  height: 400,
-                  child: Placeholder(),
-                )
+                child: SizedBox(
+                  height: 500,
+                  child: Column(
+                    children: [
+                      Card(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(8.0),
+                        ),
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(8.0),
+                          child: Responsive.of(context).isOnlyWeb
+                              ? Image.network(context.read<RentalControllerBloc>().state.space.images.first)
+                              : Image.file(File(context.read<RentalControllerBloc>().state.space.images.first)),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
             ),
           ),
         ],

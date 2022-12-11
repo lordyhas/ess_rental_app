@@ -54,6 +54,8 @@ class RentalVehicle extends RentalProduct {
   /// current [RentalVehicle] is not empty.
   bool get isNotEmpty => this != RentalVehicle.empty;
 
+  bool get isComplete => isNotEmpty && images.isNotEmpty;
+
   @override
   RentalType get rentalType => RentalType.vehicle;
 

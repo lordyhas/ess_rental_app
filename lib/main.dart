@@ -13,6 +13,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:exploress_location/logic/values.dart';
 import 'package:hive_flutter/adapters.dart';
+import 'package:hydrated_bloc/hydrated_bloc.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 import 'package:firebase_core/firebase_core.dart';
@@ -31,6 +33,12 @@ void main() async {
   } else {
     await Firebase.initializeApp();
   }
+
+  HydratedBloc.storage = await HydratedStorage.build(
+      storageDirectory: kIsWeb
+          ? HydratedStorage.webStorageDirectory
+          : await getTemporaryDirectory(),
+  );
 
   Bloc.observer = AppBlocObserver();
 

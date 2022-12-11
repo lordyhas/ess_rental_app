@@ -1,7 +1,8 @@
 part of rent_page;
 
 class UploadImage extends StatefulWidget {
-  const UploadImage({Key? key}) : super(key: key);
+  final void Function(CroppedFile? file) onUploaded;
+  const UploadImage({required this.onUploaded, super.key});
 
   @override
   State<UploadImage> createState() => _UploadImageState();
@@ -10,12 +11,15 @@ class UploadImage extends StatefulWidget {
 class _UploadImageState extends State<UploadImage> {
   CroppedFile? _croppedFile;
 
-  Future<void> _cropImage(String path) async {
-    if (true) {
+  Future<void> _uploadImage() async {
+    final pickedFile = await ImagePicker().pickImage(
+        source: ImageSource.gallery
+    ).then((value) => null);
+    if (pickedFile != null) {
       final croppedFile = await ImageCropper().cropImage(
         maxHeight: 800,
         maxWidth: 800,
-        sourcePath: path,
+        sourcePath: pickedFile.path,
         compressFormat: ImageCompressFormat.png,
         compressQuality: 80,
         aspectRatio: const CropAspectRatio(ratioX: 100, ratioY: 100),
@@ -26,42 +30,30 @@ class _UploadImageState extends State<UploadImage> {
               toolbarColor: Colors.deepPurple,
               toolbarWidgetColor: Colors.white,
               initAspectRatio: CropAspectRatioPreset.square,
-              lockAspectRatio: true),
+              lockAspectRatio: true,
+          ),
           IOSUiSettings(
             title: 'Cropper',
           ),
           WebUiSettings(
             context: context,
             presentStyle: CropperPresentStyle.dialog,
-            boundary: const CroppieBoundary(
-              width: 520,
-              height: 520,
-            ),
-            viewPort: const CroppieViewPort(
-              width: 480,
-              height: 480,
-            ),
+            boundary: const CroppieBoundary(width: 520, height: 520,),
+            viewPort: const CroppieViewPort(width: 480, height: 480,),
             enableExif: true,
             enableZoom: true,
             showZoomer: true,
           ),
         ],
       );
-      if (croppedFile != null) {
-        setState(() {
-          _croppedFile = croppedFile;
-        });
-      }
-    }
-  }
 
-  Future<void> _uploadImage() async {
-    final pickedFile =
-        await ImagePicker().pickImage(source: ImageSource.gallery);
-    if (pickedFile != null) {
-      setState(() {});
-      //if (_croppedFile == null) _cropImage(pickedFile.path);
-      _cropImage(pickedFile.path);
+      setState(() {
+        _croppedFile = croppedFile;
+      });
+      Future.delayed(
+          const Duration(seconds: 1), () => widget.onUploaded(_croppedFile),
+      );
+
     }
   }
 
@@ -152,22 +144,12 @@ class _UploadImageState extends State<UploadImage> {
                   child: ButtonBar(
                     children: [
                       ElevatedButton(
-                        onPressed: () {
-                          _uploadImage();
-                        },
+                        onPressed: () => _uploadImage(),
                         child: const Text('Upload'),
                       ),
-                      /*if (_croppedFile != null)
-                        FloatingActionButton(
-                          onPressed: () {
-                            _clear();
-                          },
-                          backgroundColor: const Color(0xFFBC764A),
-                          tooltip: 'Crop',
-                          child: const Icon(Icons.delete),
-                        )*/
                     ],
-                  )),
+                  )
+              ),
             ],
           ),
         ),
