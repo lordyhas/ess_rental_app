@@ -26,14 +26,14 @@ class _UploadImageState extends State<UploadImage> {
         aspectRatioPresets: [CropAspectRatioPreset.square],
         uiSettings: [
           AndroidUiSettings(
-              toolbarTitle: 'Cropper',
+              toolbarTitle: 'Recadrage Image',
               toolbarColor: Colors.deepPurple,
               toolbarWidgetColor: Colors.white,
               initAspectRatio: CropAspectRatioPreset.square,
               lockAspectRatio: true,
           ),
           IOSUiSettings(
-            title: 'Cropper',
+            title: 'Recadrage Image',
           ),
           WebUiSettings(
             context: context,
@@ -58,7 +58,7 @@ class _UploadImageState extends State<UploadImage> {
     }
   }
 
-  void _clear() {
+  void clear() {
     setState(() {
       _croppedFile = null;
     });
@@ -145,8 +145,11 @@ class _UploadImageState extends State<UploadImage> {
                   child: ButtonBar(
                     children: [
                       ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.green
+                        ),
                         onPressed: () => _uploadImage(),
-                        child: const Text('Upload'),
+                        child: const Text('Télécharger'),
                       ),
                     ],
                   )

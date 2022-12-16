@@ -42,21 +42,14 @@ class _RentProductScreenState extends State<RentProductScreen>
   }
 
   List<RentItemData> get _spaceList =>  DataTest.shops
-      .map(
-        (s) => RentItemData(
+      .map((s) => RentItemData(
       imagePath: s.imagePath!,
       titleTxt: s.shopName,
       subTxt: 'Lubumbashi, CD',
-      distance: distance(
-          fromLatLng:
-          BlocProvider.of<MapsBloc>(context)
-              .state
-              .maps
-              .currentLatLngFromDistance,
-          toLatLng: dist.LatLng(
-              s.location!.latitude,
-              s.location!.longitude)) /
-          1000,
+      distance: DistanceBetween(
+          fromLatLng: context.read<MapsBloc>().state.maps.currentLatLng2,
+          toLatLng: dist.LatLng(s.location!.latitude, s.location!.longitude)
+      ).distanceKiloMeter,
       reviews: 80,
       rating: s.rating / s.rater,
       perNight: 180,
@@ -67,9 +60,8 @@ class _RentProductScreenState extends State<RentProductScreen>
   @override
   Widget build(BuildContext context) {
     //Brightness _currentBrightness = Theme.of(context).brightness;
-    var spaceList = _spaceList..addAll(_spaceList
-      ..removeAt(1)..reversed.toList()
-      ..shuffle());
+    //_spaceList.add(_spaceList[Random().nextInt(_spaceList.length)+1]);
+    var spaceList = _spaceList..addAll(_spaceList..shuffle());
 
     void onMapClickOpenPage(int index) {
       Navigator.push(
@@ -157,7 +149,7 @@ class _RentProductScreenState extends State<RentProductScreen>
   }
 
   Widget getSearchBarUI(context) {
-    final shopAppTheme = BlocProvider.of<StyleAppTheme>(context);
+    //final shopAppTheme = BlocProvider.of<StyleAppTheme>(context);
 
     return Padding(
       padding: const EdgeInsets.only(left: 16, right: 16, top: 8, bottom: 8),
@@ -183,7 +175,8 @@ class _RentProductScreenState extends State<RentProductScreen>
                   ],
                 ),
                 child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16),//only(left: 16, right: 16, top: 4, bottom: 4),
+                  padding: const EdgeInsets.symmetric(horizontal: 16),
+                  //only(left: 16, right: 16, top: 4, bottom: 4),
                   child: TextField(
                     onChanged: (String txt) {},
                     style: const TextStyle(
@@ -396,7 +389,7 @@ class RContestTabHeader extends SliverPersistentHeaderDelegate {
     //final shopAppTheme = BlocProvider.of<StyleAppTheme>(context);
     Color? filBarColor = secondary? Theme.of(context).primaryColorLight : null;
     Widget? h3 = !secondary ? H3(title!.data!) : null;
-    print("xxxxxxxxxxxxxxxxxxxxxxxx => "+title!.data!);
+    //print("xxxxxxxxxxxxxxxxxxxxxxxx => "+title!.data!);
     return SizedBox(
       //color: Theme.of(context).scaffoldBackgroundColor,
       child: Stack(

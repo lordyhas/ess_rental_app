@@ -203,7 +203,7 @@ class _PlaceInfoScreenState extends State<PlaceInfoScreen>
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: <Widget>[
                       Text(
-                        'à ${distance(fromLatLng: position.currentLatLngFromDistance, toLatLng: dist.LatLng(-11.6284708, 27.487585))} metre \ndu centre ville de Lubumbashi',
+                        'à ${distance(fromLatLng: position.currentLatLng2, toLatLng: dist.LatLng(-11.6284708, 27.487585))} metre \ndu centre ville de Lubumbashi',
                         textAlign: TextAlign.left,
                         overflow: TextOverflow.ellipsis,
                         style: const TextStyle(
