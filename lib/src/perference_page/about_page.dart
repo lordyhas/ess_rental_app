@@ -62,18 +62,18 @@ class _AboutState extends State<AboutPage>{
 
 
     return WillPopScope(
-      onWillPop: ()=> Future.value(true),
+      onWillPop: () => Future.value(true),
       child: BackgroundUI(
-        child: Scaffold(
-          extendBodyBehindAppBar: true,
+        child: Material(
+          /*extendBodyBehindAppBar: true,
           //backgroundColor: Theme.of(context).backgroundColor,
           appBar: AppBar(
             backgroundColor: Theme.of(context).cardColor.withOpacity(0.5),
 
             //textTheme: Theme.of(context).textTheme,
             title: const Text('About',),
-          ),
-          body: SingleChildScrollView(
+          ),*/
+          child: SingleChildScrollView(
             padding: const EdgeInsets.only(left: 5.0, right: 5.0,),
             physics: const BouncingScrollPhysics(),
             child: Center(

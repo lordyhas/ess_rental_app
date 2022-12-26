@@ -18,8 +18,7 @@ class AuthenticationBloc
       : _authenticationRepository = authRepository,
         super(
           authRepository.currentUser.isNotEmpty
-              ? AuthenticationState.authenticated(
-                  authRepository.currentUser)
+              ? AuthenticationState.authenticated(authRepository.currentUser)
               : const AuthenticationState.unauthenticated(),
         ) {
     on<AuthenticationUserChanged>(_onUserChanged);
@@ -31,6 +30,9 @@ class AuthenticationBloc
 
   final AuthenticationRepository _authenticationRepository;
   late final StreamSubscription<User> _userSubscription;
+
+
+  bool get isSignedIn => state.status == AuthenticationStatus.authenticated;
 
   void _onUserChanged(
       AuthenticationUserChanged event, Emitter<AuthenticationState> emit) {

@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 
 class On404Page extends StatefulWidget {
-  const On404Page({super.key});
+  final Exception? error;
+  const On404Page({super.key, this.error});
 
   static Route route() {
     return MaterialPageRoute<void>(builder: (_) => const On404Page());

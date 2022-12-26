@@ -1,6 +1,7 @@
 part of home_page;
 
 class SettingScreen extends StatefulWidget {
+  static const routeName = "SettingScreen";
   final Function()? onMenuTap;
 
   const SettingScreen({

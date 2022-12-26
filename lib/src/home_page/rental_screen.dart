@@ -1,6 +1,8 @@
 part of home_page;
 
 class RentProductScreen extends StatefulWidget {
+
+  static const routeName = "RentProductScreen";
   //final List<SpaceItemData> shopList;
   final void Function()? onMenuTap;
 

@@ -1,23 +1,13 @@
 part of data.maps;
 
 class MapsBloc extends Bloc<MapsEvent, MapsState> {
-  MapsBloc() : super(MapsState.unknown());
-
-
-
-  @override
-  Stream<MapsState> mapEventToState(
-    MapsEvent event,
-  ) async* {
-
-    if(event is MapsDataLoad){
-      yield _updateToCart(event);
-    }
-
+  MapsBloc() : super(MapsState.unknown()) {
+    on<MapsDataLoad>(_updateToCart);
   }
 
-  MapsState _updateToCart(MapsDataLoad event) {
-    return MapsState.loaded(event.location);
+
+  void _updateToCart(MapsDataLoad event, Emitter<MapsState> emit) {
+    emit(MapsState.loaded(event.location));
   }
 
   void load({required GPSPosition position}) =>

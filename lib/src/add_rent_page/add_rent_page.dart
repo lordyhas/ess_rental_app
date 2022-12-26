@@ -21,7 +21,7 @@ part 'rent_form.dart';
 enum StepperStep { zero, one, two }
 
 class AddRentPage extends StatelessWidget {
-  static const routeName = "/home/user/form?id=sfr";
+  static const routeName = "form";
 
   const AddRentPage({Key? key}) : super(key: key);
 

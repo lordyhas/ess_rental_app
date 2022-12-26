@@ -5,7 +5,7 @@ enum AuthenticationStatus { authenticated, unauthenticated, unknown }
 
 class AuthenticationState extends Equatable {
   const AuthenticationState._({
-    this.status = AuthenticationStatus.unknown,
+    this.status = AuthenticationStatus.unauthenticated,
     this.user = User.empty,
   });
 

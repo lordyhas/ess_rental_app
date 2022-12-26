@@ -20,7 +20,12 @@ class RouteManager {
     AddRentPage.routeName  : (context) => const AddRentPage(),
     AboutPage.routeName  : (context) => const AboutPage(),
     PlaceInfoScreen.routeName  : (context) => const PlaceInfoScreen(),
-    MySpacePage.routeName  : (context) => const MySpacePage(),
+    //MySpacePage.routeName  : (context) => const MySpacePage(),
     //ProfilePage.routeName  : (context) => const ProfilePage(),
   };
+
+
+
+
+  //final routers;
 }

@@ -5,7 +5,7 @@ import 'package:exploress_location/logic/values.dart';
 import 'package:flutter/material.dart';
 
 class MySpacePage extends StatelessWidget {
-  static const routeName = "/home/user/my_space";
+
 
   const MySpacePage({Key? key}) : super(key: key);
 
@@ -25,6 +25,7 @@ class MySpacePage extends StatelessWidget {
 }
 
 class UserSpace extends StatelessWidget {
+  static const routeName = "/home/user/my_space";
   const UserSpace({Key? key}) : super(key: key);
 
   TextStyle get numStyle =>

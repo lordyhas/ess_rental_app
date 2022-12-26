@@ -1,9 +1,9 @@
 part of home_page;
 
-class AnchorLayout extends StatelessWidget {
+class NestedWebView extends StatelessWidget {
   final Widget child;
 
-  const AnchorLayout({required this.child, Key? key, }) : super(key: key);
+  const NestedWebView({required this.child, Key? key, }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

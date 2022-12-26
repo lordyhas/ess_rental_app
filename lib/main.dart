@@ -20,7 +20,7 @@ import 'package:permission_handler/permission_handler.dart';
 import 'package:firebase_core/firebase_core.dart';
 
 import 'package:exploress_location/on_404_page.dart';
-import 'package:exploress_location/ongenerate_page.dart';
+
 //import 'firebase_options.dart';
 
 part 'routes.dart';
@@ -112,9 +112,10 @@ class MyApp extends StatelessWidget {
 class EssRentApp extends StatelessWidget {
   EssRentApp({super.key});
 
-  final _navigatorKey = GlobalKey<NavigatorState>();
+  final _rootNavigatorKey = GlobalKey<NavigatorState>();
+  final _shellNavigatorKey = GlobalKey<NavigatorState>();
 
-  NavigatorState get _navigator => _navigatorKey.currentState!;
+  //NavigatorState get _navigator => _navigatorKey.currentState!;
 
   void _checkSomePermissions() async {
     if (kIsWeb) return;
@@ -127,6 +128,8 @@ class EssRentApp extends StatelessWidget {
     ].request();
     debugPrint("===== Permissions : ${statuses[Permission.storage]}");
   }
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -159,57 +162,160 @@ class EssRentApp extends StatelessWidget {
       ],
       child: BlocBuilder<StyleAppTheme, ThemeData>(
         builder: (context, theme) {
-          return BlocBuilder<AuthenticationBloc, AuthenticationState>(
-            buildWhen: (prev, next) => prev != next,
-            builder: (context, connect) {
-              return MaterialApp(
-                debugShowCheckedModeBanner: false,
-                title: AppConstant.markName,
-                navigatorKey: _navigatorKey,
-                theme: ThemeData.dark().copyWith(
-                  visualDensity: VisualDensity.adaptivePlatformDensity,
-                  primaryColorLight: Colors.tealAccent.shade400,
-                  floatingActionButtonTheme: FloatingActionButtonThemeData(
-                    backgroundColor: Colors.cyan.withOpacity(1),
-                  ),
+          return MaterialApp.router(
+            debugShowCheckedModeBanner: false,
+            title: AppConstant.markName,
+            theme: ThemeData.dark().copyWith(
+              visualDensity: VisualDensity.adaptivePlatformDensity,
+              primaryColorLight: Colors.tealAccent.shade400,
+              floatingActionButtonTheme: FloatingActionButtonThemeData(
+                backgroundColor: Colors.cyan.withOpacity(1),
+              ),
+            ),
+            //supportedLocales: const <Locale>[Locale('fr')],
+
+            routerConfig: GoRouter(
+              navigatorKey: _rootNavigatorKey,
+              errorBuilder: (context, state) => On404Page(error:state.error),
+              redirect: (BuildContext context, GoRouterState state) {
+                //
+                if (BlocProvider.of<AuthenticationBloc>(context).isSignedIn) {
+                  return "/root/my_account/login";
+                } else {
+                  return null;
+                }
+              },
+              initialLocation: HomePage.routeName,  //HomePage.routeName,
+              routes: [
+                ShellRoute(
+                  navigatorKey: _shellNavigatorKey,
+                  builder: (context, state, child) {
+                    return HomePage(child: child);
+                  },
+                  routes: [
+                    GoRoute(
+                      name: HomePage.routeName,
+                      path: HomePage.routeName,
+                      builder: (context, state) {
+                        return const NestedWebView(child: HomeScreen());
+                      },
+                      routes: <RouteBase>[
+
+                        GoRoute(
+                          name: UserSpace.routeName,
+                          path: 'user/my_space',
+                          builder: (BuildContext context, state) {
+                            return const NestedWebView(child: UserSpace());
+                          },
+                        ),
+                        GoRoute(
+                          parentNavigatorKey: _rootNavigatorKey,
+                          name: AddRentPage.routeName,
+                          path: "user/form",
+                          builder: (context, state) => const AddRentPage(),
+                        ),
+                        GoRoute(
+                            name: RentProductScreen.routeName,
+                            path: "explore",
+                            builder: (context, state) => const RentProductScreen(),
+                            routes: [
+                              GoRoute(
+                                parentNavigatorKey: _rootNavigatorKey,
+                                name: PlaceInfoScreen.routeName,
+                                path: "places/single-place",
+                                builder: (context, state) => const PlaceInfoScreen(),
+                              ),
+                              GoRoute(
+                                parentNavigatorKey: _rootNavigatorKey,
+                                name: MapSample.routeName,
+                                path: "map",
+                                builder: (context, state) => const MapSample(),
+                              ),
+                            ]
+                        ),
+                        GoRoute(
+                            name: SettingScreen.routeName,
+                            path: 'setting',
+                            builder: (context, state) => const SettingScreen(),
+
+                            routes: [
+                              GoRoute(
+                                name: AboutPage.routeName,
+                                path: "about",
+                                builder: (context, state) => const AboutPage(),
+                              ),
+                            ]
+                        ),
+
+                      ],
+                    ),
+                  ],
                 ),
-                //supportedLocales: const <Locale>[Locale('fr')],
-                //home: HomePage(),
-                initialRoute: HomePage.routeName, /*connect.status == AuthenticationStatus.authenticated
-                    ? HomePage.routeName
-                    : LoginPage.routeName,*/
-                routes: RouteManager.kRoutes,
-                /*builder: (context, child) {
-              return BlocListener<AuthenticationBloc, AuthenticationState>(
-                listener: (context, state) {
-                  switch (state.status) {
-                    case AuthenticationStatus.authenticated:
-                      _navigator.pushNamedAndRemoveUntil<void>(
-                        HomePage.routeName, (route) => false,
-                      );
-                      break;
-                    default:
-                      _navigator.pushNamedAndRemoveUntil<void>(
-                        LoginPage.routeName, (route) => false,
-                      );
-                      break;
-                  }
-                },
-                child: child,
-              );
-            },*/
-                //onGenerateRoute: (_) => OnGeneratePage.route(),
-                //onUnknownRoute: (_) => On404Page.route(),
+
+                GoRoute(
+                  parentNavigatorKey: _rootNavigatorKey,
+                  name: LoginPage.routeName,
+                  path: "/root/my_account/login",
+                  builder: (context, state ) => const LoginPage(),
+                ),
 
 
-              );
-            },
+              ],
+            ),
           );
         },
       ),
     );
   }
 }
+
+
+/**
+
+    MaterialApp(
+    debugShowCheckedModeBanner: false,
+    title: AppConstant.markName,
+    navigatorKey: _navigatorKey,
+    theme: ThemeData.dark().copyWith(
+    visualDensity: VisualDensity.adaptivePlatformDensity,
+    primaryColorLight: Colors.tealAccent.shade400,
+    floatingActionButtonTheme: FloatingActionButtonThemeData(
+    backgroundColor: Colors.cyan.withOpacity(1),
+    ),
+    ),
+    //supportedLocales: const <Locale>[Locale('fr')],
+    //home: HomePage(),
+    initialRoute: HomePage.routeName, /*connect.status == AuthenticationStatus.authenticated
+    ? HomePage.routeName
+    : LoginPage.routeName,*/
+    routes: RouteManager.kRoutes,
+    /*builder: (context, child) {
+    return BlocListener<AuthenticationBloc, AuthenticationState>(
+    listener: (context, state) {
+    switch (state.status) {
+    case AuthenticationStatus.authenticated:
+    _navigator.pushNamedAndRemoveUntil<void>(
+    HomePage.routeName, (route) => false,
+    );
+    break;
+    default:
+    _navigator.pushNamedAndRemoveUntil<void>(
+    LoginPage.routeName, (route) => false,
+    );
+    break;
+    }
+    },
+    child: child,
+    );
+    },*/
+    //onGenerateRoute: (_) => OnGeneratePage.route(),
+    //onUnknownRoute: (_) => On404Page.route(),
+
+
+    );
+
+
+ */
 
 
 

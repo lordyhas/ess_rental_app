@@ -36,8 +36,9 @@ part 'home_page/app_bar_view.dart';
 class HomePage extends StatefulWidget {
   static const routeName = '/home';
   final NavigationScreen screenState;
+  final Widget child;
 
-  const HomePage({super.key, this.screenState = NavigationScreen.home});
+  const HomePage({this.child = const SizedBox(), super.key, this.screenState = NavigationScreen.home,});
 
   @override
   State<HomePage> createState() => _HomePageState();
@@ -64,6 +65,7 @@ class _HomePageState extends State<HomePage> {
             onPressed: () {
               BlocProvider.of<NavigationController>(context)
                   .onPushScreen(NavigationScreen.home);
+              GoRouter.of(context).goNamed(HomePage.routeName);
               closeDrawer();
               //setState(() {});
             }),
@@ -75,6 +77,7 @@ class _HomePageState extends State<HomePage> {
             onPressed: () {
               BlocProvider.of<NavigationController>(context)
                   .onPushScreen(NavigationScreen.explorer);
+              GoRouter.of(context).goNamed(RentProductScreen.routeName,);
               closeDrawer();
               //_scaffoldKey.currentState?.closeDrawer();
               //setState(() {});
@@ -88,6 +91,8 @@ class _HomePageState extends State<HomePage> {
               BlocProvider.of<NavigationController>(context)
                   .onPushScreen(NavigationScreen.setting);
               //_scaffoldKey.currentState?.closeDrawer();
+              GoRouter.of(context).goNamed(SettingScreen.routeName);
+
               closeDrawer();
 
               //setState(() {});
@@ -110,6 +115,10 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    GoRouter.of(context).backButtonDispatcher.addCallback(() {
+      print("==== GoRouter.of(context).location : ${GoRouter.of(context).location}");
+      return Future.value(true);
+    });
     Responsive responsive = Responsive.of(context);
     double screenWidth = MediaQuery.of(context).size.width;
     if (kDebugMode) {
@@ -181,6 +190,7 @@ class _HomePageState extends State<HomePage> {
                               BlocProvider
                                   .of<NavigationController>(context)
                                   .onPushScreen(NavigationScreen.myspace);
+                              GoRouter.of(context).goNamed(UserSpace.routeName);
                               setState(() {});
                             },
                           ),
@@ -345,22 +355,7 @@ class _HomePageState extends State<HomePage> {
                   ],
                 ),
               ),
-              body: BlocBuilder<NavigationController, NavigationScreen>(
-                builder: (context, state) {
-                  switch (state) {
-                    case NavigationScreen.home:
-                      return const AnchorLayout(child: HomeScreen());
-                    case NavigationScreen.explorer:
-                      return const RentProductScreen();
-                    case NavigationScreen.setting:
-                      return const SettingScreen();
-                    case NavigationScreen.myspace:
-                      return const AnchorLayout(child: UserSpace());
-                  }
-
-                  //if(state is NavigationScreenHome)
-                },
-              ),
+              body: widget.child,
             ),
           ),
         ],

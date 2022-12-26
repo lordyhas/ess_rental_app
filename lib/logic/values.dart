@@ -18,6 +18,7 @@ export 'values/dimens.dart';
 export 'utils.dart';
 export 'extension.dart';
 export 'package:utils_component/utils_component.dart' hide Responsive, Go;
+export 'package:go_router/go_router.dart';
 
 
 
