@@ -1,18 +1,20 @@
 import 'package:flutter/material.dart';
 
-class On404Page extends StatefulWidget {
+enum ErrorType{unknown, e404, offline,}
+
+class OnErrorPage extends StatefulWidget {
   final Exception? error;
-  const On404Page({super.key, this.error});
+  const OnErrorPage({super.key, this.error});
 
   static Route route() {
-    return MaterialPageRoute<void>(builder: (_) => const On404Page());
+    return MaterialPageRoute<void>(builder: (_) => const OnErrorPage());
   }
 
   @override
-  State<On404Page> createState() => _On404PageState();
+  State<OnErrorPage> createState() => _OnErrorPageState();
 }
 
-class _On404PageState extends State<On404Page>
+class _OnErrorPageState extends State<OnErrorPage>
     with SingleTickerProviderStateMixin {
   late AnimationController _controller;
   final RelativeRectTween _relativeRectTween = RelativeRectTween(
@@ -39,43 +41,47 @@ class _On404PageState extends State<On404Page>
     return Scaffold(
       appBar: AppBar(),
       //backgroundColor: const Color(0xffd8f3dc),
-      body: Stack(
-        children: [
-          PositionedTransition(
-            rect: _relativeRectTween.animate(_controller),
-            child: Image.asset('assets/img/brain.png'),
-          ),
-          Positioned(
-            top: 150,
-            bottom: 0,
-            left: 24,
-            right: 24,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: const [
-                Text(
-                  '404',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                      fontSize: 50,
-                      letterSpacing: 2,
-                      //color:  Color(0xff2f3640),
-                      fontFamily: 'Anton',
-                      fontWeight: FontWeight.bold),
+      body: Builder(
+        builder: (context) {
+          return Stack(
+            children: [
+              PositionedTransition(
+                rect: _relativeRectTween.animate(_controller),
+                child: Image.asset('assets/img/brain.png'),
+              ),
+              Positioned(
+                top: 170,
+                bottom: 0,
+                left: 24,
+                right: 24,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: const [
+                    Text(
+                      '404',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                          fontSize: 50,
+                          letterSpacing: 2,
+                          //color:  Color(0xff2f3640),
+                          fontFamily: 'Anton',
+                          fontWeight: FontWeight.bold),
+                    ),
+                    Text(
+                      'Sorry, we couldn\'t find the page!',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        fontSize: 30,
+                        //color: Color(0xff2f3640),
+                      ),
+                    ),
+                  ],
                 ),
-                Text(
-                  'Sorry, we couldn\'t find the page!',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontSize: 30,
-                    //color: Color(0xff2f3640),
-                  ),
-                ),
-              ],
-            ),
-          )
-        ],
+              )
+            ],
+          );
+        }
       ),
     );
   }

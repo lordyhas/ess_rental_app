@@ -359,8 +359,6 @@ class UserSpace extends StatelessWidget {
                     ),
 
                   ),
-
-
                   Container(
                     //constraints: const BoxConstraints(maxHeight: 200),
                     margin: const EdgeInsets.symmetric(vertical: 8.0),

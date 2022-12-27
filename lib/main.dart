@@ -137,7 +137,6 @@ class EssRentApp extends StatelessWidget {
 
     return MultiBlocProvider(
       providers: [
-
         BlocProvider<StyleAppTheme>(
           create: (BuildContext context) => StyleAppTheme(),
         ),
@@ -157,7 +156,8 @@ class EssRentApp extends StatelessWidget {
                   minPrice: 50,
                   maxDistance: 5.0,
                   minDistance: 0.0,
-                  categoryList: const [])),
+                  categoryList: const []
+              ),),
         ),
       ],
       child: BlocBuilder<StyleAppTheme, ThemeData>(
@@ -176,9 +176,8 @@ class EssRentApp extends StatelessWidget {
 
             routerConfig: GoRouter(
               navigatorKey: _rootNavigatorKey,
-              errorBuilder: (context, state) => On404Page(error:state.error),
-              redirect: (BuildContext context, GoRouterState state) {
-                //
+              errorBuilder: (context, state) => OnErrorPage(error:state.error),
+              redirect: (context, state) {
                 if (BlocProvider.of<AuthenticationBloc>(context).isSignedIn) {
                   return "/root/my_account/login";
                 } else {
@@ -194,11 +193,12 @@ class EssRentApp extends StatelessWidget {
                   },
                   routes: [
                     GoRoute(
+
                       name: HomePage.routeName,
                       path: HomePage.routeName,
-                      builder: (context, state) {
-                        return const NestedWebView(child: HomeScreen());
-                      },
+                      builder: (context, state) => const NestedWebView(
+                          child: HomeScreen(),
+                      ),
                       routes: <RouteBase>[
 
                         GoRoute(
@@ -237,7 +237,6 @@ class EssRentApp extends StatelessWidget {
                             name: SettingScreen.routeName,
                             path: 'setting',
                             builder: (context, state) => const SettingScreen(),
-
                             routes: [
                               GoRoute(
                                 name: AboutPage.routeName,
@@ -251,7 +250,6 @@ class EssRentApp extends StatelessWidget {
                     ),
                   ],
                 ),
-
                 GoRoute(
                   parentNavigatorKey: _rootNavigatorKey,
                   name: LoginPage.routeName,

@@ -115,9 +115,9 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    GoRouter.of(context).backButtonDispatcher.addCallback(() {
+    GoRouter.of(context).addListener(() {
       print("==== GoRouter.of(context).location : ${GoRouter.of(context).location}");
-      return Future.value(true);
+
     });
     Responsive responsive = Responsive.of(context);
     double screenWidth = MediaQuery.of(context).size.width;
