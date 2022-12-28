@@ -257,9 +257,7 @@ class _SettingScreenState extends State<SettingScreen> {
                           title: const Text("About this app"),
                           trailing: const Icon(Icons.arrow_forward_ios),
                           onTap: () {
-                            Go.to(context,
-                                page: const AboutPage(),
-                                routeName: AboutPage.routeName);
+                            Go.of(context).to(routeName: AboutPage.routeName);
                           },
                         ),
 

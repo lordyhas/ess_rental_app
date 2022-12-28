@@ -200,9 +200,12 @@ class _LoginPageState extends State<LoginPage>
                                         child: TextButton(
                                           onPressed: (){
                                             Log.i('Forgotten password! button pressed',);
-                                            Navigator.of(context).pushNamedAndRemoveUntil<void>(
-                                              HomePage.routeName, (route) => false,);
+                                            GoRouter.of(context)
+                                                .pushReplacementNamed(
+                                              HomePage.routeName
+                                            );
                                           },
+
                                           onHover: (value){
                                             setState(() {
                                               underline = value;

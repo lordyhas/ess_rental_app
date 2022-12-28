@@ -1,5 +1,6 @@
 
 import 'package:equatable/equatable.dart';
+import 'package:flutter/foundation.dart';
 //import 'package:exploress/data/app_bloc/authentication_bloc/auth_repository/repository.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
@@ -47,7 +48,9 @@ class LoginCubit extends Cubit<LoginState> {
       );
       emit(state.copyWith(status: FormzStatus.submissionSuccess));
     } on Exception {
-      print("Exception 2 : logInWithCredentials() => $Exception");
+      if (kDebugMode) {
+        print("Exception : logInWithCredentials() => $Exception  [login_cubit.dart:L52]");
+      }
       emit(state.copyWith(status: FormzStatus.submissionFailure));
     }
   }
@@ -60,9 +63,10 @@ class LoginCubit extends Cubit<LoginState> {
       await _authenticationRepository.logInWithGoogle();
       emit(state.copyWith(status: FormzStatus.submissionSuccess));
     } on Exception {
-
-      print("Exception : logInWithGoogle() => $Exception [login_cubit.dart:L63]");
-      print("Exception +++ LOGIN FAILED  +++");
+      if (kDebugMode) {
+        print("Exception : logInWithGoogle() => $Exception [login_cubit.dart:L67]");
+        print("Exception +++ LOGIN FAILED  +++");
+      }
       emit(state.copyWith(status: FormzStatus.submissionFailure));
     } on NoSuchMethodError {
       emit(state.copyWith(status: FormzStatus.pure));

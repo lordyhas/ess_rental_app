@@ -21,6 +21,8 @@ import 'package:firebase_core/firebase_core.dart';
 
 import 'package:exploress_location/on_404_page.dart';
 
+import 'package:exploress_location/firebase_options.dart';
+
 //import 'firebase_options.dart';
 
 part 'routes.dart';
@@ -28,11 +30,9 @@ part 'routes.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  if (kIsWeb) {
-    await Firebase.initializeApp(options: firebaseOptions);
-  } else {
-    await Firebase.initializeApp();
-  }
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
 
   HydratedBloc.storage = await HydratedStorage.build(
       storageDirectory: kIsWeb
@@ -178,10 +178,10 @@ class EssRentApp extends StatelessWidget {
               navigatorKey: _rootNavigatorKey,
               errorBuilder: (context, state) => OnErrorPage(error:state.error),
               redirect: (context, state) {
-                if (BlocProvider.of<AuthenticationBloc>(context).isSignedIn) {
-                  return "/root/my_account/login";
-                } else {
+                if (!BlocProvider.of<AuthenticationBloc>(context).isSignedIn) {
                   return null;
+                } else {
+                  return "/root/my_account/login";
                 }
               },
               initialLocation: HomePage.routeName,  //HomePage.routeName,

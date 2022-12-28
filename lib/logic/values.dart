@@ -1,6 +1,7 @@
 library values;
 
 import 'package:achievement_view/achievement_view.dart';
+import 'package:exploress_location/logic/values.dart';
 import 'package:exploress_location/logic/values/dimens.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
@@ -20,8 +21,6 @@ export 'extension.dart';
 export 'package:utils_component/utils_component.dart' hide Responsive, Go;
 export 'package:go_router/go_router.dart';
 
-
-
 //export "package:exploress_repository/exploress_bloc.dart" hide AppBlocObserver;
 //export 'values/colors.dart';
 
@@ -29,29 +28,37 @@ part 'category.dart';
 
 part 'distance.dart';
 
-Future<T?>? goto<T>(
-  BuildContext context, {
-  required Widget page,
-  required String routeName,
-  dynamic args,
-}) {
-
-  return Navigator.pushNamed<T>(
-    context,
-    routeName,
-    arguments: args,
-  );
-}
-
 class Go {
-  static Future<T?>? to<T>(
-    BuildContext context, {
-    required Widget page,
+  static void to(BuildContext context, {
     required String routeName,
+    @Deprecated("not use no more") Widget? page,
+    String? path,
+    Map<String, String> params = const <String, String>{},
+    Map<String, dynamic> queryParams = const <String, dynamic>{},
     dynamic args,
   }) {
-    return goto<T>(context, page: page, routeName: routeName, args: args);
+    return GoRouter.of(context).goNamed(
+        routeName,
+        params: params,
+        queryParams: queryParams,
+        extra: args
+    );
   }
+
+  static GoRouter of(BuildContext context) => GoRouter.of(context);
+
+}
+
+extension XGO on GoRouter{
+  void to({
+    required String routeName,
+    Map<String, String> params = const <String, String>{},
+    Map<String, dynamic> queryParams = const <String, dynamic>{},
+    Object? extra,}) => goNamed(
+      routeName,
+      params: params,
+      queryParams: queryParams,
+      extra: extra);
 }
 
 class Responsive {
@@ -61,7 +68,10 @@ class Responsive {
 
   static Responsive of(BuildContext context) => Responsive._(context);
 
-  Size get size => MediaQuery.of(context).size;
+  Size get size =>
+      MediaQuery
+          .of(context)
+          .size;
 
   bool get isPhone =>
       size.width <= kPhoneDimens || !kIsWeb; // || Platform.isAndroid;
@@ -96,11 +106,9 @@ const firebaseOptions = FirebaseOptions(
 
 class MyBehavior extends ScrollBehavior {
   @override
-  Widget buildViewportChrome(
-    BuildContext context,
-    Widget child,
-    AxisDirection axisDirection,
-  ) {
+  Widget buildViewportChrome(BuildContext context,
+      Widget child,
+      AxisDirection axisDirection,) {
     return child;
   }
 }
@@ -123,8 +131,3 @@ void showToastFavorite({required BuildContext context, String? message}) =>
       //textStyleSubTitle: TextStyle(),
       //alignment: Alignment.topCenter,
     ).show();
-
-
-
-
-

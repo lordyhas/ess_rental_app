@@ -203,20 +203,7 @@ class ContestTabHeader extends SliverPersistentHeaderDelegate {
                    Expanded(
                     child: Padding(
                       padding: const EdgeInsets.all(8.0),
-                      child: BlocBuilder<NavigationController, NavigationScreen>(
-                        builder: (context, state) {
-                          switch(state){
-                            case NavigationScreen.home:
-                            case NavigationScreen.explorer:
-                              return const RouteNameTitle("");
-                            case NavigationScreen.setting:
-                              return const RouteNameTitle("Setting");
-                            case NavigationScreen.myspace:
-                              return const RouteNameTitle("MySpace");
-                          }
-                          //return Container();
-                        },
-                      ),
+                      child: RouteNameTitle(GoRouter.of(context).location),
                     ),
                   ),
                   Material(

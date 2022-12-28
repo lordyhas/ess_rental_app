@@ -46,6 +46,7 @@ dependencies:
   flutter_facebook_auth: ^5.0.6
   google_sign_in: ^5.4.2
 
+
   pedantic: ^1.11.0
   formz: ^0.4.1
 
