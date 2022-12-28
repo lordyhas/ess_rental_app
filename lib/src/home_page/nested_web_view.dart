@@ -172,11 +172,7 @@ class ContestTabHeader extends SliverPersistentHeaderDelegate {
 
   @override
   Widget build(context, double shrinkOffset, bool overlapsContent) {
-    //final shopAppTheme = BlocProvider.of<StyleAppTheme>(context);
-
-    //print("xxxxxxxxxxxxxxxxxxxxxxxx => "+title!.data!);
     return SizedBox(
-      //color: Theme.of(context).scaffoldBackgroundColor,
       child: Stack(
         children: <Widget>[
           Positioned(
@@ -199,8 +195,6 @@ class ContestTabHeader extends SliverPersistentHeaderDelegate {
           ),
           Container(
             color: Theme.of(context).scaffoldBackgroundColor,
-
-            ///color: HotelAppTheme.buildLightTheme().backgroundColor,
             child: Padding(
               padding:
               const EdgeInsets.only(left: 16, right: 16, top: 8, bottom: 4),
@@ -214,11 +208,11 @@ class ContestTabHeader extends SliverPersistentHeaderDelegate {
                           switch(state){
                             case NavigationScreen.home:
                             case NavigationScreen.explorer:
-                              return const H3("");
+                              return const RouteNameTitle("");
                             case NavigationScreen.setting:
-                              return const H3("Setting");
+                              return const RouteNameTitle("Setting");
                             case NavigationScreen.myspace:
-                              return const H3("MySpace");
+                              return const RouteNameTitle("MySpace");
                           }
                           //return Container();
                         },

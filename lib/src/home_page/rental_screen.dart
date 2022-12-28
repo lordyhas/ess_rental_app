@@ -390,7 +390,7 @@ class RContestTabHeader extends SliverPersistentHeaderDelegate {
   Widget build(context, double shrinkOffset, bool overlapsContent) {
     //final shopAppTheme = BlocProvider.of<StyleAppTheme>(context);
     Color? filBarColor = secondary? Theme.of(context).primaryColorLight : null;
-    Widget? h3 = !secondary ? H3(title!.data!) : null;
+    Widget? h3 = !secondary ? RouteNameTitle(title!.data!) : null;
     //print("xxxxxxxxxxxxxxxxxxxxxxxx => "+title!.data!);
     return SizedBox(
       //color: Theme.of(context).scaffoldBackgroundColor,

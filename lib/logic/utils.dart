@@ -69,8 +69,44 @@ class H2 extends _Title {
   const H2(String data,{Key? key}) : super(data,fontSize: 18,key: key);
 }
 
-class H3 extends _Title {
-  const H3(String data,{Key? key}) : super(data,key: key);
+class RouteNameTitle extends StatelessWidget {
+  final double? fontSize;
+  final String text;
+  const RouteNameTitle(this.text,{Key? key, this.fontSize}) : super(key: key);
+  
+  List<String> get titles => text.split('/')
+      .map((str)=> str.trim())
+      .where((e)=> e.isNotEmpty).toList(); //text.split('/').toList()..removeAt(0);
+
+  @override
+  Widget build(BuildContext context) {
+    if(!kIsWeb) return Container();
+    
+    return Column(
+      children: [
+        //const SizedBox(height: 32.0,),
+        Row(
+          children: [
+            for(String str in titles)
+              ...[
+                Text(str,
+                  style: TextStyle(
+                    fontWeight: FontWeight.w700,
+                    fontSize: fontSize,
+                  ),
+                ),
+                BooleanBuilder(
+                  condition: () => fontSize != null,
+                  ifTrue: const Icon(Icons.arrow_forward_ios),
+                  ifFalse: const Icon(Icons.chevron_right),
+                ),
+              ]
+          ]
+        ),
+        //const SizedBox(height: 32.0,),
+      ],
+    );
+  }
 }
 
 

@@ -7,6 +7,43 @@
   "client": [
     {
       "client_info": {
+        "mobilesdk_app_id": "1:489481672900:android:4481698625a3c036065191",
+        "android_client_info": {
+          "package_name": "com.kdynamic.exploress.kodisha"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "489481672900-ktds5b6ck9pkuhffu9tuqrjmimoaid8q.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.kdynamic.exploress.kodisha",
+            "certificate_hash": "15d487f402207ed4f5ab2ce3e29d33348aec620f"
+          }
+        },
+        {
+          "client_id": "489481672900-iav3j0hor065urf82ac6nam5ibrh0raq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAj9PlBy7VD8nIhKedvaFBrvKRuzpUn2Ik"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "489481672900-iav3j0hor065urf82ac6nam5ibrh0raq.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
         "mobilesdk_app_id": "1:489481672900:android:d12a4f3215fc9eed065191",
         "android_client_info": {
           "package_name": "com.kdynamic.exploress.rent"
