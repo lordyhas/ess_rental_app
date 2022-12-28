@@ -31,8 +31,6 @@ class FirebaseManager {
   CollectionReference<Map<String, dynamic>> get users => collectUser;
 
 
-
-
   Map<String, dynamic> getDataFirestore({
     required String generalDoc,
     required String collection,
@@ -49,10 +47,6 @@ class FirebaseManager {
     return map;
   }
 
-
-
-
-
   Future<void> addUserInCloud({required User user}) async {
     return users.doc(user.id).get().then((DocumentSnapshot documentSnapshot) {
       if (!documentSnapshot.exists) {
@@ -65,6 +59,12 @@ class FirebaseManager {
     });
   }
 
+  Future<User> getUserInCloud() async {
+    var doc = (await users.doc(user.id).get());
+    if(!doc.exists) return User.empty;
+    Map<String, dynamic> data = doc.data()!;
+    return User.fromMap(data);
+  }
 
 
   /// Update data with map by {key : value}
@@ -82,13 +82,13 @@ class FirebaseManager {
 
   /// Update image user that used as profile image
   Future<void> updateImageProfile(Uint8List path) async {
-    return users.doc(user.id).update({'photo_profile': Blob(path)});
+    return users.doc(user.id).update(user.copyWith(photoCloud: Blob(path)).toMap());
   }
 
-  Future<void> updateLastConnectionTime(
-      {required String docId, required bool show}) async {
+  Future<void> updateLastConnectionTime({required bool show}) async {
     if(show) {
-      return users.doc(docId).update({'last_connection': DateTime.now()});
+      return users.doc(user.id).update(
+          user.copyWith(lastConnection: DateTime.now()).toMap());
     }
     return;
   }
@@ -109,21 +109,66 @@ class FirebaseManager {
         .catchError((error) => debugPrint("Failed to add data: $error"));
   }
 
-  Future<User> getUserInCloud() async {
-    var doc = (await users.doc(user.id).get());
-    if(!doc.exists) return User.empty;
-    Map<String, dynamic> data = doc.data()!;
-    return User.fromMap(data);
-  }
 
   Future<List<RentalSpace>> getAllRentalSpace() async {
     var productQuery = await collectProduct.get();
     List<RentalSpace> list = productQuery.docs
         .map((e) => RentalSpace.fromMap(e.data()))
         .toList();
+    return list;
+  }
+
+  Future<List<RentalSpace>> getRentalSpaceListFromUser({
+    required User user
+  }) async {
+    var productQuery = await collectProduct
+        .where('owner', isEqualTo: user.id)
+        .get();
+    List<RentalSpace> list =
+    productQuery.docs.map((e) => RentalSpace.fromMap(e.data())).toList();
 
     return list;
   }
+
+
+  Future<void> addRentalVehicle({required RentalVehicle productData}) {
+    return collectProduct
+        .add(productData.toMap())
+        .then((value) => debugPrint("Product Added : $productData"))
+        .catchError((error) => debugPrint("Failed to add data: $error"));
+  }
+
+  Future<void> setRentalVehicle({required RentalVehicle productData}) {
+    return collectProduct
+        .doc(productData.id)
+        .set(productData.toMap())
+        .then((value) => debugPrint("Product Added : $productData"))
+        .catchError((error) => debugPrint("Failed to add data: $error"));
+  }
+
+
+  Future<List<RentalVehicle>> getAllRentalVehicle() async {
+    var productQuery = await collectProduct.get();
+    List<RentalVehicle> list = productQuery.docs
+        .map((e) => RentalVehicle.fromMap(e.data()))
+        .toList();
+    return list;
+  }
+
+  Future<List<RentalVehicle>> getRentalVehicleListFromUser({
+    required User user
+  }) async {
+    var productQuery = await collectProduct
+        .where('owner', isEqualTo: user.id)
+        .get();
+    List<RentalVehicle> list =
+    productQuery.docs.map((e) => RentalVehicle.fromMap(e.data())).toList();
+
+    return list;
+  }
+
+  /// Call as stream of a [StreamBuilder] Widget
+  Stream get collectionStream => colG.snapshots();
 
 
 }
