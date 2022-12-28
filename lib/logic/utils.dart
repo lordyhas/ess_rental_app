@@ -89,7 +89,7 @@ class RouteNameTitle extends StatelessWidget {
           children: [
             for(String str in titles)
               ...[
-                Text(str,
+                Text(str.toUpperCase(),
                   style: TextStyle(
                     fontWeight: FontWeight.w700,
                     fontSize: fontSize,

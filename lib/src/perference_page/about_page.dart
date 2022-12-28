@@ -5,6 +5,7 @@ import 'package:exploress_location/logic/values.dart';
 import 'package:exploress_location/widgets/widgets.dart';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:flutter/services.dart';
 import 'package:package_info_plus/package_info_plus.dart';
@@ -53,6 +54,7 @@ class _AboutState extends State<AboutPage>{
 
   @override
   Widget build(BuildContext context) {
+    BlocProvider.of<NavigationController>(context).onPushScreen(NavigationScreen.setting);
     ///text =  BlocProvider.of<LanguageBloc>(context).state.strings;
     ///
     var primaryTextStyle20 = Theme.of(context)

@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:exploress_location/data_test.dart';
 import 'package:exploress_location/logic/values.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class MySpacePage extends StatelessWidget {
 
@@ -36,6 +37,7 @@ class UserSpace extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    BlocProvider.of<NavigationController>(context).onPushScreen(NavigationScreen.myspace);
     double boxWidth = 100.0;
     final ScrollController scrollController = ScrollController();
 

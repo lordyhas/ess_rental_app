@@ -9,6 +9,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
 
+
   bool underline = false;
 
   double h1Size() {
@@ -31,7 +32,14 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   @override
+  void initState(){
+    super.initState();
+    BlocProvider.of<NavigationController>(context).onPushScreen(NavigationScreen.home);
+  }
+
+  @override
   Widget build(BuildContext context) {
+    BlocProvider.of<NavigationController>(context).onPushScreen(NavigationScreen.home);
     return Center(
       child: Container(
         constraints: const BoxConstraints(maxWidth: 1280),

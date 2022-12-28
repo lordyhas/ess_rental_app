@@ -1,5 +1,3 @@
-import 'dart:typed_data';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:exploress_location/logic/controller/authentication_bloc/auth_repository/setup.dart';
 import 'package:exploress_location/logic/model/data_model.dart';
@@ -21,16 +19,16 @@ class FirebaseManager {
       FirebaseFirestore.instance.collection('exploress_test');
   DocumentReference<Map<String, dynamic>> get docG => colG.doc('general_data');
 
-  CollectionReference<Map<String, dynamic>> get collectionProduct =>
+  CollectionReference<Map<String, dynamic>> get collectProduct =>
       docG.collection('Product');
 
-  CollectionReference<Map<String, dynamic>> get collectionOfUser =>
+  CollectionReference<Map<String, dynamic>> get collectUser =>
       docG.collection('USERS');
 
-  CollectionReference<Map<String, dynamic>> get collectionOfReservation =>
+  CollectionReference<Map<String, dynamic>> get collectReserve =>
       docG.collection('RESERVATIONS');
 
-  CollectionReference<Map<String, dynamic>> get users => collectionOfUser;
+  CollectionReference<Map<String, dynamic>> get users => collectUser;
 
 
 
@@ -51,35 +49,8 @@ class FirebaseManager {
     return map;
   }
 
-  Map<String, dynamic> getData({
-    required String witchDatabase,
-    required String table,
-    required String what,
-  }) {
-    Map<String, dynamic> map = {};
-    colG.doc(witchDatabase)
-        .collection(table)
-        .doc(what)
-        .get()
-        .then((value) {
-      if (value.exists) map = value.data()!;
-    });
-    return map;
-  }
 
-  List<Map<String, dynamic>?> getDataList(
-      {required String witchDatabase,
-        required String table,
-        required int limit}) {
-    List<Map<String, dynamic>?> map = [];
-    colG.doc(witchDatabase)
-        .collection(table)
-        .limit(limit)
-        .get()
-        .then((value) => map = value.docs.map((e) => e.data()).toList());
 
-    return map;
-  }
 
 
   Future<void> addUserInCloud({required User user}) async {
@@ -124,14 +95,14 @@ class FirebaseManager {
 
 
   Future<void> addRentalSpace({required RentalSpace productData}) {
-    return collectionProduct
+    return collectProduct
         .add(productData.toMap())
         .then((value) => debugPrint("Product Added : $productData"))
         .catchError((error) => debugPrint("Failed to add data: $error"));
   }
 
   Future<void> setRentalSpace({required RentalSpace productData}) {
-    return collectionProduct
+    return collectProduct
         .doc(productData.id)
         .set(productData.toMap())
         .then((value) => debugPrint("Product Added : $productData"))
@@ -146,9 +117,10 @@ class FirebaseManager {
   }
 
   Future<List<RentalSpace>> getAllRentalSpace() async {
-    var productQuery = await collectionProduct.get();
-    List<RentalSpace> list = productQuery.docs.map(
-            (e) => RentalSpace.fromMap(e.data())).toList();
+    var productQuery = await collectProduct.get();
+    List<RentalSpace> list = productQuery.docs
+        .map((e) => RentalSpace.fromMap(e.data()))
+        .toList();
 
     return list;
   }

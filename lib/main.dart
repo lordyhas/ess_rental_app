@@ -193,7 +193,6 @@ class EssRentApp extends StatelessWidget {
                   },
                   routes: [
                     GoRoute(
-
                       name: HomePage.routeName,
                       path: HomePage.routeName,
                       builder: (context, state) => const NestedWebView(
@@ -203,7 +202,7 @@ class EssRentApp extends StatelessWidget {
 
                         GoRoute(
                           name: UserSpace.routeName,
-                          path: 'user/my_space',
+                          path: 'user/myspace',
                           builder: (BuildContext context, state) {
                             return const NestedWebView(child: UserSpace());
                           },

@@ -19,6 +19,7 @@ class _SettingScreenState extends State<SettingScreen> {
 
   @override
   Widget build(BuildContext context) {
+    BlocProvider.of<NavigationController>(context).onPushScreen(NavigationScreen.setting);
     return Material(
       child: SingleChildScrollView(
         padding: const EdgeInsets.only(top: 32.0),
@@ -78,16 +79,12 @@ class _SettingScreenState extends State<SettingScreen> {
                                     showDialog(
                                       barrierDismissible: false,
                                       context: context,
-                                      builder: (BuildContext context) =>
-                                          SizedBox(
-                                        //width: kMediumDimens,
+                                      builder: (context) => SizedBox(
                                         child: AlertDialog(
                                             scrollable: true,
                                             title: Row(
-                                              //mainAxisAlignment: MainAxisAlignment.end,
                                               children: [
-                                                const Icon(
-                                                  Icons.close,
+                                                const Icon(Icons.close,
                                                   color: Colors.transparent,
                                                 ),
                                                 const Spacer(),
@@ -103,7 +100,6 @@ class _SettingScreenState extends State<SettingScreen> {
                                             ),
                                             content: const SizedBox(
                                               width: kMediumDimens,
-                                              //height: MediaQuery.of(context).size.height*90,
                                               child: ProfilePage(),
                                             )),
                                       ),
@@ -120,9 +116,8 @@ class _SettingScreenState extends State<SettingScreen> {
                                   leading: const Icon(Icons.space_dashboard),
                                   title: const Text("Accéder à MySpace"),
                                   trailing: const Icon(Icons.arrow_forward_ios),
-                                  onTap: () => BlocProvider
-                                      .of<NavigationController>(context)
-                                      .onPushScreen(NavigationScreen.myspace),
+                                  onTap: () =>  Go.of(context).to(routeName: UserSpace.routeName),
+
                                 ),
                                 ListTile(
                                   leading: const Icon(Icons.message),

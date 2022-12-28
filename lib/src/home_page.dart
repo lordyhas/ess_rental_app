@@ -35,10 +35,9 @@ part 'home_page/app_bar_view.dart';
 
 class HomePage extends StatefulWidget {
   static const routeName = '/home';
-  final NavigationScreen screenState;
   final Widget child;
 
-  const HomePage({this.child = const SizedBox(), super.key, this.screenState = NavigationScreen.home,});
+  const HomePage({this.child = const SizedBox(), super.key,});
 
   @override
   State<HomePage> createState() => _HomePageState();
@@ -50,8 +49,6 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
-    BlocProvider.of<NavigationController>(context)
-        .onPushScreen(widget.screenState);
   }
 
   void closeDrawer() => _scaffoldKey.currentState?.closeDrawer();
@@ -63,8 +60,7 @@ class _HomePageState extends State<HomePage> {
             selectedIcon: const Icon(Icons.home),
             label: const Text('Acceuil'),
             onPressed: () {
-              BlocProvider.of<NavigationController>(context)
-                  .onPushScreen(NavigationScreen.home);
+              BlocProvider.of<NavigationController>(context).onPushScreen(NavigationScreen.home);
               GoRouter.of(context).goNamed(HomePage.routeName);
               closeDrawer();
               //setState(() {});
@@ -75,9 +71,7 @@ class _HomePageState extends State<HomePage> {
             selectedIcon: const Icon(Icons.view_carousel),
             label: const Text('Explorer'),
             onPressed: () {
-              BlocProvider.of<NavigationController>(context)
-                  .onPushScreen(NavigationScreen.explorer);
-              GoRouter.of(context).goNamed(RentProductScreen.routeName,);
+              GoRouter.of(context).goNamed(RentProductScreen.routeName);
               closeDrawer();
               //_scaffoldKey.currentState?.closeDrawer();
               //setState(() {});
@@ -88,8 +82,6 @@ class _HomePageState extends State<HomePage> {
             selectedIcon: const Icon(Icons.settings),
             label: const Text('Préférences'),
             onPressed: () {
-              BlocProvider.of<NavigationController>(context)
-                  .onPushScreen(NavigationScreen.setting);
               //_scaffoldKey.currentState?.closeDrawer();
               GoRouter.of(context).goNamed(SettingScreen.routeName);
 
@@ -115,18 +107,20 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    GoRouter.of(context).addListener(() {
-      print("==== GoRouter.of(context).location : ${GoRouter.of(context).location}");
 
-    });
     Responsive responsive = Responsive.of(context);
     double screenWidth = MediaQuery.of(context).size.width;
     if (kDebugMode) {
       print("==== MediaQuery.of(context).size.width : $screenWidth");
     }
+    GoRouter.of(context).addListener(() {
+      if(GoRouter.of(context).location == HomePage.routeName){
+        BlocProvider.of<NavigationController>(context).onPushScreen(NavigationScreen.home);
+      }
 
-    return WillPopScope(
-      onWillPop: BlocProvider.of<NavigationController>(context).onBackScreen,
+    });
+
+    return Material(
       child: Row(
         children: <Widget>[
           ///  NavigationRail ++++++++++++++++++++++
@@ -139,9 +133,7 @@ class _HomePageState extends State<HomePage> {
                   groupAlignment: 1.0,
                   onDestinationSelected: (int index) {
                     items[index].onPressed!();
-                    /*setState(() {
-                  _selectedIndex = index;
-                });*/
+
                   },
                   labelType: (screenWidth < 800)
                       ? NavigationRailLabelType.none
@@ -186,20 +178,14 @@ class _HomePageState extends State<HomePage> {
                         children: [
                           TextButton(
                             child: const Text("My Space"),
-                            onPressed: () {
-                              BlocProvider
-                                  .of<NavigationController>(context)
-                                  .onPushScreen(NavigationScreen.myspace);
-                              GoRouter.of(context).goNamed(UserSpace.routeName);
-                              setState(() {});
-                            },
+                            onPressed: () => GoRouter.of(context).goNamed(UserSpace.routeName),
                           ),
                           const SizedBox(
                             width: 8.0,
                           ),
                           TextButton(
-                            onPressed: () {},
                             child: const Text("About"),
+                            onPressed: () => GoRouter.of(context).goNamed(AboutPage.routeName),
                           ),
                           const SizedBox(
                             width: 8.0,
