@@ -1,6 +1,6 @@
-import 'package:exploress_location/logic/values.dart';
+import 'package:exploress_rental/logic/values.dart';
 import 'package:flutter/material.dart';
-import 'package:hive/hive.dart';
+
 
 
 class ProfilePage extends StatefulWidget {

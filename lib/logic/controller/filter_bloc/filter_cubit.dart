@@ -1,6 +1,6 @@
 import "package:bloc/bloc.dart";
 import "package:equatable/equatable.dart";
-import 'package:exploress_location/logic/values.dart';
+import 'package:exploress_rental/logic/values.dart';
 
 
 

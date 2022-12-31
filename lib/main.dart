@@ -1,17 +1,18 @@
-import 'package:exploress_location/logic/map_data/maps.dart';
-import 'package:exploress_location/src/myspace_page.dart';
-import 'package:exploress_location/src/perference_page/about_page.dart';
-import 'package:exploress_location/src/home_page.dart';
-import 'package:exploress_location/src/login_page.dart';
-import 'package:exploress_location/src/maps_test.dart';
-import 'package:exploress_location/src/add_rent_page/add_rent_page.dart';
-import 'package:exploress_location/src/home_page/shop_info_screen.dart';
+import 'package:exploress_rental/logic/map_data/maps.dart';
+import 'package:exploress_rental/src/myspace_page.dart';
+import 'package:exploress_rental/src/preference_page/about_page.dart';
+import 'package:exploress_rental/src/home_page.dart';
+import 'package:exploress_rental/src/login_page.dart';
+import 'package:exploress_rental/src/maps_test.dart';
+import 'package:exploress_rental/src/add_rent_page/add_rent_page.dart';
+import 'package:exploress_rental/src/home_page/place_info_screen.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'package:exploress_location/logic/values.dart';
+import 'package:exploress_rental/logic/values.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:path_provider/path_provider.dart';
@@ -19,9 +20,9 @@ import 'package:permission_handler/permission_handler.dart';
 
 import 'package:firebase_core/firebase_core.dart';
 
-import 'package:exploress_location/on_404_page.dart';
+import 'package:exploress_rental/on_404_page.dart';
 
-import 'package:exploress_location/firebase_options.dart';
+import 'package:exploress_rental/firebase_options.dart';
 
 //import 'firebase_options.dart';
 
@@ -178,7 +179,7 @@ class EssRentApp extends StatelessWidget {
               navigatorKey: _rootNavigatorKey,
               errorBuilder: (context, state) => OnErrorPage(error:state.error),
               redirect: (context, state) {
-                if (!BlocProvider.of<AuthenticationBloc>(context).isSignedIn) {
+                if (BlocProvider.of<AuthenticationBloc>(context).isSignedIn) {
                   return null;
                 } else {
                   return "/root/my_account/login";
@@ -203,7 +204,7 @@ class EssRentApp extends StatelessWidget {
                         GoRoute(
                           name: UserSpace.routeName,
                           path: 'user/myspace',
-                          builder: (BuildContext context, state) {
+                          builder: (context, state) {
                             return const NestedWebView(child: UserSpace());
                           },
                         ),
@@ -222,15 +223,19 @@ class EssRentApp extends StatelessWidget {
                                 parentNavigatorKey: _rootNavigatorKey,
                                 name: PlaceInfoScreen.routeName,
                                 path: "places/single-place",
-                                builder: (context, state) => const PlaceInfoScreen(),
+                                builder: (context, state) => PlaceInfoScreen(
+                                  placeData: state.extra as PlaceInfoData,
+                                ),
                               ),
                               GoRoute(
                                 parentNavigatorKey: _rootNavigatorKey,
                                 name: MapSample.routeName,
                                 path: "map",
-                                builder: (context, state) => const MapSample(),
+                                builder: (context, state) => MapSample(
+                                  initialPosition: state.extra as LatLng?,
+                                ),
                               ),
-                            ]
+                            ],
                         ),
                         GoRoute(
                             name: SettingScreen.routeName,

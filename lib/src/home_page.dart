@@ -2,10 +2,10 @@ library home_page;
 
 import 'dart:math';
 
-import 'package:exploress_location/logic/map_data/maps.dart';
-import 'package:exploress_location/logic/values.dart';
-import 'package:exploress_location/src/perference_page/edit_profile_page.dart';
-import 'package:exploress_location/src/add_rent_page/add_rent_page.dart';
+import 'package:exploress_rental/logic/map_data/maps.dart';
+import 'package:exploress_rental/logic/values.dart';
+import 'package:exploress_rental/src/preference_page/edit_profile_page.dart';
+import 'package:exploress_rental/src/add_rent_page/add_rent_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -16,15 +16,15 @@ import 'package:intl/intl.dart';
 
 //import 'package:google_maps_flutter/google_maps_flutter.dart' as maps;
 import 'package:latlong2/latlong.dart' as dist;
-import 'package:exploress_location/data_test.dart';
+import 'package:exploress_rental/data_test.dart';
 import 'package:package_info_plus/package_info_plus.dart';
-import 'package:exploress_location/src/maps_test.dart';
-import 'package:exploress_location/src/perference_page/about_page.dart';
-import 'package:exploress_location/src/home_page/rental_product/rental_product.dart';
-import 'package:exploress_location/src/home_page/rental_product/filters_screen.dart';
-import 'package:exploress_location/src/home_page/rental_product/model/rental_model.dart';
-import 'package:exploress_location/src/home_page/shop_info_screen.dart';
-import 'package:exploress_location/src/myspace_page.dart';
+import 'package:exploress_rental/src/maps_test.dart';
+import 'package:exploress_rental/src/preference_page/about_page.dart';
+import 'package:exploress_rental/src/home_page/rental_product/rental_product.dart';
+import 'package:exploress_rental/src/home_page/rental_product/filters_screen.dart';
+import 'package:exploress_rental/src/home_page/rental_product/model/rental_model.dart';
+import 'package:exploress_rental/src/home_page/place_info_screen.dart';
+import 'package:exploress_rental/src/myspace_page.dart';
 
 
 part 'home_page/rental_screen.dart';

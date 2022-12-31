@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:exploress_location/logic/controller/authentication_bloc/auth_repository/setup.dart';
-import 'package:exploress_location/logic/model/data_model.dart';
+import 'package:exploress_rental/logic/controller/authentication_bloc/auth_repository/setup.dart';
+import 'package:exploress_rental/logic/model/data_model.dart';
 import 'package:flutter/foundation.dart';
 
 class FirebaseManager {

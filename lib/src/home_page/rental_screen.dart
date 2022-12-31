@@ -136,13 +136,16 @@ class _RentProductScreenState extends State<RentProductScreen>
                     PlaceInfoData data = PlaceInfoData(
                         rent: spaceList.first.rent!,
                         onMapClick: () {
-                          Navigator.push(context, MapSample.route(
-                            initialPosition: spaceList[0].rent?.location,));
+                          Go.of(context).goNamed(
+                              MapSample.routeName,
+                              extra: spaceList[0].rent?.location
+                          );
                         }
                     );
-
-                    Go.to(context, page: PlaceInfoScreen(placeData: data),
-                      routeName: PlaceInfoScreen.routeName, args: data,);
+                    Go.of(context).goNamed(
+                      PlaceInfoScreen.routeName,
+                      extra: data,
+                    );
                   },
                 ),
             ),

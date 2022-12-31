@@ -1,8 +1,7 @@
 library values;
 
 import 'package:achievement_view/achievement_view.dart';
-import 'package:exploress_location/logic/values.dart';
-import 'package:exploress_location/logic/values/dimens.dart';
+import 'package:exploress_rental/logic/values.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';

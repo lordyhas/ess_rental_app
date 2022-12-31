@@ -1,9 +1,8 @@
 
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import '../maps_test.dart';
+import 'package:exploress_rental/src/maps_test.dart';
 
 class MapScreenCover extends StatefulWidget {
   const MapScreenCover({Key? key}) : super(key: key);
@@ -57,10 +56,10 @@ class _MapScreenCoverState extends State<MapScreenCover> {
                           ,),
                         OutlinedButton(
                           style: OutlinedButton.styleFrom(
-                            primary: Theme.of(context).primaryColorLight,
-                            side: BorderSide(
-                              color: Theme.of(context).primaryColorLight,
-                            )
+                              foregroundColor: Theme.of(context).primaryColorLight,
+                              side: BorderSide(
+                                color: Theme.of(context).primaryColorLight,
+                              )
                           ),
                           child: Container(
                               width: 100,

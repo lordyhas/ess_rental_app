@@ -3,8 +3,8 @@ library rent_page;
 import 'dart:async';
 import 'dart:io';
 
-import 'package:exploress_location/logic/model/data_model.dart';
-import 'package:exploress_location/logic/values.dart';
+import 'package:exploress_rental/logic/model/data_model.dart';
+import 'package:exploress_rental/logic/values.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';

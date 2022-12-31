@@ -240,9 +240,8 @@ class AuthenticationRepository {
       late final firebase_auth.AuthCredential credential;
       if (isWeb) {
         final googleProvider = firebase_auth.GoogleAuthProvider();
-        final userCredential = await _firebaseAuth.signInWithPopup(
-          googleProvider,
-        );
+        //_firebaseAuth.signInWithProvider(provider)
+        final userCredential = await _firebaseAuth.signInWithPopup(googleProvider);
         credential = userCredential.credential!;
       } else {
         final googleUser = await _googleSignIn.signIn();
@@ -255,9 +254,12 @@ class AuthenticationRepository {
 
       await _firebaseAuth.signInWithCredential(credential);
     } on firebase_auth.FirebaseAuthException catch (e) {
+      print("xxx xxx _firebaseAuth.signInWithCredential(credential) : Error($e) ");
       throw LogInWithGoogleFailure.fromCode(e.code);
     } catch (_) {
+      print("xxx xxx _firebaseAuth.signInWithCredential(credential) : LogInWithGoogleFailure($_) ");
       throw const LogInWithGoogleFailure();
+
     }
   }
 
@@ -274,8 +276,10 @@ class AuthenticationRepository {
         password: password,
       );
     } on firebase_auth.FirebaseAuthException catch (e) {
+      print("xxx xxx _firebaseAuth.signInWithEmailAndPassword(...) : Error($e) ");
       throw LogInWithEmailAndPasswordFailure.fromCode(e.code);
     } catch (_) {
+      print("xxx xxx _firebaseAuth.signInWithEmailAndPassword(...) : LogInWithGoogleFailure($_) ");
       throw const LogInWithEmailAndPasswordFailure();
     }
   }

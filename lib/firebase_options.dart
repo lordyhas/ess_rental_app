@@ -63,12 +63,12 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions ios = FirebaseOptions(
     apiKey: 'AIzaSyCdSbKVbYTAOHTadTInkIWd7rCaLErImGQ',
-    appId: '1:109870721627:ios:c7a6ff03624ce9bd372d7e',
+    appId: '1:109870721627:ios:ff79150702e17cda372d7e',
     messagingSenderId: '109870721627',
     projectId: 'exploressrental',
     storageBucket: 'exploressrental.appspot.com',
-    iosClientId: '109870721627-cpa74pa4oktqldj6sf6te1me0ur7pbj2.apps.googleusercontent.com',
-    iosBundleId: 'com.kdynamic.exploress.loaction.exploressLocation',
+    iosClientId: '109870721627-som3jtqiu5hjkelv2cqds5stc2lsh8ca.apps.googleusercontent.com',
+    iosBundleId: 'com.kdynamic.exploress.kodisha',
   );
 
   static const FirebaseOptions macos = FirebaseOptions(

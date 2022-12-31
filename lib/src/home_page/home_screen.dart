@@ -90,7 +90,6 @@ class _HomeScreenState extends State<HomeScreen> {
                             ),
                             onPressed: () => Go.to(
                                 context,
-                                page: const AddRentPage(),
                                 routeName: AddRentPage.routeName
                             ),
                           ),

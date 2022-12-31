@@ -1,9 +1,10 @@
-import 'package:exploress_location/logic/values.dart';
+import 'package:exploress_rental/logic/values.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:exploress_location/src/home_page/rental_product/model/rental_model.dart';
-import 'package:exploress_location/src/home_page/rental_product/rental_product.dart';
+import 'package:exploress_rental/src/home_page/rental_product/model/rental_model.dart';
+import 'package:exploress_rental/src/home_page/rental_product/rental_product.dart';
 
 
 class FiltersScreen extends StatefulWidget {
@@ -21,9 +22,9 @@ class _FiltersScreenState extends  State<FiltersScreen> {
   late double distValue;
   late Filter filter;
   late bool isDarkMode;
-  late final _text;
+  //late final _text;
 
-  Map<String, String> lang = <String, String>{
+  /*Map<String, String> lang = <String, String>{
     "filter_title" : "Filters",
     "filter_apply" : "Apply",
     "filter_shop"  : "Type of shop",
@@ -41,7 +42,7 @@ class _FiltersScreenState extends  State<FiltersScreen> {
     "cat_cuisine" : "Cuisine",
     "cat_furniture" : "Furniture",
     "cat_" : "",
-  };
+  };*/
 
 
 
@@ -194,7 +195,7 @@ class _FiltersScreenState extends  State<FiltersScreen> {
                   Expanded(
                     child: Text(
                       date.titleTxt,
-                      style: TextStyle(
+                      style: const TextStyle(
                           //color: Theme.of(context).textTheme.subtitle2?.color
                       ),
                     ),
@@ -378,7 +379,9 @@ class _FiltersScreenState extends  State<FiltersScreen> {
             break;
           }
         } catch (e) {
-          print(e);
+          if (kDebugMode) {
+            print(e);
+          }
         }
       }
       noList.add(Row(
@@ -467,18 +470,18 @@ class _FiltersScreenState extends  State<FiltersScreen> {
                 ),
               ),
             ),
-            Expanded(
+            const Expanded(
               child: Center(
                 child: Text(
                   "Filtre",
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontWeight: FontWeight.w600,
                     fontSize: 22,
                   ),
                 ),
               ),
             ),
-            Container(
+            SizedBox(
               width: AppBar().preferredSize.height + 40,
               height: AppBar().preferredSize.height,
             )
@@ -488,7 +491,7 @@ class _FiltersScreenState extends  State<FiltersScreen> {
     );
   }
 
-  popularFList(){
+  List<PopularFilterListData> popularFList(){
     return <PopularFilterListData>[
       PopularFilterListData(
         titleTxt: "Bureau",
@@ -513,7 +516,7 @@ class _FiltersScreenState extends  State<FiltersScreen> {
     ];
   }
 
-  storeFilterList(){
+  List<PopularFilterListData> storeFilterList(){
     return <PopularFilterListData>[
       PopularFilterListData(
         titleTxt: 'Tout type',

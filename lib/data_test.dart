@@ -1,8 +1,8 @@
 
 import 'package:google_maps_flutter/google_maps_flutter.dart' as maps;
-import 'package:latlong2/latlong.dart' as dist;
+//import 'package:latlong2/latlong.dart' as dist;
 
-import 'package:exploress_location/logic/model/data_model.dart';
+import 'package:exploress_rental/logic/model/data_model.dart';
 
 
 class DataTest {

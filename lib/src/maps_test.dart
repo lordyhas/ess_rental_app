@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
-import 'package:exploress_location/logic/map_data/gps_location.dart';
+import 'package:exploress_rental/logic/map_data/gps_location.dart';
 
 
 class MapSample extends StatefulWidget {
@@ -55,12 +55,14 @@ class _MapSampleState extends State<MapSample> {
       target: LatLng(-11.632240, 27.460640),
       zoom: 13.0
   );
+
+  /*
   static const CameraPosition _kLksi = CameraPosition(
       target: LatLng(-10.982720, 26.737591),
       zoom: 15.0);
   static const CameraPosition prostyle243 = CameraPosition(
       target: LatLng(-10.982720, 26.737591),
-      zoom: 15.0);
+      zoom: 15.0);*/
 
   Set<Marker> markers = <Marker>{
 
@@ -75,8 +77,8 @@ class _MapSampleState extends State<MapSample> {
       icon: BitmapDescriptor.defaultMarker,
     ),
     Marker(
-      markerId: MarkerId("tri_pos"),
-      position: LatLng(-11.6284708, 27.487585),
+      markerId: const MarkerId("tri_pos"),
+      position: const LatLng(-11.6284708, 27.487585),
       icon: BitmapDescriptor
           .defaultMarkerWithHue(BitmapDescriptor.hueCyan),
     ),
@@ -92,8 +94,8 @@ class _MapSampleState extends State<MapSample> {
   @override
   Widget build(BuildContext context) {
     markers.add(Marker(
-      markerId: MarkerId("current_pos_marker"),
-      position: widget.initialPosition ?? LatLng(-10.6284708, 20.487585),
+      markerId: const MarkerId("current_pos_marker"),
+      position: widget.initialPosition ?? const LatLng(-10.6284708, 20.487585),
       icon: BitmapDescriptor
           .defaultMarkerWithHue(BitmapDescriptor.hueCyan),
     ));
@@ -105,7 +107,7 @@ class _MapSampleState extends State<MapSample> {
             future: defaultLshi() ,
             initialData:_kLshi.target,
             builder: (context, snapshot) {
-              if(snapshot.hasData)
+              if(snapshot.hasData) {
                 return GoogleMap(
                   myLocationEnabled: true,
                   myLocationButtonEnabled: false,
@@ -122,9 +124,10 @@ class _MapSampleState extends State<MapSample> {
                     _controller.complete(controller);
                   },
                 );
+              }
               return Container(
-                padding: EdgeInsets.symmetric(vertical: 100),
-                child: Center(
+                padding: const EdgeInsets.symmetric(vertical: 100),
+                child: const Center(
                   child: CircularProgressIndicator(),
                 ),
               );
@@ -134,38 +137,36 @@ class _MapSampleState extends State<MapSample> {
         floatingActionButton: FloatingActionButton(
           //mini: true,
           onPressed: _goToMyPosition,
-          //label: Text('To the lake!'),
-          child: Icon(Icons.gps_fixed),
           backgroundColor: Colors.cyan.withOpacity(0.5),
           elevation: 0.0,
+          //label: Text('To the lake!'),
+          child: const Icon(Icons.gps_fixed),
         ),
         bottomNavigationBar: BottomAppBar(
-          shape: CircularNotchedRectangle(),
+          shape: const CircularNotchedRectangle(),
           color: Theme.of(context).primaryColor,
-          child: Container(
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                IconButton(
-                    onPressed: () {},
-                    icon: Icon(Icons.person_outline_outlined,),
-                ),
-                IconButton(
-                    onPressed: () {
-                      setState(() {
-                        if(_mapType != MapType.satellite){
-                          _mapType = MapType.satellite;
-                        }
-                        else if(_mapType == MapType.satellite){
-                          _mapType = MapType.normal;
-                        }
-                      });
-                    },
-                  color: (_mapType != MapType.satellite)? Colors.deepPurple: Colors.white,
-                    icon: Icon(Icons.map,),
-                ),
-              ],
-            ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              IconButton(
+                  onPressed: () {},
+                  icon: const Icon(Icons.person_outline_outlined,),
+              ),
+              IconButton(
+                  onPressed: () {
+                    setState(() {
+                      if(_mapType != MapType.satellite){
+                        _mapType = MapType.satellite;
+                      }
+                      else if(_mapType == MapType.satellite){
+                        _mapType = MapType.normal;
+                      }
+                    });
+                  },
+                color: (_mapType != MapType.satellite)? Colors.deepPurple: Colors.white,
+                  icon: const Icon(Icons.map,),
+              ),
+            ],
           ),
         ),
       ),
@@ -185,13 +186,13 @@ class _MapSampleState extends State<MapSample> {
         icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueCyan),
       ),);
     });*/
-    final CameraPosition _kPos = CameraPosition(
+    final CameraPosition kPos = CameraPosition(
         bearing: 192.8334901395799,
         target: pos.latLng,
         //tilt: 59.440717697143555,
         zoom: 15.151926040649414
     );
-    print('${pos.latitude } + ${pos.longitude}');
-    controller.animateCamera(CameraUpdate.newCameraPosition(_kPos));
+    //print('${pos.latitude } + ${pos.longitude}');
+    controller.animateCamera(CameraUpdate.newCameraPosition(kPos));
   }
 }

@@ -5,7 +5,7 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pedantic/pedantic.dart';
 
-import 'package:exploress_location/logic/controller/authentication_bloc/auth_repository/setup.dart';
+import 'package:exploress_rental/logic/controller/authentication_bloc/auth_repository/setup.dart';
 
 part 'authentication_event.dart';
 

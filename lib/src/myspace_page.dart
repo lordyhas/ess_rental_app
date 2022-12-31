@@ -1,7 +1,7 @@
 import 'dart:math';
 
-import 'package:exploress_location/data_test.dart';
-import 'package:exploress_location/logic/values.dart';
+import 'package:exploress_rental/data_test.dart';
+import 'package:exploress_rental/logic/values.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

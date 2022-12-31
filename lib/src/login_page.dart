@@ -1,20 +1,19 @@
 library login_page;
 
-import 'package:exploress_location/widgets/widgets.dart';
+import 'package:exploress_rental/widgets/widgets.dart';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
-import 'package:flutter/gestures.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:formz/formz.dart';
 
-import 'package:utils_component/utils_component.dart';
-import 'package:exploress_location/logic/values.dart';
+import 'package:exploress_rental/logic/values.dart';
 
-import 'package:exploress_location/src/home_page.dart';
+import 'package:exploress_rental/src/home_page.dart';
 
 part 'login_page/login_form.dart';
 

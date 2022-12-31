@@ -5,9 +5,9 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
 
-import 'package:exploress_location/logic/controller/authentication_bloc/auth_repository/setup.dart';
+import 'package:exploress_rental/logic/controller/authentication_bloc/auth_repository/setup.dart';
 
-import 'package:exploress_location/logic/controller/login_bloc/login_models.dart';
+import 'package:exploress_rental/logic/controller/login_bloc/login_models.dart';
 
 part 'login_state.dart';
 

@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:exploress_location/logic/model/data_model.dart';
+import 'package:exploress_rental/logic/model/data_model.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 part 'rental_controller_event.dart';

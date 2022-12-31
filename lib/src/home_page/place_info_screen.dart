@@ -1,9 +1,8 @@
 import 'dart:math';
-import 'dart:ui';
 
-import 'package:exploress_location/logic/map_data/maps.dart';
-import 'package:exploress_location/logic/model/data_model.dart';
-import 'package:exploress_location/logic/values.dart';
+import 'package:exploress_rental/logic/map_data/maps.dart';
+import 'package:exploress_rental/logic/model/data_model.dart';
+import 'package:exploress_rental/logic/values.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -24,9 +23,9 @@ class PlaceInfoData {
 
 class PlaceInfoScreen extends StatefulWidget {
   static const routeName = "/home/explore/places/single-place";
-  final PlaceInfoData? placeData;
+  final PlaceInfoData placeData;
 
-  const PlaceInfoScreen({this.placeData, Key? key}) : super(key: key);
+  const PlaceInfoScreen({required this.placeData, Key? key}) : super(key: key);
 
   @override
   State createState() => _PlaceInfoScreenState();
@@ -87,15 +86,15 @@ class _PlaceInfoScreenState extends State<PlaceInfoScreen>
   Widget build(BuildContext context) {
     final ShopData shop;
     final PlaceInfoData data;
-    data = widget.placeData ?? ModalRoute.of(context)!.settings.arguments as PlaceInfoData;
+    data = widget.placeData; //?? ModalRoute.of(context)!.settings.arguments as PlaceInfoData;
     shop = data.rent;
 
 
     var position = BlocProvider.of<MapsBloc>(context).state.maps;
 
-    final double tempHeight = MediaQuery.of(context).size.height -
+    /*final double tempHeight = MediaQuery.of(context).size.height -
         (MediaQuery.of(context).size.width / 1.2) +
-        24.0;
+        24.0;*/
     return Scaffold(
       /*appBar: AppBar(
         automaticallyImplyLeading: true,
@@ -504,7 +503,7 @@ class RoundedContestTabHeader extends SliverPersistentHeaderDelegate {
   @override
   Widget build(
       BuildContext context, double shrinkOffset, bool overlapsContent) {
-    final shopAppTheme = BlocProvider.of<StyleAppTheme>(context);
+    //final shopAppTheme = BlocProvider.of<StyleAppTheme>(context);
 
     return SizedBox(
         child: ClipRRect(

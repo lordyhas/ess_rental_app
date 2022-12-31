@@ -1,7 +1,7 @@
-name: exploress_location
+name: exploress_rental
 description: A new Flutter project.
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
-version: 1.0.6+3
+version: 1.0.7+0
 
 environment:
   sdk: '>=2.18.0 <3.0.0'
@@ -40,6 +40,7 @@ dependencies:
   cloud_firestore: ^4.3.0
   firebase_core: ^2.4.0
   firebase_auth: ^4.2.3
+  #firebase_ui_auth: ^1.1.6
 
   #flutter_facebook_auth: ^3.3.0+2
 
