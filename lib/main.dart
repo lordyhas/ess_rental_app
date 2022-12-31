@@ -178,10 +178,10 @@ class EssRentApp extends StatelessWidget {
               navigatorKey: _rootNavigatorKey,
               errorBuilder: (context, state) => OnErrorPage(error:state.error),
               redirect: (context, state) {
-                if (BlocProvider.of<AuthenticationBloc>(context).isSignedIn) {
-                  return null;
-                } else {
+                if (BlocProvider.of<AuthenticationBloc>(context).isNotSignedIn) {
                   return "/root/my_account/login";
+                } else {
+                  return null;
                 }
               },
               initialLocation: HomePage.routeName,  //HomePage.routeName,
@@ -199,7 +199,6 @@ class EssRentApp extends StatelessWidget {
                           child: HomeScreen(),
                       ),
                       routes: <RouteBase>[
-
                         GoRoute(
                           name: UserSpace.routeName,
                           path: 'user/myspace',

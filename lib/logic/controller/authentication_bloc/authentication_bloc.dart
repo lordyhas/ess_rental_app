@@ -33,6 +33,7 @@ class AuthenticationBloc
 
 
   bool get isSignedIn => state.status == AuthenticationStatus.authenticated;
+  bool get isNotSignedIn => !isSignedIn;
 
   void _onUserChanged(
       AuthenticationUserChanged event, Emitter<AuthenticationState> emit) {
@@ -50,6 +51,10 @@ class AuthenticationBloc
   void _onLogoutRequested(
       AuthenticationLogoutRequested event, Emitter<AuthenticationState> emit) {
     unawaited(_authenticationRepository.logOut());
+  }
+
+  void logout(){
+    add(AuthenticationLogoutRequested());
   }
 
   @override

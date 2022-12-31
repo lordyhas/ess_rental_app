@@ -141,7 +141,10 @@ class _SettingScreenState extends State<SettingScreen> {
                                   leading: const Icon(Icons.output),
                                   title: const Text("Se deconnecter"),
                                   trailing: const Icon(Icons.arrow_forward_ios),
-                                  onTap: () {},
+                                  onTap: (){
+                                    BlocProvider.of<AuthenticationBloc>(context).logout();
+                                    GoRouter.of(context).goNamed(LoginPage.routeName);
+                                  },
                                 ),
                                 const Spacer(),
                               ],
