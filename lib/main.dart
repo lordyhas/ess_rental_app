@@ -26,7 +26,6 @@ import 'package:exploress_rental/firebase_options.dart';
 
 //import 'firebase_options.dart';
 
-part 'routes.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
