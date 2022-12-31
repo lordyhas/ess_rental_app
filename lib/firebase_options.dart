@@ -21,11 +21,20 @@ class DefaultFirebaseOptions {
     }
     switch (defaultTargetPlatform) {
       case TargetPlatform.android:
-        return android;
+        throw UnsupportedError(
+          'DefaultFirebaseOptions have not been configured for android - '
+          'you can reconfigure this by running the FlutterFire CLI again.',
+        );
       case TargetPlatform.iOS:
-        return ios;
+        throw UnsupportedError(
+          'DefaultFirebaseOptions have not been configured for ios - '
+          'you can reconfigure this by running the FlutterFire CLI again.',
+        );
       case TargetPlatform.macOS:
-        return macos;
+        throw UnsupportedError(
+          'DefaultFirebaseOptions have not been configured for macos - '
+          'you can reconfigure this by running the FlutterFire CLI again.',
+        );
       case TargetPlatform.windows:
         throw UnsupportedError(
           'DefaultFirebaseOptions have not been configured for windows - '
@@ -51,33 +60,5 @@ class DefaultFirebaseOptions {
     authDomain: 'exploressrental.firebaseapp.com',
     storageBucket: 'exploressrental.appspot.com',
     measurementId: 'G-LFGJZQWQJM',
-  );
-
-  static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyBls2SZwKm-oGsaD5ZnFOSLer2pSawc8Rw',
-    appId: '1:109870721627:android:f1d662f3c0e2c31e372d7e',
-    messagingSenderId: '109870721627',
-    projectId: 'exploressrental',
-    storageBucket: 'exploressrental.appspot.com',
-  );
-
-  static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyCdSbKVbYTAOHTadTInkIWd7rCaLErImGQ',
-    appId: '1:109870721627:ios:ff79150702e17cda372d7e',
-    messagingSenderId: '109870721627',
-    projectId: 'exploressrental',
-    storageBucket: 'exploressrental.appspot.com',
-    iosClientId: '109870721627-som3jtqiu5hjkelv2cqds5stc2lsh8ca.apps.googleusercontent.com',
-    iosBundleId: 'com.kdynamic.exploress.kodisha',
-  );
-
-  static const FirebaseOptions macos = FirebaseOptions(
-    apiKey: 'AIzaSyCdSbKVbYTAOHTadTInkIWd7rCaLErImGQ',
-    appId: '1:109870721627:ios:c7a6ff03624ce9bd372d7e',
-    messagingSenderId: '109870721627',
-    projectId: 'exploressrental',
-    storageBucket: 'exploressrental.appspot.com',
-    iosClientId: '109870721627-cpa74pa4oktqldj6sf6te1me0ur7pbj2.apps.googleusercontent.com',
-    iosBundleId: 'com.kdynamic.exploress.loaction.exploressLocation',
   );
 }
