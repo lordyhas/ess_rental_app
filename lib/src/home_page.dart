@@ -68,7 +68,7 @@ class _HomePageState extends State<HomePage> {
             label: const Text('Acceuil'),
             onPressed: () {
               BlocProvider.of<NavigationController>(context)
-                  .onPushScreen(NavigationScreen.home);
+                  .setState(NavigationScreen.home);
               GoRouter.of(context).goNamed(HomePage.routeName);
               closeDrawer();
               //setState(() {});
@@ -121,7 +121,7 @@ class _HomePageState extends State<HomePage> {
     GoRouter.of(context).addListener(() {
       if (GoRouter.of(context).location == HomePage.routeName) {
         BlocProvider.of<NavigationController>(context)
-            .onPushScreen(NavigationScreen.home);
+            .setState(NavigationScreen.home);
       }
     });
 
@@ -309,7 +309,7 @@ class _HomePageState extends State<HomePage> {
                       ListTile(
                         onTap: () {
                           BlocProvider.of<NavigationController>(context)
-                              .onPushScreen(NavigationScreen.myspace);
+                              .setState(NavigationScreen.myspace);
                           closeDrawer();
                         },
                         horizontalTitleGap: 32.0,

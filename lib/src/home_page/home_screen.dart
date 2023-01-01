@@ -34,12 +34,12 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState(){
     super.initState();
-    BlocProvider.of<NavigationController>(context).onPushScreen(NavigationScreen.home);
+    BlocProvider.of<NavigationController>(context).setState(NavigationScreen.home);
   }
 
   @override
   Widget build(BuildContext context) {
-    BlocProvider.of<NavigationController>(context).onPushScreen(NavigationScreen.home);
+    BlocProvider.of<NavigationController>(context).setState(NavigationScreen.home);
     return Material(
       child: Center(
         child: Container(

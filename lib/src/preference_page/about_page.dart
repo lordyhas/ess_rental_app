@@ -51,7 +51,7 @@ class _AboutState extends State<AboutPage>{
 
   @override
   Widget build(BuildContext context) {
-    BlocProvider.of<NavigationController>(context).onPushScreen(NavigationScreen.setting);
+    BlocProvider.of<NavigationController>(context).setState(NavigationScreen.setting);
     ///text =  BlocProvider.of<LanguageBloc>(context).state.strings;
     ///
     var primaryTextStyle20 = Theme.of(context)

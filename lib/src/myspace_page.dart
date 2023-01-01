@@ -37,7 +37,7 @@ class UserSpace extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    BlocProvider.of<NavigationController>(context).onPushScreen(NavigationScreen.myspace);
+    BlocProvider.of<NavigationController>(context).setState(NavigationScreen.myspace);
     double boxWidth = 100.0;
     final ScrollController scrollController = ScrollController();
 

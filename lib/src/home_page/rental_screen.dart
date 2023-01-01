@@ -61,7 +61,7 @@ class _RentProductScreenState extends State<RentProductScreen>
 
   @override
   Widget build(BuildContext context) {
-    BlocProvider.of<NavigationController>(context).onPushScreen(NavigationScreen.explorer);
+    BlocProvider.of<NavigationController>(context).setState(NavigationScreen.explorer);
     //Brightness _currentBrightness = Theme.of(context).brightness;
     //_spaceList.add(_spaceList[Random().nextInt(_spaceList.length)+1]);
     var spaceList = _spaceList..addAll(_spaceList..shuffle());

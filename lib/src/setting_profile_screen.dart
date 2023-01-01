@@ -19,7 +19,7 @@ class _SettingScreenState extends State<SettingScreen> {
 
   @override
   Widget build(BuildContext context) {
-    BlocProvider.of<NavigationController>(context).onPushScreen(NavigationScreen.setting);
+    BlocProvider.of<NavigationController>(context).setState(NavigationScreen.setting);
     return Material(
       child: SingleChildScrollView(
         padding: const EdgeInsets.only(top: 32.0),

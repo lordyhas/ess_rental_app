@@ -7,25 +7,15 @@ enum NavigationScreen{home, explorer, setting, myspace}
 
 class NavigationController extends Cubit<NavigationScreen> {
   NavigationController() : super(NavigationScreen.home);
-  final _stackState = _Stack<NavigationScreen>();
-  void onPushScreen(NavigationScreen screenState) {
-    if(screenState == currentScreen) return;
-    _stackState.push(screenState);
-    emit(_stackState.peek);
-    //return Future.value(null);
-  }
-  Future<bool> onBackScreen(){
-    if(_stackState.isEmpty) return Future.value(true);
-    _stackState.pop();
-    emit(_stackState.peek);
-    return  Future.value(false);
-  }
+  //final _stackState = _Stack<NavigationScreen>();
+
+  void setState(NavigationScreen screenState) => emit(screenState);
 
   NavigationScreen get currentScreen => state;
 
 }
 
-
+/*
 class _Stack<E extends NavigationScreen> {
   final _queue = Queue<E>();
 
@@ -40,7 +30,7 @@ class _Stack<E extends NavigationScreen> {
   @override
   String toString()  => _queue.toString();
 }
-
+*/
 
 
 
