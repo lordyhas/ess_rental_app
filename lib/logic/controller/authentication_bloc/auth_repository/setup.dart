@@ -8,7 +8,7 @@ import 'dart:async';
 
 
 import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
-import 'package:flutter/foundation.dart' show kIsWeb;
+import 'package:flutter/foundation.dart' show debugPrint, kIsWeb;
 
 //import 'package:firebase_auth/firebase_auth.dart' as firebase_fb_auth;
 //import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';

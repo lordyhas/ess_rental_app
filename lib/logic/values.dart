@@ -93,16 +93,6 @@ Future<void> launchMapOnWeb({maps.LatLng? latLng}) async {
   }
 }
 
-const firebaseOptions = FirebaseOptions(
-    apiKey: "AIzaSyCo3HsagcBMquvmH7GLpvpIQRtAdY-zYLg",
-    authDomain: "exploress-aa508.firebaseapp.com",
-    databaseURL: "https://exploress-aa508.firebaseio.com",
-    projectId: "exploress-aa508",
-    storageBucket: "exploress-aa508.appspot.com",
-    messagingSenderId: "1021422010903",
-    appId: "1:1021422010903:web:8a24abe50fadfcfca99252",
-    measurementId: "G-V0Y96W3WTP");
-
 class MyBehavior extends ScrollBehavior {
   @override
   Widget buildViewportChrome(BuildContext context,
