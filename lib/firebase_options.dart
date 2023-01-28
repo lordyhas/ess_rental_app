@@ -45,12 +45,12 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions web = FirebaseOptions(
     apiKey: 'AIzaSyDP4xC71bNYXBp4eSOpx_k9zIgs58Gaz_Q',
-    appId: '1:109870721627:web:8ad89a5103dcd442372d7e',
+    appId: '1:109870721627:web:3798e65ce96104b3372d7e',
     messagingSenderId: '109870721627',
     projectId: 'exploressrental',
     authDomain: 'exploressrental.firebaseapp.com',
     storageBucket: 'exploressrental.appspot.com',
-    measurementId: 'G-LFGJZQWQJM',
+    measurementId: 'G-MSQ01EFXQ7',
   );
 
   static const FirebaseOptions android = FirebaseOptions(

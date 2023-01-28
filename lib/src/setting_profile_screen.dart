@@ -116,7 +116,7 @@ class _SettingScreenState extends State<SettingScreen> {
                                   leading: const Icon(Icons.space_dashboard),
                                   title: const Text("Accéder à MySpace"),
                                   trailing: const Icon(Icons.arrow_forward_ios),
-                                  onTap: () =>  Go.of(context).to(routeName: UserSpace.routeName),
+                                  onTap: () =>  Go.of(context).to(routeName: UserSpaceScreen.routeName),
 
                                 ),
                                 ListTile(
