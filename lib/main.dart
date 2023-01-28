@@ -20,24 +20,24 @@ import 'package:permission_handler/permission_handler.dart';
 
 import 'package:firebase_core/firebase_core.dart';
 
-import 'package:exploress_rental/on_404_page.dart';
+import 'package:exploress_rental/on_error_page.dart';
 
 import 'package:exploress_rental/firebase_options.dart';
 
 //import 'firebase_options.dart';
 
-
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   await Firebase.initializeApp(
+    name: "exploressrental",
     options: DefaultFirebaseOptions.currentPlatform,
   );
 
   HydratedBloc.storage = await HydratedStorage.build(
-      storageDirectory: kIsWeb
-          ? HydratedStorage.webStorageDirectory
-          : await getTemporaryDirectory(),
+    storageDirectory: kIsWeb
+        ? HydratedStorage.webStorageDirectory
+        : await getTemporaryDirectory(),
   );
 
   Bloc.observer = AppBlocObserver();
@@ -84,10 +84,8 @@ void main() async {
 
   SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
-  ]).then((value) =>
-      runApp(MyApp(authRepository: AuthenticationRepository())));
+  ]).then((value) => runApp(MyApp(authRepository: AuthenticationRepository())));
 }
-
 
 class MyApp extends StatelessWidget {
   const MyApp({
@@ -102,7 +100,9 @@ class MyApp extends StatelessWidget {
     return RepositoryProvider.value(
       value: authRepository,
       child: BlocProvider(
-        create: (_) => AuthenticationBloc(authRepository: authRepository,),
+        create: (_) => AuthenticationBloc(
+          authRepository: authRepository,
+        ),
         child: EssRentApp(),
       ),
     );
@@ -129,8 +129,6 @@ class EssRentApp extends StatelessWidget {
     debugPrint("===== Permissions : ${statuses[Permission.storage]}");
   }
 
-
-
   @override
   Widget build(BuildContext context) {
     if (!kIsWeb) _checkSomePermissions();
@@ -150,125 +148,133 @@ class EssRentApp extends StatelessWidget {
           create: (context) => RentalControllerBloc(),
         ),
         BlocProvider<FilterCubit>(
-          create: (BuildContext context) =>
-              FilterCubit(Filter.values(
-                  maxPrice: 600.0,
-                  minPrice: 50,
-                  maxDistance: 5.0,
-                  minDistance: 0.0,
-                  categoryList: const []
-              ),),
+          create: (BuildContext context) => FilterCubit(
+            Filter.values(
+                maxPrice: 600.0,
+                minPrice: 50,
+                maxDistance: 5.0,
+                minDistance: 0.0,
+                categoryList: const []),
+          ),
         ),
       ],
       child: BlocBuilder<StyleAppTheme, ThemeData>(
         builder: (context, theme) {
-          return MaterialApp.router(
-            debugShowCheckedModeBanner: false,
-            title: AppConstant.markName,
-            theme: ThemeData.dark().copyWith(
-              visualDensity: VisualDensity.adaptivePlatformDensity,
-              primaryColorLight: Colors.tealAccent.shade400,
-              floatingActionButtonTheme: FloatingActionButtonThemeData(
-                backgroundColor: Colors.cyan.withOpacity(1),
-              ),
-            ),
-            //supportedLocales: const <Locale>[Locale('fr')],
+          return BlocBuilder<AuthenticationBloc, AuthenticationState>(
+            builder: (context, authState) {
+              return MaterialApp.router(
+                debugShowCheckedModeBanner: false,
+                title: AppConstant.markName,
+                theme: ThemeData.dark().copyWith(
+                  visualDensity: VisualDensity.adaptivePlatformDensity,
+                  primaryColorLight: Colors.tealAccent.shade400,
+                  floatingActionButtonTheme: FloatingActionButtonThemeData(
+                    backgroundColor: Colors.cyan.withOpacity(1),
+                  ),
+                ),
+                //supportedLocales: const <Locale>[Locale('fr')],
 
-            routerConfig: GoRouter(
-              navigatorKey: _rootNavigatorKey,
-              errorBuilder: (context, state) => OnErrorPage(error:state.error),
-              redirect: (context, state) {
-                if (BlocProvider.of<AuthenticationBloc>(context).isNotSignedIn) {
-                  return "/root/my_account/login";
-                } else {
-                  return null;
-                }
-              },
-              initialLocation: HomePage.routeName,  //HomePage.routeName,
-              routes: [
-                ShellRoute(
-                  navigatorKey: _shellNavigatorKey,
-                  builder: (context, state, child) {
-                    return HomePage(child: child);
-                  },
+                routerConfig: GoRouter(
+                  navigatorKey: _rootNavigatorKey,
+                  errorBuilder: (context, state) => OnErrorPage(
+                    error: state.error,
+                  ),
+                  /*redirect: (context, state) {
+                    return null;
+                    if (authState.status != AuthenticationStatus.authenticated) {
+                      return "/root/my_account/login";
+                    } else {
+                      return null;
+                    }
+                  },*/
+
+                  initialLocation: HomePage.routeName,
+                  //HomePage.routeName,
                   routes: [
-                    GoRoute(
-                      name: HomePage.routeName,
-                      path: HomePage.routeName,
-                      builder: (context, state) => const NestedWebView(
-                          child: HomeScreen(),
-                      ),
-                      routes: <RouteBase>[
+                    ShellRoute(
+                      navigatorKey: _shellNavigatorKey,
+                      builder: (ctx, state, child) => HomePage(child: child),
+                      routes: [
                         GoRoute(
-                          name: UserSpace.routeName,
-                          path: 'user/myspace',
-                          builder: (context, state) {
-                            return const NestedWebView(child: UserSpace());
-                          },
-                        ),
-                        GoRoute(
-                          parentNavigatorKey: _rootNavigatorKey,
-                          name: AddRentPage.routeName,
-                          path: "user/form",
-                          builder: (context, state) => const AddRentPage(),
-                        ),
-                        GoRoute(
-                            name: RentProductScreen.routeName,
-                            path: "explore",
-                            builder: (context, state) => const RentProductScreen(),
-                            routes: [
-                              GoRoute(
-                                parentNavigatorKey: _rootNavigatorKey,
-                                name: PlaceInfoScreen.routeName,
-                                path: "places/single-place",
-                                builder: (context, state) => PlaceInfoScreen(
-                                  placeData: state.extra as PlaceInfoData,
+                          name: HomePage.routeName,
+                          path: HomePage.routeName,
+                          builder: (ctx, state) => const NestedWebView(
+                            child: HomeScreen(),
+                          ),
+                          routes: <RouteBase>[
+                            GoRoute(
+                              name: UserSpaceScreen.routeName,
+                              path: 'user/myspace',
+                              builder: (ctx, state) {
+                                return const NestedWebView(
+                                  child: UserSpaceScreen(),
+                                );
+                              },
+                            ),
+                            GoRoute(
+                              parentNavigatorKey: _rootNavigatorKey,
+                              name: AddRentPage.routeName,
+                              path: "user/form",
+                              builder: (context, state) => const AddRentPage(),
+                            ),
+                            GoRoute(
+                              name: RentProductScreen.routeName,
+                              path: "explore",
+                              builder: (ctx, state) {
+                                return const RentProductScreen();
+                              },
+                              routes: [
+                                GoRoute(
+                                  parentNavigatorKey: _rootNavigatorKey,
+                                  name: PlaceInfoScreen.routeName,
+                                  path: "places/single-place",
+                                  builder: (context, state) => PlaceInfoScreen(
+                                    placeData: state.extra as PlaceInfoData,
+                                  ),
                                 ),
-                              ),
-                              GoRoute(
-                                parentNavigatorKey: _rootNavigatorKey,
-                                name: MapSample.routeName,
-                                path: "map",
-                                builder: (context, state) => MapSample(
-                                  initialPosition: state.extra as LatLng?,
+                                GoRoute(
+                                  parentNavigatorKey: _rootNavigatorKey,
+                                  name: MapSample.routeName,
+                                  path: "map",
+                                  builder: (context, state) => MapSample(
+                                    initialPosition: state.extra as LatLng?,
+                                  ),
                                 ),
-                              ),
-                            ],
+                              ],
+                            ),
+                            GoRoute(
+                                name: SettingScreen.routeName,
+                                path: 'setting',
+                                builder: (ctx, state) =>
+                                    const SettingScreen(),
+                                routes: [
+                                  GoRoute(
+                                    name: AboutPage.routeName,
+                                    path: "about",
+                                    builder: (ctx, state) => const AboutPage(),
+                                  ),
+                                ],
+                            ),
+                          ],
                         ),
-                        GoRoute(
-                            name: SettingScreen.routeName,
-                            path: 'setting',
-                            builder: (context, state) => const SettingScreen(),
-                            routes: [
-                              GoRoute(
-                                name: AboutPage.routeName,
-                                path: "about",
-                                builder: (context, state) => const AboutPage(),
-                              ),
-                            ]
-                        ),
-
                       ],
+                    ),
+                    GoRoute(
+                      //parentNavigatorKey: _rootNavigatorKey,
+                      name: LoginPage.routeName,
+                      path: "/root/my_account/login",
+                      builder: (context, state) => const LoginPage(),
                     ),
                   ],
                 ),
-                GoRoute(
-                  parentNavigatorKey: _rootNavigatorKey,
-                  name: LoginPage.routeName,
-                  path: "/root/my_account/login",
-                  builder: (context, state ) => const LoginPage(),
-                ),
-
-
-              ],
-            ),
+              );
+            },
           );
         },
       ),
     );
   }
 }
-
 
 /**
 
@@ -316,6 +322,3 @@ class EssRentApp extends StatelessWidget {
 
 
  */
-
-
-
