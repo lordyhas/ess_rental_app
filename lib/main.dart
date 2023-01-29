@@ -179,26 +179,34 @@ class EssRentApp extends StatelessWidget {
                   errorBuilder: (context, state) => OnErrorPage(
                     error: state.error,
                   ),
-                  /*redirect: (context, state) {
+                  redirect: (context, state) {
                     return null;
                     if (authState.status != AuthenticationStatus.authenticated) {
                       return "/root/my_account/login";
                     } else {
                       return null;
                     }
-                  },*/
+                  },
 
-                  initialLocation: HomePage.routeName,
+                  initialLocation: LoginPage.routeName, //"${HomePage.routeName}",
                   //HomePage.routeName,
                   routes: [
+
                     ShellRoute(
                       navigatorKey: _shellNavigatorKey,
-                      builder: (ctx, state, child) => HomePage(child: child),
+                      builder: (context, state, child) => HomePage(child: child),
                       routes: [
                         GoRoute(
                           name: HomePage.routeName,
                           path: HomePage.routeName,
-                          builder: (ctx, state) => const NestedWebView(
+                          redirect: (context, state){
+                            if (authState.status != AuthenticationStatus.authenticated) {
+                              return LoginPage.routeName;
+                            } else {
+                              return null;
+                            }
+                          },
+                          builder: (context, state) => const NestedWebView(
                             child: HomeScreen(),
                           ),
                           routes: <RouteBase>[
@@ -260,9 +268,9 @@ class EssRentApp extends StatelessWidget {
                       ],
                     ),
                     GoRoute(
-                      //parentNavigatorKey: _rootNavigatorKey,
+                      parentNavigatorKey: _rootNavigatorKey,
                       name: LoginPage.routeName,
-                      path: "/root/my_account/login",
+                      path: LoginPage.routeName,
                       builder: (context, state) => const LoginPage(),
                     ),
                   ],

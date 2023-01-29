@@ -20,7 +20,7 @@ part 'login_page/login_form.dart';
 part 'login_page/button_and_input.dart';
 
 class LoginPage extends StatefulWidget {
-  static const routeName = '/my_account/login';
+  static const routeName = "/root/my_account/login";
 
   const   LoginPage({Key? key}) : super(key: key);
 
@@ -211,7 +211,7 @@ class _LoginPageState extends State<LoginPage>
                                               onPressed: (){
                                                 Log.i('Forgotten password! button pressed',);
                                                 GoRouter.of(context)
-                                                    .pushReplacementNamed(
+                                                    .goNamed(
                                                     HomePage.routeName
                                                 );
                                               },
