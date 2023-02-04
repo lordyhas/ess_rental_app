@@ -191,7 +191,6 @@ class EssRentApp extends StatelessWidget {
                   initialLocation: LoginPage.routeName, //"${HomePage.routeName}",
                   //HomePage.routeName,
                   routes: [
-
                     ShellRoute(
                       navigatorKey: _shellNavigatorKey,
                       builder: (context, state, child) => HomePage(child: child),

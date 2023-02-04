@@ -56,22 +56,16 @@ class _GoogleLoginButton extends StatelessWidget {
   Widget build(BuildContext context) {
     //double width = MediaQuery.of(context).size.width *0.75;
     final theme = Theme.of(context);
-
     Widget googleOutlineButton = OutlinedButton(
       onPressed: () => context.read<LoginCubit>().logInWithGoogle(),
       //BlocProvider.of<LoginCubit>(context).logInWithGoogle(),
       style: OutlinedButton.styleFrom(
-
           //backgroundColor: theme.colorScheme.primary,
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30.0)),
           side: BorderSide(
             color: theme.colorScheme.primary,
           ),
-
       ),
-
-
-
       //highlightedBorderColor: theme.colorScheme.primaryVariant,
       //highlightColor: theme.colorScheme.primaryVariant.withOpacity(0.1),
 
@@ -86,14 +80,10 @@ class _GoogleLoginButton extends StatelessWidget {
             Text(text),
             const Spacer(),
             const Icon(FontAwesomeIcons.google, color: Colors.transparent,),
-
-
           ],
         ),
       ),
-
     );
-
     return Container(
         //width: width,
         child: googleOutlineButton);
@@ -107,8 +97,6 @@ class _FacebookLoginButton extends StatelessWidget {
   Widget build(BuildContext context) {
     //double width = MediaQuery.of(context).size.width *0.75;
     final theme = Theme.of(context);
-
-
     Widget facebookOutlineButton = OutlinedButton(
         key: const Key('loginForm_facebookLogin_outlineButton'),
         style: OutlinedButton.styleFrom(
@@ -118,29 +106,28 @@ class _FacebookLoginButton extends StatelessWidget {
             color: theme.colorScheme.primary,
           ),
         ),
+
         //style: ButtonStyle(),
         //color: theme.colorScheme.primary,
         //textColor: theme.colorScheme.primary,
         //highlightedBorderColor: theme.colorScheme.primaryVariant,
         //highlightColor: theme.colorScheme.primaryVariant.withOpacity(0.1),
-
         //icon: Icon(FontAwesomeIcons.facebookF),
         //label: Text("Sign in with Facebook"),
+
         child: Container(
           margin: const EdgeInsets.symmetric(vertical: 8.0),
 
           child: Row(
             //mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              const Icon(FontAwesomeIcons.facebookF),
+              const Icon(FontAwesomeIcons.facebookF,),
               const Spacer(),
               Text(text),
               const Spacer(),
-              const Icon(
-                FontAwesomeIcons.facebookF,
+              const Icon(FontAwesomeIcons.facebookF,
                 color: Colors.transparent,
               ),
-
             ],
           ),
         ),
@@ -186,7 +173,6 @@ class _InputField extends StatelessWidget {
             height: 48,
             //width: size.width / 1.22,
             alignment: Alignment.center,
-
             decoration: BoxDecoration(
               color: Colors.white.withOpacity(.15),
               borderRadius: BorderRadius.circular(10),
