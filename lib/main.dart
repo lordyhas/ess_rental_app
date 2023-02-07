@@ -199,6 +199,7 @@ class EssRentApp extends StatelessWidget {
                           name: HomePage.routeName,
                           path: HomePage.routeName,
                           redirect: (context, state){
+                            return null;
                             if (authState.status != AuthenticationStatus.authenticated) {
                               return LoginPage.routeName;
                             } else {

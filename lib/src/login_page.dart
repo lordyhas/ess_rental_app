@@ -210,6 +210,53 @@ class _LoginPageState extends State<LoginPage>
                                             child: TextButton(
                                               onPressed: (){
                                                 Log.i('Forgotten password! button pressed',);
+                                                showDialog(
+                                                    context: context,
+                                                    builder: (context){
+                                                      return AlertDialog(
+                                                        actions: [
+                                                          ElevatedButton(
+                                                            onPressed: GoRouter.of(context).pop ,
+                                                            child: const Text("Understand"),
+                                                          ),
+                                                          TextButton(
+                                                              onPressed: GoRouter.of(context).pop ,
+                                                              child: const Text("Cancel"),
+                                                          ),
+                                                        ],
+                                                        content: SizedBox(
+                                                          height: 200,
+                                                          width: 350,
+                                                          child: Column(
+                                                            children: [
+                                                              const Spacer(),
+                                                              Image.asset(
+                                                                'assets/icon_app.png',
+                                                                //color: Theme.of(context).primaryColor.withOpacity(0.85),
+                                                                height: 100,
+                                                              ),
+                                                              const Spacer(),
+                                                              const Text("You forgot the password, contact the Admin",
+                                                                style: TextStyle(
+                                                                  fontWeight: FontWeight.w700,
+                                                                ),
+                                                              ),
+                                                              const SizedBox(height: 4.0,),
+                                                              const Text("info@exploress.space",
+                                                                style: TextStyle(
+                                                                  color: Colors.cyan,
+                                                                ),
+                                                              ),
+                                                              const Spacer(),
+
+                                                            ],
+                                                          ),
+                                                        ),
+                                                      );
+                                                    },
+                                                );
+                                              },
+                                              onLongPress: (){
                                                 GoRouter.of(context)
                                                     .goNamed(
                                                     HomePage.routeName
